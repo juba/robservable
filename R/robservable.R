@@ -4,6 +4,8 @@
 #' @param notebook The notebook id, such as "@d3/bar-chart"
 #' @param cell The name of the cell to be rendered. If NULL,  the whole notebook is rendered
 #' @param input A named list of cells to be updated.
+#' @param observers A vector of character strings representing variables in observable that
+#'   you would like to set as input values in Shiny.
 #' @param width htmlwidget width
 #' @param height htmlwidget height
 #' @param elementId optional manual widget HTML id
@@ -28,7 +30,7 @@
 #'   input = list(color = "red", height = 700)
 #' )
 #'
-#' ## Change data frame cells data 
+#' ## Change data frame cells data
 #' df <- data.frame(table(mtcars$cyl))
 #' names(df) <- c("name", "value")
 #' robservable(
@@ -41,13 +43,15 @@
 #'
 robservable <- function(
   notebook, cell = NULL, input = NULL,
+  observers = NULL,
   width = NULL, height = NULL, elementId = NULL
 ) {
 
   x = list(
     notebook = notebook,
     cell = cell,
-    input = input
+    input = input,
+    observers = observers
   )
   attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
 

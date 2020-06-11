@@ -2,8 +2,21 @@ HTMLWidgets.widget({
 
     name: 'robservable',
     type: 'output',
+    inspector: class VariableInspector {
+        fulfilled(value,name) {
+            console.log(value,name)
+            if(HTMLWidgets.shinyMode) {
+                Shiny.setInputValue(
+                    name,
+                    value
+                );
+            }
+        }
+    },
 
     factory: function (el, width, height) {
+        const inspector = new this.inspector;
+
         let module = null;
         return {
 
@@ -32,7 +45,7 @@ HTMLWidgets.widget({
                     if (x.cell === null) {
                         output = observablehq.Inspector.into(document.body);
                         // Apply some styling
-                        document.getElementById('htmlwidget_container').style["display"] = "none";
+                        el.style["display"] = "none";
                         document.querySelector('body').style["overflow"] = "auto";
                     }
                     // If output is one cell
@@ -50,6 +63,15 @@ HTMLWidgets.widget({
                     // module is at higher level of scope allowing a user to access later
                     //  set equal to main
                     module = main;
+
+                    // If in Shiny mode and observers are set then set these up in Observable
+                    if(x.observers !== null) {
+                        // if only one observer then might not be an array so force to array
+                        x.observers = !Array.isArray(x.observers) ? [x.observers] : x.observers;
+                        x.observers.forEach( (d,i) => {
+                            main.variable(inspector).define(el.id + '_observer_' + d, [d], (x) => x);
+                        });
+                    }
 
                     // Update inputs
                     const inputs = x.input === null ? {} : x.input;
