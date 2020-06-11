@@ -2,6 +2,8 @@
   [![R build status](https://github.com/juba/robservable/workflows/R-CMD-check/badge.svg)](https://github.com/juba/robservable/actions)
   <!-- badges: end -->
 
+# robservable
+
 The goal of this package is to allow the use of [Observable](https://observablehq.com/) notebooks (or part of them) as htmlwidgets in R.
 
 Note that this is a toy package in very early stage of development.
