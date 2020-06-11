@@ -5,3 +5,5 @@ dependencies:
     src: htmlwidgets/runtime/
     script:
       - runtime.umd.js
+    stylesheet:
+      - inspector.css
