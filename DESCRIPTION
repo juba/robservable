@@ -15,7 +15,7 @@ Description: Allows to load and display an entire Observable notebook (or part o
 VignetteBuilder: knitr
 URL: https://github.com/juba/robservable
 BugReports: https://github.com/juba/robservable/issues
-License: License: GPL (>=3)
+License: GPL (>=3)
 Encoding: UTF-8
 LazyData: true
 Enhances: shiny
