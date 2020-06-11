@@ -6,9 +6,8 @@
 \usage{
 robservable(
   notebook,
-  output_cell = NULL,
+  cell = NULL,
   input = NULL,
-  input_df = NULL,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -17,11 +16,9 @@ robservable(
 \arguments{
 \item{notebook}{The notebook id, such as "@d3/bar-chart"}
 
-\item{output_cell}{The name of the cell to be rendered. If NULL,  the whole notebook is rendered}
+\item{cell}{The name of the cell to be rendered. If NULL,  the whole notebook is rendered}
 
 \item{input}{A named list of cells to be updated.}
-
-\item{input_df}{A named list of d3-array cells to be updated}
 
 \item{width}{htmlwidget width}
 
@@ -34,4 +31,29 @@ Display an Observable notebook as HTML widget
 }
 \details{
 Values passed in `input_df` are converted using the JavaScript function `HTMLWidgets.dataframeToD3`.
+}
+\examples{
+\donttest{
+## Display a notebook cell
+robservable(
+  "@d3/bar-chart",
+  cell= "chart"
+)
+
+## Change cells data with input
+robservable(
+  "@d3/bar-chart",
+  cell= "chart",
+  input = list(color = "red", height = 700)
+)
+
+## Change data frame cells data with input_df
+df <- data.frame(table(mtcars$cyl))
+names(df) <- c("name", "value")
+robservable(
+  "@d3/horizontal-bar-chart",
+  cell= "chart",
+  input = list(data = df)
+)
+}
 }
