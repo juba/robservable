@@ -28,7 +28,7 @@
 #'   input = list(color = "red", height = 700)
 #' )
 #'
-#' ## Change data frame cells data with input_df
+#' ## Change data frame cells data 
 #' df <- data.frame(table(mtcars$cyl))
 #' names(df) <- c("name", "value")
 #' robservable(
