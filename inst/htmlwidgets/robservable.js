@@ -11,7 +11,7 @@ HTMLWidgets.widget({
                 (async () => {
 
 
-
+                    // Load Runtime by overriding width stdlib method if fixed width is provided
                     const stdlib = new observablehq.Library;
                     let library;
                     let runtime;
@@ -22,16 +22,20 @@ HTMLWidgets.widget({
                         runtime = new observablehq.Runtime();
                     }
 
+                    // Dynamically import notebook module
                     const url = `https://api.observablehq.com/${x.notebook}.js?v=3`;
                     let nb = await import(url);
                     let notebook = nb.default;
 
                     let output;
+                    // If output is the whole notebook
                     if (x.cell === null) {
                         output = observablehq.Inspector.into(document.body);
+                        // Apply some styling
                         document.getElementById('htmlwidget_container').style["display"] = "none";
                         document.querySelector('body').style["overflow"] = "auto";
                     }
+                    // If output is one cell
                     if (typeof x.cell == "string") {
                         output = name => {
                             if (name === x.cell) {
@@ -40,8 +44,10 @@ HTMLWidgets.widget({
                         }
                     }
  
+                    // Run main
                     const main = runtime.module(notebook, output);
 
+                    // Update inputs
                     const inputs = x.input === null ? {} : x.input;
                     Object.entries(inputs).forEach(([key, value]) => {
                         main.redefine(key, value);
