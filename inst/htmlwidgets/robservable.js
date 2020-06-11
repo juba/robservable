@@ -11,7 +11,16 @@ HTMLWidgets.widget({
                 (async () => {
 
 
-                    const runtime = new observablehq.Runtime();
+
+                    const stdlib = new observablehq.Library;
+                    let library;
+                    let runtime;
+                    if (x.robservable_width !== undefined) {
+                        library = Object.assign(stdlib, {width: x.robservable_width});
+                        runtime = new observablehq.Runtime(library);
+                    } else {
+                        runtime = new observablehq.Runtime();
+                    }
 
                     const url = `https://api.observablehq.com/${x.notebook}.js?v=3`;
                     let nb = await import(url);

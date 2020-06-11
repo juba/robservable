@@ -39,7 +39,10 @@
 #' }
 #' @export
 #'
-robservable <- function(notebook, cell = NULL, input = NULL, width = NULL, height = NULL, elementId = NULL) {
+robservable <- function(
+  notebook, cell = NULL, input = NULL,
+  width = NULL, height = NULL, elementId = NULL
+) {
 
   x = list(
     notebook = notebook,
@@ -47,6 +50,11 @@ robservable <- function(notebook, cell = NULL, input = NULL, width = NULL, heigh
     input = input
   )
   attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
+
+  if (!is.null(width)) {
+    x$robservable_width <- width
+  }
+
 
   htmlwidgets::createWidget(
     x,
