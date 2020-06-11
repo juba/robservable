@@ -5,7 +5,7 @@ names(df) <- c("name", "value")
 
 robservable(
   "@d3/horizontal-bar-chart",
-  output_cell= "chart",
+  cell= "chart",
   input = list(
     #color = "#567890",
     margin = list(top = 20, right = 0, left = 150, bottom = 0)
@@ -16,7 +16,7 @@ robservable(
 
 robservable(
   "@d3/bar-chart",
-  output_cell= "chart",
+  cell= "chart",
   input = list(
     color = "#567890",
     height = 800
@@ -24,29 +24,22 @@ robservable(
   input_df = list(data = df)
 )
 
-robservable(
-  "@d3/bar-chart",
-  input = list(
-    color = "#567890",
-    height = 800
-  ),
-  input_df = list(data = df)
-)
 
 robservable(
   "@zacol/marvel-cinematic-universe-sankey-diagram",
-  output_cell = "chart"
+  cell = "chart"
 )
 
 robservable(
-  "@zacol/marvel-cinematic-universe-sankey-diagram",
-  output_cell = 1
+  "@mbostock/eyes"
 )
 
+# Doesn't work in pure JS either
 robservable(
   "@mbostock/eyes",
-  output_cell = "canvas"
+  cell = "canvas"
 )
+
 
 robservable(
   "@rreusser/gpgpu-boids"
@@ -56,8 +49,40 @@ df <- data.frame(table(mtcars$cyl))
 names(df) <- c("name", "value")
 robservable(
   "@d3/horizontal-bar-chart",
-  output_cell= "chart",
-  input_df = list(data = df)
+  cell= "chart",
+  input = list(data = df)
+)
+
+robservable("@mbostock/liquidfun", cell = "canvas")
+
+robservable("@mbostock/clifford-attractor-iii")
+
+## MULTI LINE CHART ---------
+
+robservable("@d3/multi-line-chart", cell = "chart")
+
+library(gapminder)
+library(tidyverse)
+data(gapminder)
+series <- purrr::map(unique(gapminder$country), ~{
+  name <- .x
+  values <- gapminder %>% filter(country == .x) %>% pull(lifeExp)
+  list(name = name, values = values)
+})
+dates <- sort(unique(gapminder$year))
+dates <- as.Date(as.character(dates), format = "%Y")
+#dates <- (dates - 1970) * 365 * 24 * 3600 * 1000
+
+df <- list(
+  y = "Life expectancy",
+  series = series,
+  dates = to_js_date(dates)
+)
+
+robservable(
+  "@d3/multi-line-chart",
+  cell = "chart",
+  input = list(data = df)
 )
 
 
