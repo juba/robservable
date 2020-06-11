@@ -25,13 +25,13 @@ Note that this is a toy package in very early stage of development.
 
 
 
-# Installation
+## Installation
 
 ```r
 remotes::install_github("juba/robservable")
 ```
 
-# Usage
+## Usage
 
 First think to do is to identify the notebook you want to use. The notebook has to be published, and its id is the same as the one used to `import` it in Observable. For example, the id of [this notebook](https://observablehq.com/@d3/horizontal-bar-chart) is `@d3/horizontal-bar-chart`.
 
