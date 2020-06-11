@@ -7,10 +7,11 @@ robservable(
   "@d3/horizontal-bar-chart",
   cell= "chart",
   input = list(
+    data = df,
     #color = "#567890",
     margin = list(top = 20, right = 0, left = 150, bottom = 0)
   ),
-  input_df = list(data = df)
+  width = 400
 )
 
 
@@ -18,10 +19,10 @@ robservable(
   "@d3/bar-chart",
   cell= "chart",
   input = list(
+    data = df,
     color = "#567890",
     height = 800
-  ),
-  input_df = list(data = df)
+  )
 )
 
 
@@ -54,6 +55,7 @@ robservable(
 )
 
 robservable("@mbostock/liquidfun", cell = "canvas")
+
 
 robservable("@mbostock/clifford-attractor-iii")
 
