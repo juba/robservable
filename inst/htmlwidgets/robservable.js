@@ -4,7 +4,7 @@ HTMLWidgets.widget({
     type: 'output',
 
     factory: function (el, width, height) {
-
+        let module = null;
         return {
 
             renderValue: function (x) {
@@ -43,9 +43,13 @@ HTMLWidgets.widget({
                             }
                         }
                     }
- 
+
                     // Run main
                     const main = runtime.module(notebook, output);
+
+                    // module is at higher level of scope allowing a user to access later
+                    //  set equal to main
+                    module = main;
 
                     // Update inputs
                     const inputs = x.input === null ? {} : x.input;
@@ -55,6 +59,10 @@ HTMLWidgets.widget({
 
                 })();
 
+            },
+
+            getModule: function() {
+                return module;
             },
 
             resize: function (width, height) {
