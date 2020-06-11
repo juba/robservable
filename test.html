@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script type="module">
+
+// Load the Observable runtime and inspector.
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+
+// Your notebook, compiled as an ES module.
+import notebook from "https://api.observablehq.com/@mbostock/eyes.js?v=3";
+
+// new Runtime().module(notebook, Inspector.into(document.body));
+
+new Runtime().module(notebook, name => {
+    if (name === "canvas") {
+      return new Inspector(document.querySelector("#chart"));
+    }
+  });
+
+</script>
+
+<div id="chart"></div>
+</body>
+</html>
