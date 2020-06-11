@@ -13,18 +13,18 @@
 #'
 #' @import htmlwidgets
 #'
-#' @example
+#' @examples
 #' \donttest{
 #' ## Display a notebook cell
 #' robservable(
 #'   "@d3/bar-chart",
-#'   output_cell= "chart"
+#'   cell= "chart"
 #' )
 #'
 #' ## Change cells data with input
 #' robservable(
 #'   "@d3/bar-chart",
-#'   output_cell= "chart",
+#'   cell= "chart",
 #'   input = list(color = "red", height = 700)
 #' )
 #'
@@ -33,8 +33,8 @@
 #' names(df) <- c("name", "value")
 #' robservable(
 #'   "@d3/horizontal-bar-chart",
-#'   output_cell= "chart",
-#'   input_df = list(data = df)
+#'   cell= "chart",
+#'   input = list(data = df)
 #' )
 #' }
 #' @export
