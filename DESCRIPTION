@@ -1,12 +1,27 @@
 Package: robservable
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Import an Observable Notebook as HTML Widget
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Date: 2020-06-11
+Authors@R: c(
+    person(
+      "Julien", "Barnier",
+      email = "julien.barnier@cnrs.fr",
+      role = c("aut", "cre")
+    ))
+Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
+Description: Allows to load and display an entire Observable notebook (or part of it)
+    as an HTML Widget in an R session, shiny application or Rmarkdown document.
+VignetteBuilder: knitr
+URL: https://github.com/juba/robservable
+BugReports: https://github.com/juba/robservable/issues
+License: License: GPL (>=3)
 Encoding: UTF-8
 LazyData: true
+Enhances: shiny
+Imports:
+    htmlwidgets
+Suggests:
+    knitr,
+    rmarkdown
 RoxygenNote: 7.1.0
