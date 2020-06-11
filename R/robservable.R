@@ -2,9 +2,8 @@
 #'
 #'
 #' @param notebook The notebook id, such as "@d3/bar-chart"
-#' @param output_cell The name of the cell to be rendered. If NULL,  the whole notebook is rendered
+#' @param cell The name of the cell to be rendered. If NULL,  the whole notebook is rendered
 #' @param input A named list of cells to be updated.
-#' @param input_df A named list of d3-array cells to be updated
 #' @param width htmlwidget width
 #' @param height htmlwidget height
 #' @param elementId optional manual widget HTML id
@@ -40,14 +39,14 @@
 #' }
 #' @export
 #'
-robservable <- function(notebook, output_cell = NULL, input = NULL, input_df = NULL, width = NULL, height = NULL, elementId = NULL) {
+robservable <- function(notebook, cell = NULL, input = NULL, width = NULL, height = NULL, elementId = NULL) {
 
   x = list(
     notebook = notebook,
-    output_cell = output_cell,
-    input = input,
-    input_df = input_df
+    cell = cell,
+    input = input
   )
+  attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
 
   htmlwidgets::createWidget(
     x,
@@ -58,6 +57,22 @@ robservable <- function(notebook, output_cell = NULL, input = NULL, input_df = N
     elementId = elementId
   )
 }
+
+#' Convert a Date or POSIXt object to a JS Date format
+#'
+#' @param date object to be converted
+#'
+#' @details
+#' The object is converted to the number of milliseconds since 1 January 1970 UTC.
+#'
+#' @export
+#'
+to_js_date <- function(date) {
+  ## Code taken from lubridate::origin
+  diff <- as.POSIXct(date) - structure(0, class = c("POSIXct", "POSIXt"), tzone = "UTC")
+  as.numeric(diff, unit = "secs") * 1000
+}
+
 
 #' Shiny bindings for robservable
 #'
