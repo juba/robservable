@@ -21,7 +21,7 @@ ui <- fluidPage(
         ),
 
         mainPanel(
-           robservableOutput("chart")
+           robservableOutput("chart", width = 800)
         )
     )
 )
