@@ -1,4 +1,7 @@
+## Simple robservable Shiny app
+
 library(shiny)
+library(robservable)
 
 library(gapminder)
 library(tidyverse)
@@ -8,7 +11,6 @@ dates <- to_js_date(as.Date(as.character(dates), format = "%Y"))
 
 ui <- fluidPage(
 
-    # Application title
     titlePanel("Test robservable"),
 
     sidebarLayout(
@@ -37,7 +39,6 @@ server <- function(input, output) {
             list(name = name, values = values)
         })
     })
-
 
     output$chart <- renderRobservable({
         df <- list(

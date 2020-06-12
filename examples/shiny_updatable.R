@@ -1,3 +1,5 @@
+## Sample robservable Shiny app with updatable chart with animated transitions
+
 library(shiny)
 library(robservable)
 

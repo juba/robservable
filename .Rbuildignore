@@ -1,6 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-example.R
+examples/
 test.html
-tests/shiny.R
 ^\.github$
