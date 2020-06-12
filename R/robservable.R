@@ -1,14 +1,14 @@
 #' Display an Observable notebook as HTML widget
 #'
 #'
-#' @param notebook The notebook id, such as "@d3/bar-chart"
+#' @param notebook The notebook id, such as "@d3/bar-chart".
 #' @param cell The name of the cell to be rendered. If NULL,  the whole notebook is rendered
 #' @param input A named list of cells to be updated.
 #' @param observers A vector of character strings representing variables in observable that
 #'   you would like to set as input values in Shiny.
-#' @param width htmlwidget width
-#' @param height htmlwidget height
-#' @param elementId optional manual widget HTML id
+#' @param width htmlwidget width.
+#' @param height htmlwidget height.
+#' @param elementId optional manual widget HTML id.
 #'
 #' @details
 #' Values passed in `input_df` are converted using the JavaScript function `HTMLWidgets.dataframeToD3`.
