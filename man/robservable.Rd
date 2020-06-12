@@ -8,6 +8,7 @@ robservable(
   notebook,
   cell = NULL,
   input = NULL,
+  observers = NULL,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -19,6 +20,9 @@ robservable(
 \item{cell}{The name of the cell to be rendered. If NULL,  the whole notebook is rendered}
 
 \item{input}{A named list of cells to be updated.}
+
+\item{observers}{A vector of character strings representing variables in observable that
+you would like to set as input values in Shiny.}
 
 \item{width}{htmlwidget width}
 
@@ -47,7 +51,7 @@ robservable(
   input = list(color = "red", height = 700)
 )
 
-## Change data frame cells data with input_df
+## Change data frame cells data
 df <- data.frame(table(mtcars$cyl))
 names(df) <- c("name", "value")
 robservable(
