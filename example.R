@@ -1,17 +1,9 @@
-library(questionr)
-data(hdv2003)
-df <- as.data.frame(table(hdv2003$qualif))
-names(df) <- c("name", "value")
+
+# Horizontal bar chart --------------------------------------------------------
+
 
 robservable(
-  "@d3/horizontal-bar-chart",
-  cell= "chart",
-  input = list(
-    data = df,
-    #color = "#567890",
-    margin = list(top = 20, right = 0, left = 150, bottom = 0)
-  ),
-  width = 400
+  "@d3/horizontal-bar-chart"
 )
 
 robservable(
@@ -19,10 +11,25 @@ robservable(
   cell = "chart"
 )
 
+df <- data.frame(table(mtcars$cyl))
+names(df) <- c("name", "value")
 robservable(
-  "@d3/horizontal-bar-chart"
+  "@d3/horizontal-bar-chart",
+  cell= "chart",
+  input = list(data = df,
+    margin = list(top = 20, right = 0, left = 150, bottom = 0)
+  ),
+  width = 600
 )
 
+
+
+# Bar chart ---------------------------------------------------------------
+
+
+robservable(
+  "@d3/bar-chart"
+)
 
 robservable(
   "@d3/bar-chart",
@@ -35,11 +42,22 @@ robservable(
 )
 
 
+
+# Sankey diagram ----------------------------------------------------------
+
+
 robservable(
   "@zacol/marvel-cinematic-universe-sankey-diagram",
   cell = "chart"
 )
 
+
+
+
+# Eyes --------------------------------------------------------------------
+
+
+# Full notebook : ok
 robservable(
   "@mbostock/eyes"
 )
@@ -51,24 +69,21 @@ robservable(
 )
 
 
+
+# Web GL -------------------------------------------------------------------
+
+
 robservable(
   "@rreusser/gpgpu-boids"
 )
 
-df <- data.frame(table(mtcars$cyl))
-names(df) <- c("name", "value")
-robservable(
-  "@d3/horizontal-bar-chart",
-  cell= "chart",
-  input = list(data = df)
-)
-
 robservable("@mbostock/liquidfun", cell = "canvas")
-
 
 robservable("@mbostock/clifford-attractor-iii")
 
-## MULTI LINE CHART ---------
+
+# Multi line chart --------------------------------------------------------
+
 
 robservable("@d3/multi-line-chart")
 
@@ -76,7 +91,6 @@ robservable(
   "@d3/multi-line-chart",
   cell = "chart"
 )
-
 
 library(gapminder)
 library(tidyverse)
@@ -95,13 +109,11 @@ df <- list(
   dates = to_js_date(dates)
 )
 
-
 robservable(
   "@d3/multi-line-chart",
   cell = "chart",
   input = list(data = df)
 )
-
 
 
 
