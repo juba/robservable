@@ -14,6 +14,15 @@ robservable(
   width = 400
 )
 
+robservable(
+  "@d3/horizontal-bar-chart",
+  cell = "chart"
+)
+
+robservable(
+  "@d3/horizontal-bar-chart"
+)
+
 
 robservable(
   "@d3/bar-chart",
@@ -61,7 +70,13 @@ robservable("@mbostock/clifford-attractor-iii")
 
 ## MULTI LINE CHART ---------
 
-robservable("@d3/multi-line-chart", cell = "chart")
+robservable("@d3/multi-line-chart")
+
+robservable(
+  "@d3/multi-line-chart",
+  cell = "chart"
+)
+
 
 library(gapminder)
 library(tidyverse)
@@ -73,7 +88,6 @@ series <- purrr::map(unique(gapminder$country), ~{
 })
 dates <- sort(unique(gapminder$year))
 dates <- as.Date(as.character(dates), format = "%Y")
-#dates <- (dates - 1970) * 365 * 24 * 3600 * 1000
 
 df <- list(
   y = "Life expectancy",
@@ -81,10 +95,32 @@ df <- list(
   dates = to_js_date(dates)
 )
 
+
 robservable(
   "@d3/multi-line-chart",
   cell = "chart",
   input = list(data = df)
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
