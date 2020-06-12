@@ -7,6 +7,7 @@
 robservable(
   notebook,
   cell = NULL,
+  hide = NULL,
   input = NULL,
   observers = NULL,
   width = NULL,
@@ -19,6 +20,8 @@ robservable(
 
 \item{cell}{character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.}
 
+\item{hide}{character vector of cell names in `cell` to be hidden in the output.}
+
 \item{input}{A named list of cells to be updated.}
 
 \item{observers}{A vector of character strings representing variables in observable that
@@ -29,8 +32,6 @@ you would like to set as input values in Shiny.}
 \item{height}{htmlwidget height.}
 
 \item{elementId}{optional manual widget HTML id.}
-
-\item{hide}{character vector of cell names in `cell` to be hidden in the output.}
 }
 \description{
 Display an Observable notebook as HTML widget
