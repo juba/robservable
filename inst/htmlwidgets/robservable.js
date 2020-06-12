@@ -3,9 +3,9 @@ HTMLWidgets.widget({
     name: 'robservable',
     type: 'output',
     inspector: class VariableInspector {
-        fulfilled(value,name) {
-            console.log(value,name)
-            if(HTMLWidgets.shinyMode) {
+        fulfilled(value, name) {
+            console.log(value, name)
+            if (HTMLWidgets.shinyMode) {
                 Shiny.setInputValue(
                     name,
                     value
@@ -29,7 +29,7 @@ HTMLWidgets.widget({
                     let library;
                     let runtime;
                     if (x.robservable_width !== undefined) {
-                        library = Object.assign(stdlib, {width: x.robservable_width});
+                        library = Object.assign(stdlib, { width: x.robservable_width });
                         runtime = new observablehq.Runtime(library);
                     } else {
                         runtime = new observablehq.Runtime();
@@ -43,9 +43,7 @@ HTMLWidgets.widget({
                     let output;
                     // If output is the whole notebook
                     if (x.cell === null) {
-                        output = observablehq.Inspector.into(document.body);
-                        // Hide root element
-                        el.style["display"] = "none";
+                        output = observablehq.Inspector.into(el);
                     }
                     // If output is one cell
                     if (typeof x.cell == "string") {
@@ -64,10 +62,10 @@ HTMLWidgets.widget({
                     module = main;
 
                     // If in Shiny mode and observers are set then set these up in Observable
-                    if(x.observers !== null) {
+                    if (x.observers !== null) {
                         // if only one observer then might not be an array so force to array
                         x.observers = !Array.isArray(x.observers) ? [x.observers] : x.observers;
-                        x.observers.forEach( (d,i) => {
+                        x.observers.forEach((d, i) => {
                             main.variable(inspector).define(el.id + '_observer_' + d, [d], (x) => x);
                         });
                     }
@@ -78,15 +76,17 @@ HTMLWidgets.widget({
                         main.redefine(key, value);
                     })
 
-                    // Apply some styling to allow vertical scrolling when needed
-                    document.querySelector('body').style["overflow"] = "auto";
-                    document.querySelector('body').style["width"] = "auto";
+                    // Apply some styling to allow vertical scrolling when needed in RStudio
+                    if (!HTMLWidgets.shinyMode) {
+                        document.querySelector('body').style["overflow"] = "auto";
+                        document.querySelector('body').style["width"] = "auto";
+                    }
 
                 })();
 
             },
 
-            getModule: function() {
+            getModule: function () {
                 return module;
             },
 
