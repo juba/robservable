@@ -1,8 +1,27 @@
 // Make a string "safe" as a CSS class name
 function css_safe(str) {
     str = str.replace(/[!\"#$%&'\(\)\*\+,\.\/:;<=>\?\@\[\\\]\^`\{\|\}~\s]/g, '_');
-    return(str);
+    return (str);
 }
+
+// Create the <div> elements for each cell to render
+function create_output_divs(el, cell, hide) {
+
+    cell = !Array.isArray(cell) ? [cell] : cell;
+    hide = !Array.isArray(hide) ? [hide] : hide;
+
+    let output_divs = new Map();
+    cell.forEach(name => {
+        let div = document.createElement("div");
+        div.className = css_safe(name);
+        // hide cell if its name is in x.hide
+        if (hide.includes(name)) div.style["display"] = "none";
+        el.appendChild(div);
+        output_divs.set(name, div);
+    })
+    return output_divs;
+}
+
 
 
 HTMLWidgets.widget({
@@ -25,60 +44,62 @@ HTMLWidgets.widget({
         const inspector = new this.inspector;
 
         let module = null;
+
         return {
 
             renderValue: function (x) {
+
                 (async () => {
 
+                    let main = this.getModule();
 
-                    // Load Runtime by overriding width stdlib method if fixed width is provided
-                    const stdlib = new observablehq.Library;
-                    let library;
-                    let runtime;
-                    if (x.robservable_width !== undefined) {
-                        library = Object.assign(stdlib, { width: x.robservable_width });
-                        runtime = new observablehq.Runtime(library);
-                    } else {
-                        runtime = new observablehq.Runtime();
-                    }
+                    if (main === null) {
 
-                    // Dynamically import notebook module
-                    const url = `https://api.observablehq.com/${x.notebook}.js?v=3`;
-                    let nb = await import(url);
-                    let notebook = nb.default;
-                    let output;
-
-                    if (x.cell !== null) {
-                        // If output is one or several cells
-                        x.cell = !Array.isArray(x.cell) ? [x.cell] : x.cell;
-                        x.hide = !Array.isArray(x.hide) ? [x.hide] : x.hide;
-
-                        let output_divs = new Map();
-                        x.cell.forEach(d => {
-                            let div = document.createElement("div");
-                            div.className = css_safe(d);
-                            if (x.hide.includes(d)) div.style["display"] = "none";
-                            el.appendChild(div);
-                            output_divs.set(d, div);
-                        })
-
-                        output = (name) => {
-                            if (x.cell.includes(name)) {
-                                return new observablehq.Inspector(output_divs.get(name));
-                            }
+                        // Load Runtime by overriding width stdlib method if fixed width is provided
+                        const stdlib = new observablehq.Library;
+                        let library;
+                        let runtime;
+                        if (x.robservable_width !== undefined) {
+                            library = Object.assign(stdlib, { width: x.robservable_width });
+                            runtime = new observablehq.Runtime(library);
+                        } else {
+                            runtime = new observablehq.Runtime();
                         }
 
-                    } else {
-                        // If output is the whole notebook
-                        output = observablehq.Inspector.into(el);
+                        // Dynamically import notebook module
+                        const url = `https://api.observablehq.com/${x.notebook}.js?v=3`;
+                        let nb = await import(url);
+                        let notebook = nb.default;
+                        let output;
+
+                        if (x.cell !== null) {
+                            // If output is one or several cells
+                            let output_divs = create_output_divs(el, x.cell, x.hide);
+
+                            output = (name) => {
+                                if (x.cell.includes(name)) {
+                                    return new observablehq.Inspector(output_divs.get(name));
+                                }
+                            }
+                        } else {
+                            // If output is the whole notebook
+                            output = observablehq.Inspector.into(el);
+                        }
+
+                        // Run main
+                        main = runtime.module(notebook, output);
+
+                        // module is at higher level of scope allowing a user to access later
+                        //  set equal to main
+                        module = main;
+
+                        // Apply some styling to allow vertical scrolling when needed in RStudio
+                        if (!HTMLWidgets.shinyMode) {
+                            document.querySelector('body').style["overflow"] = "auto";
+                            document.querySelector('body').style["width"] = "auto";
+                        }
+
                     }
-
-                    // Run main
-                    const main = runtime.module(notebook, output);
-
-                    // module is at higher level of scope allowing a user to access later
-                    //  set equal to main
-                    module = main;
 
                     // If in Shiny mode and observers are set then set these up in Observable
                     if (x.observers !== null) {
@@ -94,12 +115,6 @@ HTMLWidgets.widget({
                     Object.entries(inputs).forEach(([key, value]) => {
                         main.redefine(key, value);
                     })
-
-                    // Apply some styling to allow vertical scrolling when needed in RStudio
-                    if (!HTMLWidgets.shinyMode) {
-                        document.querySelector('body').style["overflow"] = "auto";
-                        document.querySelector('body').style["width"] = "auto";
-                    }
 
                 })();
 
