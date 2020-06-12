@@ -57,7 +57,6 @@ robservable(
 # Eyes --------------------------------------------------------------------
 
 
-# Full notebook : ok
 robservable(
   "@mbostock/eyes"
 )
@@ -92,6 +91,14 @@ robservable(
   cell = c("viewof gl", "draw"),
   hide = "draw"
 )
+
+robservable(
+  "@mbostock/clifford-attractor-iii",
+  cell = c("viewof gl", "draw"),
+  hide = c("draw"),
+  input = list(settings = list(a = 1, b = 1, c = 3, d = 1))
+)
+
 
 
 # Multi line chart --------------------------------------------------------
@@ -133,6 +140,14 @@ robservable(
 
 robservable(
   "@mkfreeman/d3-chart-updates-in-observable"
+)
+
+# Forked to add a name to redraw and style cells
+robservable(
+  "@juba/d3-chart-updates-in-observable",
+  cell = c("chart", "redraw", "style"),
+  hide = c("redraw", "style"),
+  input = list(state = "District of Columbia")
 )
 
 
