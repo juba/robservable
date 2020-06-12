@@ -1,3 +1,10 @@
+// Make a string "safe" as a CSS class name
+function css_safe(str) {
+    str = str.replace(/[!\"#$%&'\(\)\*\+,\.\/:;<=>\?\@\[\\\]\^`\{\|\}~\s]/g, '_');
+    return(str);
+}
+
+
 HTMLWidgets.widget({
 
     name: 'robservable',
@@ -39,19 +46,31 @@ HTMLWidgets.widget({
                     const url = `https://api.observablehq.com/${x.notebook}.js?v=3`;
                     let nb = await import(url);
                     let notebook = nb.default;
-
                     let output;
-                    // If output is the whole notebook
-                    if (x.cell === null) {
-                        output = observablehq.Inspector.into(el);
-                    }
-                    // If output is one cell
-                    if (typeof x.cell == "string") {
-                        output = name => {
-                            if (name === x.cell) {
-                                return new observablehq.Inspector(el);
+
+                    if (x.cell !== null) {
+                        // If output is one or several cells
+                        x.cell = !Array.isArray(x.cell) ? [x.cell] : x.cell;
+                        x.hide = !Array.isArray(x.hide) ? [x.hide] : x.hide;
+
+                        let output_divs = new Map();
+                        x.cell.forEach(d => {
+                            let div = document.createElement("div");
+                            div.className = css_safe(d);
+                            if (x.hide.includes(d)) div.style["display"] = "none";
+                            el.appendChild(div);
+                            output_divs.set(d, div);
+                        })
+
+                        output = (name) => {
+                            if (x.cell.includes(name)) {
+                                return new observablehq.Inspector(output_divs.get(name));
                             }
                         }
+
+                    } else {
+                        // If output is the whole notebook
+                        output = observablehq.Inspector.into(el);
                     }
 
                     // Run main

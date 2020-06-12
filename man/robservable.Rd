@@ -15,20 +15,22 @@ robservable(
 )
 }
 \arguments{
-\item{notebook}{The notebook id, such as "@d3/bar-chart"}
+\item{notebook}{The notebook id, such as "@d3/bar-chart".}
 
-\item{cell}{The name of the cell to be rendered. If NULL,  the whole notebook is rendered}
+\item{cell}{character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.}
 
 \item{input}{A named list of cells to be updated.}
 
 \item{observers}{A vector of character strings representing variables in observable that
 you would like to set as input values in Shiny.}
 
-\item{width}{htmlwidget width}
+\item{width}{htmlwidget width.}
 
-\item{height}{htmlwidget height}
+\item{height}{htmlwidget height.}
 
-\item{elementId}{optional manual widget HTML id}
+\item{elementId}{optional manual widget HTML id.}
+
+\item{hide}{character vector of cell names in `cell` to be hidden in the output.}
 }
 \description{
 Display an Observable notebook as HTML widget

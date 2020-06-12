@@ -62,10 +62,10 @@ robservable(
   "@mbostock/eyes"
 )
 
-# Doesn't work in pure JS either
 robservable(
   "@mbostock/eyes",
-  cell = "canvas"
+  cell = c("canvas", "mouse"),
+  hide = "mouse"
 )
 
 
@@ -77,9 +77,21 @@ robservable(
   "@rreusser/gpgpu-boids"
 )
 
-robservable("@mbostock/liquidfun", cell = "canvas")
+robservable(
+  "@mbostock/liquidfun",
+  cell = "canvas"
+)
 
-robservable("@mbostock/clifford-attractor-iii")
+robservable(
+  "@mbostock/clifford-attractor-iii",
+  cell = c("viewof gl", "draw")
+)
+
+robservable(
+  "@mbostock/clifford-attractor-iii",
+  cell = c("viewof gl", "draw"),
+  hide = "draw"
+)
 
 
 # Multi line chart --------------------------------------------------------
@@ -117,6 +129,11 @@ robservable(
 
 
 
+# Updatable charts --------------------------------------------------------
+
+robservable(
+  "@mkfreeman/d3-chart-updates-in-observable"
+)
 
 
 
