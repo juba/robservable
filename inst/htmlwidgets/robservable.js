@@ -44,9 +44,8 @@ HTMLWidgets.widget({
                     // If output is the whole notebook
                     if (x.cell === null) {
                         output = observablehq.Inspector.into(document.body);
-                        // Apply some styling
+                        // Hide root element
                         el.style["display"] = "none";
-                        document.querySelector('body').style["overflow"] = "auto";
                     }
                     // If output is one cell
                     if (typeof x.cell == "string") {
@@ -78,6 +77,10 @@ HTMLWidgets.widget({
                     Object.entries(inputs).forEach(([key, value]) => {
                         main.redefine(key, value);
                     })
+
+                    // Apply some styling to allow vertical scrolling when needed
+                    document.querySelector('body').style["overflow"] = "auto";
+                    document.querySelector('body').style["width"] = "auto";
 
                 })();
 
