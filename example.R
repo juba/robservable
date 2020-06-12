@@ -150,9 +150,17 @@ robservable(
   input = list(state = "District of Columbia")
 )
 
-
-
-
+robservable(
+  "@juba/updatable-bar-chart",
+  cell = c("chart", "draw"),
+  hide = "draw",
+  input = list(
+    data = data.frame(
+      name = LETTERS[1:10],
+      value = round(runif(10)*100)
+    )
+  )
+)
 
 
 
