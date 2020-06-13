@@ -8,6 +8,11 @@ Authors@R: c(
       "Julien", "Barnier",
       email = "julien.barnier@cnrs.fr",
       role = c("aut", "cre")
+    ),
+    person(
+     "Kent", "Russell",
+      email = "kent.russell@timelyportfolio.com",
+      role = "aut"
     ))
 Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
 Description: Allows to load and display an entire Observable notebook (or part of it)
