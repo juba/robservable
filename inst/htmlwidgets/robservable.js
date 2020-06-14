@@ -28,20 +28,8 @@ HTMLWidgets.widget({
 
     name: 'robservable',
     type: 'output',
-    inspector: class VariableInspector {
-        fulfilled(value, name) {
-            console.log(value, name)
-            if (HTMLWidgets.shinyMode) {
-                Shiny.setInputValue(
-                    name,
-                    value
-                );
-            }
-        }
-    },
 
     factory: function (el, width, height) {
-        const inspector = new this.inspector;
 
         let module = null;
 
@@ -99,15 +87,28 @@ HTMLWidgets.widget({
                             document.querySelector('body').style["width"] = "auto";
                         }
 
-                    }
 
-                    // If in Shiny mode and observers are set then set these up in Observable
-                    if (x.observers !== null) {
-                        // if only one observer then might not be an array so force to array
-                        x.observers = !Array.isArray(x.observers) ? [x.observers] : x.observers;
-                        x.observers.forEach((d, i) => {
-                            main.variable(inspector).define(el.id + '_observer_' + d, [d], (x) => x);
-                        });
+                        // If in Shiny mode and observers are set then set these up in Observable
+                        if (x.observers !== null) {
+                            // if only one observer then might not be an array so force to array
+                            x.observers = !Array.isArray(x.observers) ? [x.observers] : x.observers;
+                            x.observers.forEach((d, i) => {
+                                main
+                                    .variable({
+                                        fulfilled(value, name) {
+                                            //console.log(value, name)
+                                            if (HTMLWidgets.shinyMode) {
+                                                Shiny.setInputValue(
+                                                    name,
+                                                    value
+                                                );
+                                            }
+                                        }
+                                    })
+                                    .define(el.id + '_observer_' + d, [d], (x) => x);
+                            });
+                        }
+
                     }
 
                     // Update inputs
