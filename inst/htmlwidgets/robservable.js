@@ -90,23 +90,42 @@ HTMLWidgets.widget({
 
                         // If in Shiny mode and observers are set then set these up in Observable
                         if (x.observers !== null) {
-                            // if only one observer then might not be an array so force to array
-                            x.observers = !Array.isArray(x.observers) ? [x.observers] : x.observers;
-                            x.observers.forEach((d, i) => {
-                                main
-                                    .variable({
-                                        fulfilled(value, name) {
-                                            //console.log(value, name)
-                                            if (HTMLWidgets.shinyMode) {
-                                                Shiny.setInputValue(
-                                                    name.replace(/_observer/, ""),
-                                                    value
-                                                );
+                            // if only one observer and string then force to array
+                            x.observers = !Array.isArray(x.observers) && typeof(x.observers) === "string" ? [x.observers] : x.observers;
+                            if(Array.isArray(x.observers)) {
+                                x.observers.forEach((d, i) => {
+                                    main
+                                        .variable({
+                                            fulfilled(value, name) {
+                                                console.log(value, name)
+                                                if (HTMLWidgets.shinyMode) {
+                                                    Shiny.setInputValue(
+                                                        name.replace(/_observer/, ""),
+                                                        value
+                                                    );
+                                                }
                                             }
-                                        }
-                                    })
-                                    .define(el.id + '_observer_' + d, [d], (x) => x);
-                            });
+                                        })
+                                        .define(el.id + '_observer_' + d, [d], (x) => x);
+                                });
+                            }
+                            if(!Array.isArray(x.observers) && typeof(x.observers) === "object") {
+                                Object.keys(x.observers).forEach((ky) => {
+                                    main
+                                        .variable({
+                                            fulfilled(value, name) {
+                                                console.log(value, name)
+                                                if (HTMLWidgets.shinyMode) {
+                                                    Shiny.setInputValue(
+                                                        name.replace(/_observer/, ""),
+                                                        value
+                                                    );
+                                                }
+                                            }
+                                        })
+                                        .define(el.id + '_observer_' + ky, [x.observers[ky]], (x) => x);
+                                })
+                            }
                         }
 
                     }

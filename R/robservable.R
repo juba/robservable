@@ -1,15 +1,15 @@
 #' Display an Observable notebook as HTML widget
 #'
 #'
-#' @param notebook The notebook id, such as "@d3/bar-chart".
-#' @param cell character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.
-#' @param hide character vector of cell names in `cell` to be hidden in the output.
+#' @param notebook The notebook id, such as "@d3/bar-chart"
+#' @param cell The name of the cell to be rendered. If NULL,  the whole notebook is rendered
 #' @param input A named list of cells to be updated.
-#' @param observers A vector of character strings representing variables in observable that
-#'   you would like to set as input values in Shiny.
-#' @param width htmlwidget width.
-#' @param height htmlwidget height.
-#' @param elementId optional manual widget HTML id.
+#' @param observers A vector or named list of character strings representing variables in observable that
+#'   you would like to set as input values in Shiny.  If provided a named list, then the Shiny input
+#'   will be named with the name from the list rather than the observable variable name.
+#' @param width htmlwidget width
+#' @param height htmlwidget height
+#' @param elementId optional manual widget HTML id
 #'
 #' @details
 #' Values passed in `input_df` are converted using the JavaScript function `HTMLWidgets.dataframeToD3`.
@@ -43,15 +43,14 @@
 #' @export
 #'
 robservable <- function(
-  notebook, cell = NULL, hide = NULL,
-  input = NULL, observers = NULL,
+  notebook, cell = NULL, input = NULL,
+  observers = NULL,
   width = NULL, height = NULL, elementId = NULL
 ) {
 
-  x <- list(
+  x = list(
     notebook = notebook,
     cell = cell,
-    hide = hide,
     input = input,
     observers = observers
   )
