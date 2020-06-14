@@ -99,7 +99,7 @@ HTMLWidgets.widget({
                                             //console.log(value, name)
                                             if (HTMLWidgets.shinyMode) {
                                                 Shiny.setInputValue(
-                                                    name,
+                                                    name.replace(/_observer/, ""),
                                                     value
                                                 );
                                             }

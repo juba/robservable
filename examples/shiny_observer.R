@@ -36,8 +36,8 @@ server <- function(input, output) {
 
     point <- reactive({
         cbind(
-            input$map_input_observer_worldMap1[1],
-            input$map_input_observer_worldMap1[2]
+            input$map_input_worldMap1[1],
+            input$map_input_worldMap1[2]
         )
     })
 
