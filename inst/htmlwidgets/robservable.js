@@ -23,27 +23,30 @@ function create_output_divs(el, cell, hide) {
 }
 
 
-
 HTMLWidgets.widget({
 
     name: 'robservable',
     type: 'output',
-    inspector: class VariableInspector {
-        fulfilled(value, name) {
-            console.log(value, name)
-            if (HTMLWidgets.shinyMode) {
-                Shiny.setInputValue(
-                    name,
-                    value
-                );
-            }
-        }
-    },
 
     factory: function (el, width, height) {
-        const inspector = new this.inspector;
 
         let module = null;
+
+        // Add an observer on a notebook variable that sync its value to a Shiny input
+        function add_variable_observer(name, variable) {
+            module.variable({
+                fulfilled(value, name) {
+                    console.log(value, name)
+                    if (HTMLWidgets.shinyMode) {
+                        Shiny.setInputValue(
+                            name.replace(/robservable_/, ""),
+                            value
+                        );
+                    }
+                }
+            })
+            .define(el.id + '_robservable_' + name, [variable], x => x);
+        }
 
         return {
 
@@ -99,15 +102,21 @@ HTMLWidgets.widget({
                             document.querySelector('body').style["width"] = "auto";
                         }
 
-                    }
 
-                    // If in Shiny mode and observers are set then set these up in Observable
-                    if (x.observers !== null) {
-                        // if only one observer then might not be an array so force to array
-                        x.observers = !Array.isArray(x.observers) ? [x.observers] : x.observers;
-                        x.observers.forEach((d, i) => {
-                            main.variable(inspector).define(el.id + '_observer_' + d, [d], (x) => x);
-                        });
+                        // If in Shiny mode and observers are set then set these up in Observable
+                        if (x.observers !== null) {
+                            // if only one observer and string then force to array
+                            x.observers = !Array.isArray(x.observers) && typeof (x.observers) === "string" ? [x.observers] : x.observers;
+                            // If source is an R character vector
+                            if (Array.isArray(x.observers)) {
+                                x.observers.forEach((d) => add_variable_observer(d, d));
+                            }
+                            // If source is an R named list
+                            if (!Array.isArray(x.observers) && typeof (x.observers) === "object") {
+                                Object.entries(x.observers).forEach(([key, value]) => add_variable_observer(key, value));
+                            }
+                        }
+
                     }
 
                     // Update inputs

@@ -5,8 +5,9 @@
 #' @param cell character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.
 #' @param hide character vector of cell names in `cell` to be hidden in the output.
 #' @param input A named list of cells to be updated.
-#' @param observers A vector of character strings representing variables in observable that
-#'   you would like to set as input values in Shiny.
+#' @param observers A vector or named list of character strings representing variables in observable that
+#'   you would like to set as input values in Shiny.  If provided a named list, then the Shiny input
+#'   will be named with the name from the list rather than the observable variable name.
 #' @param width htmlwidget width.
 #' @param height htmlwidget height.
 #' @param elementId optional manual widget HTML id.
