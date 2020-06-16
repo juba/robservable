@@ -7,3 +7,8 @@ dependencies:
       - runtime.umd.js
     stylesheet:
       - inspector.css
+  - name: robservable
+    version: 0.1.0
+    src: htmlwidgets/
+    script:
+      - utils.js

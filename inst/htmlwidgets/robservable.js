@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class RObservable {
 
     // Instance fields
@@ -91,6 +92,8 @@ class RObservable {
 
 
 }
+=======
+>>>>>>> master
 
 
 
