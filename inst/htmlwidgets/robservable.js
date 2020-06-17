@@ -11,7 +11,7 @@ class RObservable {
         this._params = params;
         this._params.observers_variables = {};
 
-        let runtime = this.build_runtime();
+        let runtime = new observablehq.Runtime();
         let inspector = this.build_inspector();
         this.main = runtime.module(notebook, inspector);
 
@@ -22,16 +22,6 @@ class RObservable {
         const url = `https://api.observablehq.com/${params.notebook}.js?v=3`;
         let nb = await import(url);
         return new RObservable(el, params, nb.default);
-    }
-
-    // Build observable runtime
-    build_runtime() {
-        // Load Runtime by overriding width stdlib method if fixed width is provided
-        let library = new observablehq.Library;
-        if (this.params.robservable_width !== undefined) {
-            library = Object.assign(library, { width: this.params.robservable_width });
-        }
-        return new observablehq.Runtime(library);
     }
 
     // Build Observable inspector
@@ -137,8 +127,6 @@ class RObservable {
 
 
 
-
-
 HTMLWidgets.widget({
 
     name: 'robservable',
@@ -152,10 +140,20 @@ HTMLWidgets.widget({
             document.querySelector('body').style["width"] = "auto";
         }
 
+        el.width = width;
+        el.height = height;
+
         return {
 
             renderValue(params) {
-
+                
+                if (params.input !== null && params.input.width !== undefined) {
+                    params.input.width = el.width;
+                }
+                if (params.input !== null && params.input.height !== undefined) {
+                    params.input.height = el.height;
+                }
+                
                 // Check if module object already created
                 let module = el.module;
                 if (module === undefined || module.params.notebook !== params.notebook) {
@@ -175,6 +173,21 @@ HTMLWidgets.widget({
             },
 
             resize(width, height) {
+                
+                el.width = width;
+                el.height = height;
+                let params = el.module.params;
+
+                if (params.input !== null && params.input.width !== undefined) {
+                    params.input.width = el.width;
+                }
+                if (params.input !== null && params.input.height !== undefined) {
+                    params.input.height = el.height;
+                }
+
+                params.update = true;
+                el.module.params = params;
+
             }
 
         };

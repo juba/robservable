@@ -48,6 +48,21 @@ robservable <- function(
   width = NULL, height = NULL, elementId = NULL
 ) {
 
+  # Pass width and height as inputs
+  if (!is.null(width)) {
+    if (!is.null(input$width)) {
+      warning("input$width overriden by width argument")
+    }
+    input$width = width
+  }
+  if (!is.null(height)) {
+    if (!is.null(input$height)) {
+      warning("input$height overriden by height argument")
+    }
+    input$height = height
+  }
+
+
   x <- list(
     notebook = notebook,
     cell = cell,
@@ -56,10 +71,6 @@ robservable <- function(
     observers = observers
   )
   attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
-
-  if (!is.null(width)) {
-    x$robservable_width <- width
-  }
 
 
   htmlwidgets::createWidget(
