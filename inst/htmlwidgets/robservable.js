@@ -120,7 +120,11 @@ class RObservable {
         let input = this.params.input
         input = input === null ? {} : input;
         Object.entries(input).forEach(([key, value]) => {
-            this.main.redefine(key, value);
+            try {
+                this.main.redefine(key, value);
+            } catch (error) {
+                console.warn(`Can't update ${key} variable : ${error.message}`);
+            }
         })
     }
 
