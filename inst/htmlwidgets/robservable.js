@@ -148,12 +148,7 @@ HTMLWidgets.widget({
 
             renderValue(params) {
                 
-                if (params.input !== null && params.input.width !== undefined) {
-                    params.input.width = el.width;
-                }
-                if (params.input !== null && params.input.height !== undefined) {
-                    params.input.height = el.height;
-                }
+                params = update_height_width(params, el.height, el.width)
                 
                 // Check if module object already created
                 let module = el.module;
@@ -166,8 +161,9 @@ HTMLWidgets.widget({
                     });
                 } else {
                     // Else, update params
-                    params.update = true;
                     params.observers_variables = module.params.observers_variables;
+                    // Update widgets
+                    params.update = true;
                     el.module.params = params;
                 }
 
@@ -175,17 +171,13 @@ HTMLWidgets.widget({
 
             resize(width, height) {
                 
+                // Get params and update width and height
                 el.width = width;
                 el.height = height;
                 let params = el.module.params;
+                params = update_height_width(params, el.height, el.width)
 
-                if (params.input !== null && params.input.width !== undefined) {
-                    params.input.width = el.width;
-                }
-                if (params.input !== null && params.input.height !== undefined) {
-                    params.input.height = el.height;
-                }
-
+                // Update widgets
                 params.update = true;
                 el.module.params = params;
 
