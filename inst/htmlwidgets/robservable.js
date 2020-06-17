@@ -101,6 +101,7 @@ class RObservable {
     // Add observers from params.observers to cells
     set_variable_observers() {
         let observers = !Array.isArray(this.params.observers) ? [this.params.observers] : this.params.observers;
+        if (!this.params.observers) observers = [];
         let previous_observers = Object.keys(this.params.observers_variables);
         previous_observers.forEach(variable => {
             // Remove previous observers that don't exist anymore
