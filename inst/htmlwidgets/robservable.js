@@ -9,6 +9,7 @@ class RObservable {
 
         this.el = el;
         this._params = params;
+        this._params.observers_variables = {};
 
         let runtime = this.build_runtime();
         let inspector = this.build_inspector();
@@ -83,11 +84,11 @@ class RObservable {
 
 
     // Add an observer on a notebook variable that sync its value to a Shiny input
-    add_observer(name, variable) {
-        this.main.variable({
+    add_observer(variable) {
+        let obs_var = this.main.variable({
             fulfilled(value, name) {
                 console.log(value, name)
-                if (HTMLWidgets.shinyMode) {
+                if (name !== null && HTMLWidgets.shinyMode) {
                     Shiny.setInputValue(
                         name.replace(/robservable_/, ""),
                         value
@@ -97,15 +98,30 @@ class RObservable {
         })
             // el.id must be added to support Shiny modules
             // '_robservable_' is added to avoid name conflicts with notebook variables
-            .define(this.el.id + '_robservable_' + name, [variable], x => x);
+            .define(this.el.id + '_robservable_' + variable, [variable], x => x);
+        this.params.observers_variables[variable] = obs_var;
+    }
+
+    // Remove an existing observer
+    remove_observer(variable) {
+        this.params.observers_variables[variable].delete();
+        delete this.params.observers_variables[variable];
     }
 
     // Add observers from params.observers to cells
     set_variable_observers() {
-        let observers = this.params.observers;
-        if (observers !== null) {
-            Object.entries(observers).forEach(([key, value]) => this.add_observer(key, value));
-        }
+        let observers = !Array.isArray(this.params.observers) ? [this.params.observers] : this.params.observers;
+        let previous_observers = Object.keys(this.params.observers_variables);
+        previous_observers.forEach(variable => {
+            // Remove previous observers that don't exist anymore
+            if (!observers.includes(variable)) this.remove_observer(variable)
+        })
+        observers.forEach(variable => {
+            // New observer
+            if (!previous_observers.includes(variable)) {
+                this.add_observer(variable);
+            }
+        })
     }
 
     // Update notebook variables from params.input
@@ -152,7 +168,8 @@ HTMLWidgets.widget({
                 } else {
                     // Else, update params
                     params.update = true;
-                    params.previous_observers = module.params.observers;
+                    params.observers_variables = module.params.observers_variables;
+                    console.log(params);
                     el.module.params = params;
                 }
 
