@@ -49,6 +49,10 @@ robservable <- function(
   width = NULL, height = NULL, elementId = NULL
 ) {
 
+  # Convert observers as a named list if needed
+  observers <- as.list(observers)
+  if (is.null(names(observers))) names(observers) <- observers
+
   x <- list(
     notebook = notebook,
     cell = cell,

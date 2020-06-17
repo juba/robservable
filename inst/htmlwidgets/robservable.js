@@ -59,7 +59,7 @@ class RObservable {
     set params(value) {
         this._params = value;
         // Add observers and update variables
-        this.add_variable_observers();
+        this.set_variable_observers();
         this.update_variables();
     }
 
@@ -101,21 +101,11 @@ class RObservable {
     }
 
     // Add observers from params.observers to cells
-    add_variable_observers() {
+    set_variable_observers() {
         let observers = this.params.observers;
         if (observers !== null) {
-            // if only one observer and string then force to array
-            observers = !Array.isArray(observers) && typeof (observers) === "string" ? [observers] : observers;
-            // If source is an R character vector
-            if (Array.isArray(observers)) {
-                observers.forEach((d) => this.add_observer(d, d));
-            }
-            // If source is an  R named list
-            if (!Array.isArray(observers) && typeof (observers) === "object") {
-                Object.entries(observers).forEach(([key, value]) => this.add_observer(key, value));
-            }
+            Object.entries(observers).forEach(([key, value]) => this.add_observer(key, value));
         }
-
     }
 
     // Update notebook variables from params.input
