@@ -145,12 +145,14 @@ HTMLWidgets.widget({
                 if (module === undefined || module.params.notebook !== params.notebook) {
                     // If not, create one
                     RObservable.build(el, params).then(mod => {
+                        params.update = false;
                         mod.params = params;
                         el.module = mod;
-
                     });
                 } else {
                     // Else, update params
+                    params.update = true;
+                    params.previous_observers = module.params.observers;
                     el.module.params = params;
                 }
 
