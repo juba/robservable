@@ -7,7 +7,7 @@
 
 The goal of this package is to allow the use of [Observable](https://observablehq.com/) notebooks (or part of them) as htmlwidgets in R.
 
-Note that this is a toy package in very early stage of development.
+Note that this is a package in early stage of development.
 
 ## Features
 
@@ -170,7 +170,24 @@ robservable(
 )
 ```
 
+These values will be accessible via Shiny `input` objetc by prefixing the observer name with the `robservable` Shiny id. So, for example, if you use the previous `robservable` instance as an `robservableOutput` with an observer :
 
+```r
+robservableOutput("map_input")
+```
+
+The values will be accessible in `input$map_input_worldMap1`.
+
+You can use a named list to specify custom Shiny `input` names, but you will still have to add the id prefix. So in the following, values will be accessible in `input$map_input_point`. 
+
+```r
+robservable(
+    "@jashkenas/inputs",
+    cell = c("worldMapCoordinates", "viewof worldMap1"),
+    hide = "worldMapCoordinates",
+    observers = list(point = "worldMap1")
+)
+```
 
 
 

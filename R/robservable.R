@@ -12,7 +12,8 @@
 #' @param elementId optional manual widget HTML id.
 #'
 #' @details
-#' Values passed in `input_df` are converted using the JavaScript function `HTMLWidgets.dataframeToD3`.
+#' If a data.frame is passed as a cell value in `input`, it will be converted into the format
+#' expected by `d3` (ie, converted by rows)..
 #'
 #' @import htmlwidgets
 #'
