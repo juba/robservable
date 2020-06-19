@@ -110,6 +110,7 @@ class RObservable {
         let input = this.params.input
         input = input === null ? {} : input;
         Object.entries(input).forEach(([key, value]) => {
+            if (key == "height" && this.params.keep_notebook_height) return;
             try {
                 this.main.redefine(key, value);
             } catch (error) {
@@ -141,9 +142,9 @@ HTMLWidgets.widget({
         return {
 
             renderValue(params) {
-                
+
                 params = update_height_width(params, el.height, el.width)
-                
+
                 // Check if module object already created
                 let module = el.module;
                 if (module === undefined || module.params.notebook !== params.notebook) {
@@ -164,7 +165,7 @@ HTMLWidgets.widget({
             },
 
             resize(width, height) {
-                
+
                 // Get params and update width and height
                 el.width = width;
                 el.height = height;

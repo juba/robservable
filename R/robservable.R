@@ -7,6 +7,9 @@
 #' @param input A named list of cells to be updated.
 #' @param observers A vector of character strings representing variables in observable that
 #'   you would like to set as input values in Shiny.
+#' @param keep_notebook_height if FALSE (default), replace any existing notebook \code{height} variable 
+#'   with either the \code{height} value of \code{input}, or the height of the widget root HTML element.
+#'   If TRUE, keep original notebook \{height} variable value.
 #' @param width htmlwidget width.
 #' @param height htmlwidget height.
 #' @param elementId optional manual widget HTML id.
@@ -46,7 +49,9 @@
 robservable <- function(
   notebook, cell = NULL, hide = NULL,
   input = NULL, observers = NULL,
-  width = NULL, height = NULL, elementId = NULL
+  keep_notebook_height = FALSE,
+  width = NULL, height = NULL, 
+  elementId = NULL
 ) {
 
   # Pass width and height as inputs
@@ -54,13 +59,13 @@ robservable <- function(
     if (!is.null(input$width)) {
       warning("input$width overriden by width argument")
     }
-    input$width = width
+    input$width <- width
   }
   if (!is.null(height)) {
     if (!is.null(input$height)) {
       warning("input$height overriden by height argument")
     }
-    input$height = height
+    input$height <- height
   }
 
 
@@ -69,7 +74,8 @@ robservable <- function(
     cell = cell,
     hide = hide,
     input = input,
-    observers = observers
+    observers = observers,
+    keep_notebook_height = keep_notebook_height
   )
   attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
 
