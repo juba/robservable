@@ -110,7 +110,6 @@ class RObservable {
         let input = this.params.input
         input = input === null ? {} : input;
         Object.entries(input).forEach(([key, value]) => {
-            if (key == "height" && this.params.keep_notebook_height) return;
             try {
                 this.main.redefine(key, value);
             } catch (error) {

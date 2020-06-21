@@ -10,6 +10,8 @@ robservable(
   hide = NULL,
   input = NULL,
   observers = NULL,
+  update_height = TRUE,
+  update_width = TRUE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -27,6 +29,10 @@ robservable(
 \item{observers}{A vector of character strings representing variables in observable that
 you would like to set as input values in Shiny.}
 
+\item{update_height}{if TRUE (default) and input$height is not defined, replace its value with the height of the widget root HTML element. Note there will not always be such a cell in every notebook. Set it to FALSE to always keep the notebook value.}
+
+\item{update_width}{if TRUE (default) and input$width is not defined, replace its value with the width of the widget root HTML element. Set it to FALSE to always keep the notebook or the Observable stdlib value.}
+
 \item{width}{htmlwidget width.}
 
 \item{height}{htmlwidget height.}
@@ -37,20 +43,21 @@ you would like to set as input values in Shiny.}
 Display an Observable notebook as HTML widget
 }
 \details{
-Values passed in `input_df` are converted using the JavaScript function `HTMLWidgets.dataframeToD3`.
+If a data.frame is passed as a cell value in `input`, it will be converted into the format
+expected by `d3` (ie, converted by rows)..
 }
 \examples{
 \donttest{
 ## Display a notebook cell
 robservable(
   "@d3/bar-chart",
-  cell= "chart"
+  cell = "chart"
 )
 
 ## Change cells data with input
 robservable(
   "@d3/bar-chart",
-  cell= "chart",
+  cell = "chart",
   input = list(color = "red", height = 700)
 )
 
@@ -59,7 +66,7 @@ df <- data.frame(table(mtcars$cyl))
 names(df) <- c("name", "value")
 robservable(
   "@d3/horizontal-bar-chart",
-  cell= "chart",
+  cell = "chart",
   input = list(data = df)
 )
 }
