@@ -11,7 +11,7 @@ class RObservable {
         this._params = params;
         this._params.observers_variables = {};
 
-        let runtime = this.build_runtime();
+        let runtime = new observablehq.Runtime();
         let inspector = this.build_inspector();
         this.main = runtime.module(notebook, inspector);
 
@@ -22,16 +22,6 @@ class RObservable {
         const url = `https://api.observablehq.com/${params.notebook}.js?v=3`;
         let nb = await import(url);
         return new RObservable(el, params, nb.default);
-    }
-
-    // Build observable runtime
-    build_runtime() {
-        // Load Runtime by overriding width stdlib method if fixed width is provided
-        let library = new observablehq.Library;
-        if (this.params.robservable_width !== undefined) {
-            library = Object.assign(library, { width: this.params.robservable_width });
-        }
-        return new observablehq.Runtime(library);
     }
 
     // Build Observable inspector
@@ -120,13 +110,15 @@ class RObservable {
         let input = this.params.input
         input = input === null ? {} : input;
         Object.entries(input).forEach(([key, value]) => {
-            this.main.redefine(key, value);
+            try {
+                this.main.redefine(key, value);
+            } catch (error) {
+                console.warn(`Can't update ${key} variable : ${error.message}`);
+            }
         })
     }
 
 }
-
-
 
 
 
@@ -143,9 +135,14 @@ HTMLWidgets.widget({
             document.querySelector('body').style["width"] = "auto";
         }
 
+        el.width = width;
+        el.height = height;
+
         return {
 
             renderValue(params) {
+
+                params = update_height_width(params, el.height, el.width)
 
                 // Check if module object already created
                 let module = el.module;
@@ -158,14 +155,26 @@ HTMLWidgets.widget({
                     });
                 } else {
                     // Else, update params
-                    params.update = true;
                     params.observers_variables = module.params.observers_variables;
+                    // Update widgets
+                    params.update = true;
                     el.module.params = params;
                 }
 
             },
 
             resize(width, height) {
+
+                // Get params and update width and height
+                el.width = width;
+                el.height = height;
+                let params = el.module.params;
+                params = update_height_width(params, el.height, el.width)
+
+                // Update widgets
+                params.update = true;
+                el.module.params = params;
+
             }
 
         };

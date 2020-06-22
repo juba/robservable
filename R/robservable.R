@@ -7,6 +7,8 @@
 #' @param input A named list of cells to be updated.
 #' @param observers A vector of character strings representing variables in observable that
 #'   you would like to set as input values in Shiny.
+#' @param update_height if TRUE (default) and input$height is not defined, replace its value with the height of the widget root HTML element. Note there will not always be such a cell in every notebook. Set it to FALSE to always keep the notebook value.
+#' @param update_width if TRUE (default) and input$width is not defined, replace its value with the width of the widget root HTML element. Set it to FALSE to always keep the notebook or the Observable stdlib value.
 #' @param width htmlwidget width.
 #' @param height htmlwidget height.
 #' @param elementId optional manual widget HTML id.
@@ -22,13 +24,13 @@
 #' ## Display a notebook cell
 #' robservable(
 #'   "@d3/bar-chart",
-#'   cell= "chart"
+#'   cell = "chart"
 #' )
 #'
 #' ## Change cells data with input
 #' robservable(
 #'   "@d3/bar-chart",
-#'   cell= "chart",
+#'   cell = "chart",
 #'   input = list(color = "red", height = 700)
 #' )
 #'
@@ -37,38 +39,38 @@
 #' names(df) <- c("name", "value")
 #' robservable(
 #'   "@d3/horizontal-bar-chart",
-#'   cell= "chart",
+#'   cell = "chart",
 #'   input = list(data = df)
 #' )
 #' }
 #' @export
 #'
 robservable <- function(
-  notebook, cell = NULL, hide = NULL,
-  input = NULL, observers = NULL,
-  width = NULL, height = NULL, elementId = NULL
-) {
+                        notebook, cell = NULL, hide = NULL,
+                        input = NULL, observers = NULL,
+                        update_height = TRUE,
+                        update_width = TRUE,
+                        width = NULL, height = NULL,
+                        elementId = NULL) {
 
   x <- list(
     notebook = notebook,
     cell = cell,
     hide = hide,
     input = input,
-    observers = observers
+    observers = observers,
+    update_height = update_height,
+    update_width = update_width
   )
-  attr(x, 'TOJSON_ARGS') <- list(dataframe = "rows")
-
-  if (!is.null(width)) {
-    x$robservable_width <- width
-  }
+  attr(x, "TOJSON_ARGS") <- list(dataframe = "rows")
 
 
   htmlwidgets::createWidget(
     x,
-    name = 'robservable',
+    name = "robservable",
     width = width,
     height = height,
-    package = 'robservable',
+    package = "robservable",
     elementId = elementId
   )
 }
@@ -106,13 +108,15 @@ to_js_date <- function(date) {
 #' @name robservable-shiny
 #'
 #' @export
-robservableOutput <- function(outputId, width = '100%', height = '400px'){
-  htmlwidgets::shinyWidgetOutput(outputId, 'robservable', width, height, package = 'robservable')
+robservableOutput <- function(outputId, width = "100%", height = "400px") {
+  htmlwidgets::shinyWidgetOutput(outputId, "robservable", width, height, package = "robservable")
 }
 
 #' @rdname robservable-shiny
 #' @export
 renderRobservable <- function(expr, env = parent.frame(), quoted = FALSE) {
-  if (!quoted) { expr <- substitute(expr) } # force quoted
+  if (!quoted) {
+    expr <- substitute(expr)
+  } # force quoted
   htmlwidgets::shinyRenderWidget(expr, robservableOutput, env, quoted = TRUE)
 }
