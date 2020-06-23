@@ -18,7 +18,7 @@ Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
 Description: Allows to load and display an entire Observable notebook (or part of it)
     as an HTML Widget in an R session, shiny application or Rmarkdown document.
 VignetteBuilder: knitr
-URL: https://github.com/juba/robservable
+URL: https://juba.github.io/robservable/
 BugReports: https://github.com/juba/robservable/issues
 License: GPL (>=3)
 Encoding: UTF-8
