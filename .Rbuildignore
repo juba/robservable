@@ -3,3 +3,6 @@
 examples/
 test.html
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
