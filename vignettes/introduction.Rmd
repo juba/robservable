@@ -1,0 +1,246 @@
+---
+title: "Introduction to robservable"
+author: "Julien Barnier, Kenton Russel"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 5
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to robservable}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+```{r, include=FALSE}
+library(robservable)
+library(htmlwidgets)
+knitr::opts_chunk$set(
+  screenshot.force = FALSE,
+  echo = TRUE
+)
+```
+
+`robservable` allows the use of [Observable](https://observablehq.com/) notebooks (or part of them) as [htmlwidgets](http://www.htmlwidgets.org/) in R.
+
+Note that it is not just an `iframe` embedding a whole notebook : you can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
+
+## Basic usage : embed a whole notebook
+
+The most basic usage is to call the `robservable()` function with the identifier of the notebook you want to display. This identifier is the same as the one used to import another notebook in Observable.
+
+For example, to import the following notebook :
+
+https://observablehq.com/@d3/horizontal-bar-chart
+
+The identifier will be `@d3/horizontal-bar-chart`.
+
+You can then use the following to display the whole notebook^[The result is not displayed here as a whole notebook is not very suitable for embedding in a document] :
+
+
+```{r eval = FALSE}
+robservable("@d3/horizontal-bar-chart")
+```
+
+
+
+## Choose which cells to render
+
+Instead of rendering a whole notebook, we can choose to display only some cells of it. This is done by passing a character vector of cells names to the `cell` argument :
+
+
+```{r}
+robservable(
+  "@d3/horizontal-bar-chart", 
+  cell = "chart"
+)
+```
+
+
+For now only named cells can be displayed selectively. If you need to display an unnamed one the only workaround is to fork the notebook in Observable and to add a name yourself.
+
+For some notebooks you'll have to render several cells to get the desired result. For example, in the [eyes notebook](https://observablehq.com/@mbostock/eyes), the main chart is in a cell named `canvas`, but it doesn't render anything if `mouse` value is not present. For the chart to be created, you have to render both cells :
+
+
+```{r}
+robservable(
+  "@mbostock/eyes",
+  cell = c("canvas", "mouse")
+)
+```
+
+
+<p style = "height:30px;"></p>
+
+
+In this case, we may want to render `mouse` without displaying it. This is possible by adding its name to the `hide` argument :
+
+
+```{r}
+robservable(
+  "@mbostock/eyes",
+  cell = c("canvas", "mouse"),
+  hide = "mouse"
+)
+```
+
+
+
+## Update cell values
+
+More interinsting, `robservable` allows to update a notebook cell value directly from R. This is done by passing a named list as the `input` argument.
+
+For example, in the horizontal bar chart notebook there is a cell called `barHeight` which allows to customize the bar heights. We can modify its value when calling `robservable` with :
+
+
+```{r}
+robservable(
+  "@d3/horizontal-bar-chart", 
+  cell = "chart",
+  input = list(barHeight = 15)
+)
+```
+
+
+More interesting, we can update the `data` cell value of the notebook to generate the bar chart based on our own data. We just have to be sure that it is in the same format as the notebook data. 
+
+Here the data is in a standard `d3-array` format, so we can just pass a data frame. We just have to take care of the column names, as they must match the ones in the notebook data :
+
+
+```{r}
+df <- data.frame(table(iris$Species))
+names(df) <- c("name", "value")
+
+robservable(
+  "@d3/horizontal-bar-chart", 
+  cell = "chart",
+  input = list(data = df)
+)
+```
+
+
+There's still one problem : our species names are truncated. We can fix this because the notebook allows us to change the margins of the plot by modifiying the `margin` cell. As this cell value is a JavaScript object, we can update it by passing a named list :
+
+```{r}
+robservable(
+  "@d3/horizontal-bar-chart",
+  cell= "chart",
+  input = list(
+    data = df,
+    margin = list(top = 20, right = 0, left = 70, bottom = 0)
+  )
+)
+```
+
+Finally, here is a bit more complex example which displays a [multi-line chart](https://observablehq.com/@d3/multi-line-chart) with the `gapminder` data. The `to_js_date` function is an helper to convert `Date` or `POSIXt` R objects to JavaScript `Date` values (*ie* number of milliseconds since Unix Epoch) :
+
+```{r message=FALSE}
+library(gapminder)
+library(purrr)
+
+data(gapminder)
+series <- lapply(unique(gapminder$country), function(country) {
+  values <- gapminder[gapminder$country == country, "lifeExp", drop = TRUE]
+  list(name = country, values = values)
+})
+dates <- sort(unique(gapminder$year))
+dates <- as.Date(as.character(dates), format = "%Y")
+
+df <- list(
+  y = "Life expectancy",
+  series = series,
+  dates = to_js_date(dates)
+)
+
+robservable(
+  "@d3/multi-line-chart",
+  cell = "chart",
+  input = list(data = df)
+)
+```
+
+## Widget sizing
+
+Widget sizing is a bit complicated as it depends on several factors :
+
+- the size of the HTML widget himself.
+- the size of the outputs of the cells embedded in the widget.
+- the value of the `height` cell value, if it exists.
+- the value of the `width` cell value, if it exists. If not, `width` by default is defined by the [Observable standard library](https://github.com/observablehq/stdlib#width) as the page width.
+
+By default, `robservable` overrides the potential `width` and `height` notebook values by the htmlwidget root HTML element width and height. This override is performed both at widget creation and at widget resizing. 
+
+Overriding `width` allows to make the widget "fit" on its container, and avoids it to change size when the page is resized but not its container (which is the case when `width` is taken from Observable standard library). Overriding `height` has the same purpose, but as all notebooks don't define an `height` value, it won't always have an effect.
+
+This value override allows the following figure to fit in the widget dimensions :
+
+```{r}
+robservable(
+  "@mbostock/eyes",
+  cell = c("canvas", "mouse"),
+  hide = "mouse"
+)
+```
+
+
+If you explicitly specify the `width` and `height` of the widget with the corresponding arguments, the cell values will be updated accordingly :
+
+```{r}
+robservable(
+  "@mbostock/eyes",
+  cell = c("canvas", "mouse"),
+  hide = "mouse",
+  width = 500,
+  height = 100
+)
+```
+
+If the notebook doesn't provide an `height` value, then, you'll have to manually define an height suitable for the output :
+
+```{r}
+robservable(
+  "@d3/bivariate-choropleth",
+  cell = "chart",
+  height = 350
+)
+```
+
+Finally, if you provide both a widget `height` and an `height` value with the `input` argument, the second one is not overriden :
+
+```{r}
+robservable(
+  "@mbostock/eyes",
+  cell = c("canvas", "mouse"),
+  hide = "mouse",
+  input = list(height = 50),
+  height = 200
+)
+```
+
+
+There are some cases when these `width` and `height` override are not suitable. First, those values could be defined for something else than an output size (`height` could be another type of parameter). Second, overriding the height can modify the chart appearance. In these cases, you can set the `update_width` or `update_height` arguments to `FALSE` to deactivate the value override.
+
+For example, on our horizontal bar chart, it changes the original bar heights. To avoid this effect, we can deactivate `height` override with the `update_height = FALSE` argument :
+
+```{r}
+df <- data.frame(table(iris$Species))
+names(df) <- c("name", "value")
+
+robservable(
+  "@d3/horizontal-bar-chart",
+  cell= "chart",
+  input = list(
+    data = df,
+    margin = list(top = 20, right = 0, left = 70, bottom = 0)
+  ),
+  update_height = FALSE
+)
+```
+
+
+
+

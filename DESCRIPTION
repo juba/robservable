@@ -27,6 +27,7 @@ Enhances: shiny
 Imports:
     htmlwidgets
 Suggests:
+    gapminder,
     knitr,
     rmarkdown
 RoxygenNote: 7.1.0
