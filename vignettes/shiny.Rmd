@@ -25,6 +25,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+(this document is still a work in progress)
 
 `robservable` can be used inside a Shiny app the same way as any `htmlwidget`. You will find a very basic example in [examples/shiny.R](https://github.com/juba/robservable/blob/master/examples/shiny.R).
 
