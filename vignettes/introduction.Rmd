@@ -205,7 +205,7 @@ If the notebook doesn't provide an `height` value, then, you'll have to manually
 robservable(
   "@d3/bivariate-choropleth",
   cell = "chart",
-  height = 350
+  height = 450
 )
 ```
 
