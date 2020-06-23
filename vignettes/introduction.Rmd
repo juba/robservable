@@ -140,8 +140,6 @@ Finally, here is a bit more complex example which displays a [multi-line chart](
 
 ```{r message=FALSE}
 library(gapminder)
-library(purrr)
-
 data(gapminder)
 series <- lapply(unique(gapminder$country), function(country) {
   values <- gapminder[gapminder$country == country, "lifeExp", drop = TRUE]
