@@ -7,7 +7,9 @@
 
 The goal of this package is to allow the use of [Observable](https://observablehq.com/) notebooks (or part of them) as htmlwidgets in R.
 
-Note that this is a package in early stage of development.
+Note that it is not just an `iframe` embedding a whole notebook : you can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
+
+This package is in early stage of development.
 
 ## Features
 
