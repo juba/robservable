@@ -1,0 +1,67 @@
+---
+title: "robservable in Shiny applications"
+author: "Julien Barnier, Kenton Russel"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 5
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{robservable in Shiny applications}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+```{r, include=FALSE}
+library(robservable)
+library(htmlwidgets)
+knitr::opts_chunk$set(
+  screenshot.force = FALSE,
+  echo = TRUE
+)
+```
+
+
+`robservable` can be used inside a Shiny app the same way as any `htmlwidget`. You will find a very basic example in [examples/shiny.R](https://github.com/juba/robservable/blob/master/examples/shiny.R).
+
+When the notebook allows it, cells can be updated with animated transisitions instead of being recreated. You will find an example in [examples/shiny_updatable.R](https://github.com/juba/robservable/blob/master/examples/shiny_updatable.R), and the [associated notebook](https://observablehq.com/@juba/updatable-bar-chart).
+
+You can also add observers to notebook cell values and use cell values as inputs inside your Shiny app. You will find an example in [examples/shiny_observer.R](https://github.com/juba/robservable/blob/master/examples/shiny_observer.R).
+
+
+To do this, add the name of cells you want to observe in the `observers` argument. Something like :
+
+```r
+robservable(
+    "@jashkenas/inputs",
+    cell = c("worldMapCoordinates", "viewof worldMap1"),
+    hide = "worldMapCoordinates",
+    observers = "worldMap1"
+)
+```
+
+These values will be accessible via Shiny `input` objetc by prefixing the observer name with the `robservable` Shiny id. So, for example, if you use the previous `robservable` instance as an `robservableOutput` with an observer :
+
+```r
+robservableOutput("map_input")
+```
+
+The values will be accessible in `input$map_input_worldMap1`.
+
+You can use a named list to specify custom Shiny `input` names, but you will still have to add the id prefix. So in the following, values will be accessible in `input$map_input_point`. 
+
+```r
+robservable(
+    "@jashkenas/inputs",
+    cell = c("worldMapCoordinates", "viewof worldMap1"),
+    hide = "worldMapCoordinates",
+    observers = list(point = "worldMap1")
+)
+```
+
+
+
