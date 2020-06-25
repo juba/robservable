@@ -31,16 +31,13 @@ Note that it is not just an `iframe` embedding a whole notebook : you can choose
 
 ## Basic usage : embed a whole notebook
 
-The most basic usage is to call the `robservable()` function with the identifier of the notebook you want to display. This identifier is the same as the one used to import another notebook in Observable.
+The most basic usage is to call the `robservable()` function with the full URL or the identifier of the notebook you want to display. The identifier is the same as the one used to import another notebook in Observable (something like `@d3/horizontal-bar-chart`).
 
-For example, to import the following notebook :
+For example, the two following commands are equivalent and should display the whole corresponding notebook^[The result is not displayed here as a whole notebook is not very suitable for embedding in a document] :
 
-https://observablehq.com/@d3/horizontal-bar-chart
-
-The identifier will be `@d3/horizontal-bar-chart`.
-
-You can then use the following to display the whole notebook^[The result is not displayed here as a whole notebook is not very suitable for embedding in a document] :
-
+```{r eval = FALSE}
+robservable("https://observablehq.com/@d3/horizontal-bar-chart")
+```
 
 ```{r eval = FALSE}
 robservable("@d3/horizontal-bar-chart")
