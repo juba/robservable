@@ -172,6 +172,8 @@ HTMLWidgets.widget({
 
             resize(width, height) {
 
+                if (el.module === undefined) return;
+
                 // Get params and update width and height
                 el.width = width;
                 el.height = height;
