@@ -149,14 +149,13 @@ HTMLWidgets.widget({
 
             renderValue(params) {
 
-                params = update_height_width(params, el.height, el.width)
-
                 // Check if module object already created
                 let module = el.module;
                 if (module === undefined || module.params.notebook !== params.notebook) {
                     // If not, create one
                     RObservable.build(el, params).then(mod => {
                         params.update = false;
+                        params = update_height_width(params, el.height, el.width)
                         mod.params = params;
                         el.module = mod;
                     });
