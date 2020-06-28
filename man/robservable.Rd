@@ -19,7 +19,7 @@ robservable(
 )
 }
 \arguments{
-\item{notebook}{The notebook id, such as "@d3/bar-chart".}
+\item{notebook}{The notebook id, such as "@d3/bar-chart", or the full notebook URL.}
 
 \item{cell}{character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.}
 

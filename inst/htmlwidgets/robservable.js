@@ -28,7 +28,14 @@ class RObservable {
 
     // async builder to dynamically import notebook module
     static async build(el, params) {
-        const url = `https://api.observablehq.com/${params.notebook}.js?v=3`;
+        let url = '';
+        if (params.notebook.slice(0,1) == "@") {
+            // If params.notebook is an identifier
+            url = `https://api.observablehq.com/${params.notebook}.js?v=3`;
+        } else {
+            // If params.notebook is an url
+            url = params.notebook.replace('://observablehq', '://api.observablehq') + '.js?v=3'
+        }
         let nb = await import(url);
         return new RObservable(el, params, nb.default);
     }
@@ -183,14 +190,13 @@ HTMLWidgets.widget({
 
             renderValue(params) {
 
-                params = update_height_width(params, el.height, el.width)
-
                 // Check if module object already created
                 let module = el.module;
                 if (module === undefined || module.params.notebook !== params.notebook) {
                     // If not, create one
                     RObservable.build(el, params).then(mod => {
                         params.update = false;
+                        params = update_height_width(params, el.height, el.width)
                         mod.params = params;
                         el.module = mod;
                     });
@@ -205,6 +211,8 @@ HTMLWidgets.widget({
             },
 
             resize(width, height) {
+
+                if (el.module === undefined) return;
 
                 // Get params and update width and height
                 el.width = width;

@@ -1,7 +1,7 @@
 #' Display an Observable notebook as HTML widget
 #'
 #'
-#' @param notebook The notebook id, such as "@d3/bar-chart".
+#' @param notebook The notebook id, such as "@d3/bar-chart", or the full notebook URL.
 #' @param cell character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.
 #' @param hide character vector of cell names in `cell` to be hidden in the output.
 #' @param input A named list of cells to be updated.
