@@ -54,7 +54,6 @@ class RObservable {
                     return new observablehq.Inspector(div);
                 }
                 if (
-                    this.params.render_unnamed === true &&
                     (typeof(name) === "undefined" || name === "") &&
                     // num_cell increments so check to see if user included matching number
                     //   check both String and numeric since R will convert to character
