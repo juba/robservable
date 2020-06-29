@@ -11,10 +11,19 @@ class RObservable {
         this._params = params;
         this._params.observers_variables = {};
 
+        // set up a Map container to keep track of output <div>
+        this.output_divs = new Map();
+        // set up a counter so we can reference unnamed cells
+        this.num_cells = 0;
+
         let runtime = new observablehq.Runtime();
         let inspector = this.build_inspector();
         this.main = runtime.module(notebook, inspector);
 
+        // if whole notebook is rendered hide cells if user has requested
+        if (this.params.cell === null && this.params.hide !== null) {
+            this.hide_cells();
+        }
     }
 
     // async builder to dynamically import notebook module
@@ -34,13 +43,32 @@ class RObservable {
     // Build Observable inspector
     build_inspector() {
         if (this.params.cell !== null) {
-            // If output is one or several cells
-            let output_divs = this.create_output_divs(this.el, this.params);
+            const cell = !Array.isArray(this.params.cell) ? [this.params.cell] : this.params.cell;
 
             return (name) => {
-                if (this.params.cell.includes(name)) {
-                    return new observablehq.Inspector(output_divs.get(name));
+                let name_safe = "";
+                let div;
+
+                if (cell.includes(name)) {
+                    div = this.create_output_div(name);
+                    return new observablehq.Inspector(div);
                 }
+                if (
+                    this.params.render_unnamed === true &&
+                    (typeof(name) === "undefined" || name === "") &&
+                    // num_cell increments so check to see if user included matching number
+                    //   check both String and numeric since R will convert to character
+                    //   if in a vector that includes any character cell names
+                    (cell.includes(this.num_cells) || cell.includes(String(this.num_cells)))
+                )
+                {
+                    // will not have a name so call unnamed-1
+                    //   so we/user can reference later
+                    //   this is not ideal but hopefully better than nothing
+                    div = this.create_output_div();
+                    return new observablehq.Inspector(div);
+                }
+                this.num_cells++;
             }
         } else {
             // If output is the whole notebook
@@ -61,24 +89,37 @@ class RObservable {
         this.update_variables();
     }
 
-    // Create the <div> elements for each cell to render
-    create_output_divs() {
+    // Create the <div> elements for each cell to render and append to el
+    create_output_div(name) {
+        const num = this.num_cells;
+        let name_safe = (typeof(name) === "undefined" || name === "") ?
+            css_safe("unnamed-" + this.num_cells) :
+            css_safe(name);
 
-        const cell = !Array.isArray(this.params.cell) ? [this.params.cell] : this.params.cell;
         const hide = !Array.isArray(this.params.hide) ? [this.params.hide] : this.params.hide;
 
-        let output_divs = new Map();
-        cell.forEach(name => {
-            let div = document.createElement("div");
-            div.className = css_safe(name);
-            // hide cell if its name is in params.hide
-            if (hide.includes(name)) div.style["display"] = "none";
-            this.el.appendChild(div);
-            output_divs.set(name, div);
-        })
-        return output_divs;
+        let div = document.createElement("div");
+        div.className = name_safe;
+        if(hide.includes(name) || hide.includes(num) || hide.includes(String(num))) {
+            div.style.display = "none";
+        }
+        this.el.appendChild(div);
+        // add to our output_divs tracker
+        this.output_divs.set(name, div);
+        // increment counter
+        this.num_cells ++;
+        return div;
     }
 
+    hide_cells() {
+        const hide = !Array.isArray(this.params.hide) ? [this.params.hide] : this.params.hide;
+        const cells = this.el.querySelectorAll(".observablehq");
+        hide.forEach(num => {
+            try {
+              cells[num].style.display = "none";
+            } catch(e) {}
+        });
+    }
 
     // Add an observer on a notebook variable that sync its value to a Shiny input
     add_observer(variable) {
