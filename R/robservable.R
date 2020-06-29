@@ -7,7 +7,6 @@
 #' @param input A named list of cells to be updated.
 #' @param observers A vector of character strings representing variables in observable that
 #'   you would like to set as input values in Shiny.
-#' @param render_unnamed A logical/boolean to render unnamed cells such as \code{html} and \code{md}.
 #' @param update_height if TRUE (default) and input$height is not defined, replace its value with the height of the widget root HTML element. Note there will not always be such a cell in every notebook. Set it to FALSE to always keep the notebook value.
 #' @param update_width if TRUE (default) and input$width is not defined, replace its value with the width of the widget root HTML element. Set it to FALSE to always keep the notebook or the Observable stdlib value.
 #' @param width htmlwidget width.
@@ -49,7 +48,6 @@
 robservable <- function(
                         notebook, cell = NULL, hide = NULL,
                         input = NULL, observers = NULL,
-                        render_unnamed = FALSE,
                         update_height = TRUE,
                         update_width = TRUE,
                         width = NULL, height = NULL,
@@ -61,7 +59,6 @@ robservable <- function(
     hide = hide,
     input = input,
     observers = observers,
-    render_unnamed = render_unnamed,
     update_height = update_height,
     update_width = update_width
   )

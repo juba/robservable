@@ -10,7 +10,6 @@ robservable(
   hide = NULL,
   input = NULL,
   observers = NULL,
-  render_unnamed = FALSE,
   update_height = TRUE,
   update_width = TRUE,
   width = NULL,
@@ -29,8 +28,6 @@ robservable(
 
 \item{observers}{A vector of character strings representing variables in observable that
 you would like to set as input values in Shiny.}
-
-\item{render_unnamed}{A logical/boolean to render unnamed cells such as \code{html} and \code{md}.}
 
 \item{update_height}{if TRUE (default) and input$height is not defined, replace its value with the height of the widget root HTML element. Note there will not always be such a cell in every notebook. Set it to FALSE to always keep the notebook value.}
 
