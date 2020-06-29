@@ -1,0 +1,78 @@
+---
+title: "robservable Gallery"
+author: "Julien Barnier, Kenton Russel"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 5
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{robservable Gallery}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options:
+  chunk_output_type: console
+---
+
+
+
+```{r, include=FALSE}
+library(robservable)
+library(htmlwidgets)
+knitr::opts_chunk$set(
+  screenshot.force = FALSE,
+  echo = TRUE
+)
+```
+
+
+The goal of this vignette is to show some examples of (hopefully) useful, interesting or fun notebooks usable with `robservable`.S
+
+## Bivariate Choropleth
+
+The following notebook allows to generate bivariate choropleth maps with zoom and tooltips :
+
+https://observablehq.com/@juba/reusable-bivariate-choropleth
+
+We first load some data from the [USA.county.data Github project](https://github.com/Deleetdk/USA.county.data), recode identifiers and select two of the available variables :
+
+```{r}
+load(url("https://raw.githubusercontent.com/Deleetdk/USA.county.data/master/data/USA_county_data.RData"))
+
+d <- USA_county_data 
+d$fips = stringr::str_pad(d$fips, 5, side="left", pad = "0")
+d <- d[, c("fips", "name_16", "Graduate.Degree", "Less.Than.High.School")]
+names(d) <- c("fips", "name_16", "Graduate", "<High.School")
+```
+
+Then we can call `robservable` to load the notebook, render only `chart` and `draw` (both are needed for the map to show up), hide `draw` and update a bunch of cells avalues via the `input` named list. You can refer to the notebook for an explanation of the different values.
+
+```{r}
+robservable(
+  "@juba/reusable-bivariate-choropleth",
+  cell = c("chart", "draw"),
+  hide = "draw",
+  input = list(
+    data = d,
+    data_id = "fips",
+    data_name = "name_16",
+    data_var1 = "Graduate",
+    data_var2 = "<High.School",
+    map = "https://raw.githubusercontent.com/jgoodall/us-maps/master/topojson/county.topo.json",
+    map_object = "county",
+    map_id_property = NULL,
+    contour = "https://raw.githubusercontent.com/jgoodall/us-maps/master/topojson/state.topo.json",
+    contour_object = "state",
+    contour_width = 2,
+    projection = "geoAlbersUsa",
+    legend_position = "bottomleft"
+  ),
+  width = 700,
+  height = 700
+)
+```
+
+
+
+
+
