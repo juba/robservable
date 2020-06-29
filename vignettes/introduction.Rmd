@@ -58,7 +58,18 @@ robservable(
 ```
 
 
-For now only named cells can be displayed selectively. If you need to display an unnamed one the only workaround is to fork the notebook in Observable and to add a name yourself.
+If you need to display an unnamed cell, you can do it by specifying its number, *ie* its position in the notebook. The position is 0-based indexed, so to display the first cell of a notebook you would do :
+
+```{r, eval = FALSE}
+robservable(
+  "@d3/horizontal-bar-chart", 
+  cell = 0,
+  render_unnamed = TRUE
+)
+```
+
+Note that specifying a named cell by its position will not display it : you have to add its name to `cell`. 
+
 
 For some notebooks you'll have to render several cells to get the desired result. For example, in the [eyes notebook](https://observablehq.com/@mbostock/eyes), the main chart is in a cell named `canvas`, but it doesn't render anything if `mouse` value is not present. For the chart to be created, you have to render both cells :
 
@@ -84,6 +95,18 @@ robservable(
   hide = "mouse"
 )
 ```
+
+
+Finally, it is possible to mix the use of named and unnamed cells both in `cell` and `hide`, so you can do something like :
+
+```{r, eval = FALSE}
+robservable(
+  "@mbostock/eyes",
+  cell = c(0, "canvas", "mouse"),
+  hide = "mouse"
+)
+```
+
 
 
 
