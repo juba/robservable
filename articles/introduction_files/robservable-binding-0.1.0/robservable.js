@@ -14,7 +14,7 @@ class RObservable {
         // set up a Map container to keep track of output <div>
         this.output_divs = new Map();
         // set up a counter so we can reference unnamed cells
-        this.num_cells = 0;
+        this.num_cells = 1;
 
         let runtime = new observablehq.Runtime();
         let inspector = this.build_inspector();
@@ -54,7 +54,6 @@ class RObservable {
                     return new observablehq.Inspector(div);
                 }
                 if (
-                    this.params.render_unnamed === true &&
                     (typeof(name) === "undefined" || name === "") &&
                     // num_cell increments so check to see if user included matching number
                     //   check both String and numeric since R will convert to character
