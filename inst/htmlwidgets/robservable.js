@@ -14,7 +14,7 @@ class RObservable {
         // set up a Map container to keep track of output <div>
         this.output_divs = new Map();
         // set up a counter so we can reference unnamed cells
-        this.num_cells = 0;
+        this.num_cells = 1;
 
         let runtime = new observablehq.Runtime();
         let inspector = this.build_inspector();
