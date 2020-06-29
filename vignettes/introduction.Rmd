@@ -58,13 +58,12 @@ robservable(
 ```
 
 
-If you need to display an unnamed cell, you can do it by specifying its number, *ie* its position in the notebook. The position is 0-based indexed, so to display the first cell of a notebook you would do :
+If you need to display an unnamed cell, you can do it by specifying its number, *ie* its position in the notebook. For example, to display the first cell of a notebook if it is unnamed you would do :
 
 ```{r, eval = FALSE}
 robservable(
   "@d3/horizontal-bar-chart", 
-  cell = 0,
-  render_unnamed = TRUE
+  cell = 1
 )
 ```
 
@@ -102,7 +101,7 @@ Finally, it is possible to mix the use of named and unnamed cells both in `cell`
 ```{r, eval = FALSE}
 robservable(
   "@mbostock/eyes",
-  cell = c(0, "canvas", "mouse"),
+  cell = c(1, "canvas", "mouse"),
   hide = "mouse"
 )
 ```

@@ -14,9 +14,9 @@ This package is in early stage of development.
 ## Features
 
 - Display an entire published notebook as an htmlwidget
-- Display specified named cells of a published notebook as an htmlwidget
+- Display specific cells of a published notebook as an htmlwidget
 - Use R data to update cell values
-- Add observers on cells values to get them back inside a Shiny app
+- Add observers on cell values to get them back inside a Shiny app
 - Use inside Shiny app or Rmarkdown document (as any htmlwidget)
 
 ## Limitations
