@@ -1,8 +1,8 @@
 Package: robservable
 Type: Package
 Title: Import an Observable Notebook as HTML Widget
-Version: 0.1.0
-Date: 2020-06-11
+Version: 0.2.0
+Date: 2020-07-02
 Authors@R: c(
     person(
       "Julien", "Barnier",
@@ -15,7 +15,7 @@ Authors@R: c(
       role = "aut"
     ))
 Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
-Description: Allows to load and display an entire Observable notebook (or part of it)
+Description: Allows loading and displaying an entire Observable notebook (or part of it)
     as an HTML Widget in an R session, shiny application or Rmarkdown document.
 VignetteBuilder: knitr
 URL: https://juba.github.io/robservable/
@@ -30,4 +30,4 @@ Suggests:
     gapminder,
     knitr,
     rmarkdown
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

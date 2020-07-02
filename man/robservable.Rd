@@ -6,7 +6,7 @@
 \usage{
 robservable(
   notebook,
-  cell = NULL,
+  include = NULL,
   hide = NULL,
   input = NULL,
   observers = NULL,
@@ -20,9 +20,9 @@ robservable(
 \arguments{
 \item{notebook}{The notebook id, such as "@d3/bar-chart", or the full notebook URL.}
 
-\item{cell}{character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.}
+\item{include}{character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.}
 
-\item{hide}{character vector of cell names in `cell` to be hidden in the output.}
+\item{hide}{character vector of cell names in `include` to be hidden in the output.}
 
 \item{input}{A named list of cells to be updated.}
 
@@ -51,13 +51,13 @@ expected by `d3` (ie, converted by rows)..
 ## Display a notebook cell
 robservable(
   "@d3/bar-chart",
-  cell = "chart"
+  include = "chart"
 )
 
 ## Change cells data with input
 robservable(
   "@d3/bar-chart",
-  cell = "chart",
+  include = "chart",
   input = list(color = "red", height = 700)
 )
 
@@ -66,7 +66,7 @@ df <- data.frame(table(mtcars$cyl))
 names(df) <- c("name", "value")
 robservable(
   "@d3/horizontal-bar-chart",
-  cell = "chart",
+  include = "chart",
   input = list(data = df)
 )
 }

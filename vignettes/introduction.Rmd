@@ -1,6 +1,6 @@
 ---
 title: "Introduction to robservable"
-author: "Julien Barnier, Kenton Russel"
+author: "Julien Barnier, Kenton Russell"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
@@ -47,18 +47,18 @@ robservable("@d3/horizontal-bar-chart")
 
 ## Choose which cells to render
 
-Instead of rendering a whole notebook, we can choose to display only some cells of it. This is done by passing a character vector of cells names to the `cell` argument :
+Instead of rendering a whole notebook, we can choose to display only some cells of it. This is done by passing a character vector of cells names to the `include` argument :
 
 
 ```{r}
 robservable(
   "@d3/horizontal-bar-chart", 
-  cell = "chart"
+  include = "chart"
 )
 ```
 
 
-For now only named cells can be displayed selectively. If you need to display an unnamed one the only workaround is to fork the notebook in Observable and to add a name yourself.
+For now only named cells can be displayed by name, but you can reference unnamed cells by index (starting with 1) or number in which they occur in the notebook. Another option for unnamed cells is to fork the notebook in Observable and to add a name yourself.
 
 For some notebooks you'll have to render several cells to get the desired result. For example, in the [eyes notebook](https://observablehq.com/@mbostock/eyes), the main chart is in a cell named `canvas`, but it doesn't render anything if `mouse` value is not present. For the chart to be created, you have to render both cells :
 
@@ -66,7 +66,7 @@ For some notebooks you'll have to render several cells to get the desired result
 ```{r}
 robservable(
   "@mbostock/eyes",
-  cell = c("canvas", "mouse")
+  include = c("canvas", "mouse")
 )
 ```
 
@@ -80,7 +80,7 @@ In this case, we may want to render `mouse` without displaying it. This is possi
 ```{r}
 robservable(
   "@mbostock/eyes",
-  cell = c("canvas", "mouse"),
+  include = c("canvas", "mouse"),
   hide = "mouse"
 )
 ```
@@ -97,7 +97,7 @@ For example, in the horizontal bar chart notebook there is a cell called `barHei
 ```{r}
 robservable(
   "@d3/horizontal-bar-chart", 
-  cell = "chart",
+  include = "chart",
   input = list(barHeight = 15)
 )
 ```
@@ -114,7 +114,7 @@ names(df) <- c("name", "value")
 
 robservable(
   "@d3/horizontal-bar-chart", 
-  cell = "chart",
+  include = "chart",
   input = list(data = df)
 )
 ```
@@ -125,7 +125,7 @@ There's still one problem : our species names are truncated. We can fix this bec
 ```{r}
 robservable(
   "@d3/horizontal-bar-chart",
-  cell= "chart",
+  include = "chart",
   input = list(
     data = df,
     margin = list(top = 20, right = 0, left = 70, bottom = 0)
@@ -153,7 +153,7 @@ df <- list(
 
 robservable(
   "@d3/multi-line-chart",
-  cell = "chart",
+  include = "chart",
   input = list(data = df)
 )
 ```
@@ -176,7 +176,7 @@ This value override allows the following figure to fit in the widget dimensions 
 ```{r}
 robservable(
   "@mbostock/eyes",
-  cell = c("canvas", "mouse"),
+  include = c("canvas", "mouse"),
   hide = "mouse"
 )
 ```
@@ -187,7 +187,7 @@ If you explicitly specify the `width` and `height` of the widget with the corres
 ```{r}
 robservable(
   "@mbostock/eyes",
-  cell = c("canvas", "mouse"),
+  include = c("canvas", "mouse"),
   hide = "mouse",
   width = 500,
   height = 100
@@ -199,7 +199,7 @@ If the notebook doesn't provide an `height` value, then, you'll have to manually
 ```{r}
 robservable(
   "@d3/bivariate-choropleth",
-  cell = "chart",
+  include = "chart",
   height = 450
 )
 ```
@@ -209,7 +209,7 @@ Finally, if you provide both a widget `height` and an `height` value with the `i
 ```{r}
 robservable(
   "@mbostock/eyes",
-  cell = c("canvas", "mouse"),
+  include = c("canvas", "mouse"),
   hide = "mouse",
   input = list(height = 50),
   height = 200
@@ -227,7 +227,7 @@ names(df) <- c("name", "value")
 
 robservable(
   "@d3/horizontal-bar-chart",
-  cell= "chart",
+  include  = "chart",
   input = list(
     data = df,
     margin = list(top = 20, right = 0, left = 70, bottom = 0)

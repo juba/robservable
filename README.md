@@ -7,7 +7,7 @@
 
 The goal of this package is to allow the use of [Observable](https://observablehq.com/) notebooks (or part of them) as htmlwidgets in R.
 
-Note that it is not just an `iframe` embedding a whole notebook : you can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
+Note that it is **not an `iframe`** embedding a whole notebook -- cells are `<div>`s included directly in your document.  You can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
 
 This package is in early stage of development.
 
@@ -22,7 +22,7 @@ This package is in early stage of development.
 ## Limitations
 
 - Only published notebooks can be used (but you may fork and publish any notebook in Observable)
-- Only named cells can be displayed alone (but you can fork the notebook and name the cell in Observable)
+- Only named cells can be displayed by name, but you can reference unnamed cells by index (1-based), or you can fork the notebook and name the cell in Observable
 
 
 ## Installation

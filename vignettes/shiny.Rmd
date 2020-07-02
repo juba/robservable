@@ -1,6 +1,6 @@
 ---
 title: "robservable in Shiny applications"
-author: "Julien Barnier, Kenton Russel"
+author: "Julien Barnier, Kenton Russell"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
@@ -39,7 +39,7 @@ To do this, add the name of cells you want to observe in the `observers` argumen
 ```r
 robservable(
     "@jashkenas/inputs",
-    cell = c("worldMapCoordinates", "viewof worldMap1"),
+    include = c("worldMapCoordinates", "viewof worldMap1"),
     hide = "worldMapCoordinates",
     observers = "worldMap1"
 )
@@ -58,7 +58,7 @@ You can use a named list to specify custom Shiny `input` names, but you will sti
 ```r
 robservable(
     "@jashkenas/inputs",
-    cell = c("worldMapCoordinates", "viewof worldMap1"),
+    include = c("worldMapCoordinates", "viewof worldMap1"),
     hide = "worldMapCoordinates",
     observers = list(point = "worldMap1")
 )

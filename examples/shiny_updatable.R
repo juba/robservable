@@ -34,7 +34,7 @@ server <- function(input, output) {
 
         robservable(
             "@juba/updatable-bar-chart",
-            cell = c("chart", "draw"),
+            include = c("chart", "draw"),
             hide = "draw",
             input = list(
                 data = data()

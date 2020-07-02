@@ -8,14 +8,14 @@ robservable(
 
 robservable(
   "@d3/horizontal-bar-chart",
-  cell = "chart"
+  include = "chart"
 )
 
 df <- data.frame(table(mtcars$cyl))
 names(df) <- c("name", "value")
 robservable(
   "@d3/horizontal-bar-chart",
-  cell= "chart",
+  include = "chart",
   input = list(data = df,
     margin = list(top = 20, right = 0, left = 150, bottom = 0)
   ),
@@ -33,7 +33,7 @@ robservable(
 
 robservable(
   "@d3/bar-chart",
-  cell= "chart",
+  include = "chart",
   input = list(
     data = df,
     color = "#567890",
@@ -48,7 +48,7 @@ robservable(
 
 robservable(
   "@zacol/marvel-cinematic-universe-sankey-diagram",
-  cell = "chart"
+  include = "chart"
 )
 
 
@@ -63,7 +63,7 @@ robservable(
 
 robservable(
   "@mbostock/eyes",
-  cell = c("canvas", "mouse"),
+  include = c("canvas", "mouse"),
   hide = "mouse"
 )
 
@@ -78,23 +78,23 @@ robservable(
 
 robservable(
   "@mbostock/liquidfun",
-  cell = "canvas"
+  include = "canvas"
 )
 
 robservable(
   "@mbostock/clifford-attractor-iii",
-  cell = c("viewof gl", "draw")
+  include = c("viewof gl", "draw")
 )
 
 robservable(
   "@mbostock/clifford-attractor-iii",
-  cell = c("viewof gl", "draw"),
+  include = c("viewof gl", "draw"),
   hide = "draw"
 )
 
 robservable(
   "@mbostock/clifford-attractor-iii",
-  cell = c("viewof gl", "draw"),
+  include = c("viewof gl", "draw"),
   hide = c("draw"),
   input = list(settings = list(a = 1, b = 1, c = 3, d = 1))
 )
@@ -108,7 +108,7 @@ robservable("@d3/multi-line-chart")
 
 robservable(
   "@d3/multi-line-chart",
-  cell = "chart"
+  include = "chart"
 )
 
 library(gapminder)
@@ -130,7 +130,7 @@ df <- list(
 
 robservable(
   "@d3/multi-line-chart",
-  cell = "chart",
+  include = "chart",
   input = list(data = df)
 )
 
@@ -145,14 +145,14 @@ robservable(
 # Forked to add a name to redraw and style cells
 robservable(
   "@juba/d3-chart-updates-in-observable",
-  cell = c("chart", "redraw", "style"),
+  include = c("chart", "redraw", "style"),
   hide = c("redraw", "style"),
   input = list(state = "District of Columbia")
 )
 
 robservable(
   "@juba/updatable-bar-chart",
-  cell = c("chart", "draw"),
+  include = c("chart", "draw"),
   hide = "draw",
   input = list(
     data = data.frame(

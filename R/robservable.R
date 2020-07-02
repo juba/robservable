@@ -2,8 +2,8 @@
 #'
 #'
 #' @param notebook The notebook id, such as "@d3/bar-chart", or the full notebook URL.
-#' @param cell character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.
-#' @param hide character vector of cell names in `cell` to be hidden in the output.
+#' @param include character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.
+#' @param hide character vector of cell names in `include` to be hidden in the output.
 #' @param input A named list of cells to be updated.
 #' @param observers A vector of character strings representing variables in observable that
 #'   you would like to set as input values in Shiny.
@@ -24,13 +24,13 @@
 #' ## Display a notebook cell
 #' robservable(
 #'   "@d3/bar-chart",
-#'   cell = "chart"
+#'   include = "chart"
 #' )
 #'
 #' ## Change cells data with input
 #' robservable(
 #'   "@d3/bar-chart",
-#'   cell = "chart",
+#'   include = "chart",
 #'   input = list(color = "red", height = 700)
 #' )
 #'
@@ -39,14 +39,14 @@
 #' names(df) <- c("name", "value")
 #' robservable(
 #'   "@d3/horizontal-bar-chart",
-#'   cell = "chart",
+#'   include = "chart",
 #'   input = list(data = df)
 #' )
 #' }
 #' @export
 #'
 robservable <- function(
-                        notebook, cell = NULL, hide = NULL,
+                        notebook, include = NULL, hide = NULL,
                         input = NULL, observers = NULL,
                         update_height = TRUE,
                         update_width = TRUE,
@@ -55,7 +55,7 @@ robservable <- function(
 
   x <- list(
     notebook = notebook,
-    cell = cell,
+    include = include,
     hide = hide,
     input = input,
     observers = observers,

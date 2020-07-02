@@ -27,7 +27,7 @@ server <- function(input, output) {
 
         robservable(
             "@jashkenas/inputs",
-            cell = c("worldMapCoordinates", "viewof worldMap1"),
+            include = c("worldMapCoordinates", "viewof worldMap1"),
             hide = "worldMapCoordinates",
             observers = "worldMap1"
         )
