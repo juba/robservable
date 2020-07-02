@@ -45,12 +45,12 @@ d <- d[, c("fips", "name_16", "Graduate.Degree", "Less.Than.High.School")]
 names(d) <- c("fips", "name_16", "Graduate", "<High.School")
 ```
 
-Then we can call `robservable` to load the notebook, render only `chart` and `draw` (both are needed for the map to show up), hide `draw` and update a bunch of cells avalues via the `input` named list. You can refer to the notebook for an explanation of the different values.
+Then we can call `robservable` to load the notebook, render only `chart` and `draw` (both are needed for the map to show up), hide `draw` and update a bunch of cells values via the `input` named list. You can refer to the notebook for an explanation of the different values.
 
 ```{r}
 robservable(
   "@juba/reusable-bivariate-choropleth",
-  cell = c("chart", "draw"),
+  include = c("chart", "draw"),
   hide = "draw",
   input = list(
     data = d,

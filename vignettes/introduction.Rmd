@@ -63,11 +63,11 @@ For now only named cells can be displayed by name, but you can reference unnamed
 ```{r, eval = FALSE}
 robservable(
   "@d3/horizontal-bar-chart", 
-  cell = 1
+  include = 1
 )
 ```
 
-Note that specifying a named cell by its position will not display it : you have to add its name to `cell`. 
+Note that specifying a named cell by its position will not display it : you have to add its name to `include`. 
 
 For some notebooks you'll have to render several cells to get the desired result. For example, in the [eyes notebook](https://observablehq.com/@mbostock/eyes), the main chart is in a cell named `canvas`, but it doesn't render anything if `mouse` value is not present. For the chart to be created, you have to render both cells :
 
