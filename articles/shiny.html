@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">robservable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -89,9 +89,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>robservable in Shiny applications</h1>
-                        <h4 class="author">Julien Barnier, Kenton Russel</h4>
+                        <h4 class="author">Julien Barnier, Kenton Russell</h4>
             
-            <h4 class="date">2020-06-29</h4>
+            <h4 class="date">2020-07-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/juba/robservable/blob/master/vignettes/shiny.Rmd"><code>vignettes/shiny.Rmd</code></a></small>
       <div class="hidden name"><code>shiny.Rmd</code></div>
@@ -108,7 +108,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
     <span class="st">"@jashkenas/inputs"</span>,
-    cell = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span>),
+    include = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span>),
     hide = <span class="st">"worldMapCoordinates"</span>,
     observers = <span class="st">"worldMap1"</span>
 )
@@ -122,7 +122,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
     <span class="st">"@jashkenas/inputs"</span>,
-    cell = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span>),
+    include = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span>),
     hide = <span class="st">"worldMapCoordinates"</span>,
     observers = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(point = <span class="st">"worldMap1"</span>)
 )

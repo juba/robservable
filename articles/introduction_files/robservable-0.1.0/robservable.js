@@ -21,7 +21,7 @@ class RObservable {
         this.main = runtime.module(notebook, inspector);
 
         // if whole notebook is rendered hide cells if user has requested
-        if (this.params.cell === null && this.params.hide !== null) {
+        if (this.params.include === null && this.params.hide !== null) {
             this.hide_cells();
         }
     }
@@ -42,8 +42,8 @@ class RObservable {
 
     // Build Observable inspector
     build_inspector() {
-        if (this.params.cell !== null) {
-            const cell = !Array.isArray(this.params.cell) ? [this.params.cell] : this.params.cell;
+        if (this.params.include !== null) {
+            const cell = !Array.isArray(this.params.include) ? [this.params.include] : this.params.include;
 
             return (name) => {
                 let name_safe = "";

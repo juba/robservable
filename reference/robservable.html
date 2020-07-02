@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">robservable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -140,7 +140,7 @@
 
     <pre class="usage"><span class='fu'>robservable</span>(
   <span class='kw'>notebook</span>,
-  cell = <span class='kw'>NULL</span>,
+  include = <span class='kw'>NULL</span>,
   hide = <span class='kw'>NULL</span>,
   input = <span class='kw'>NULL</span>,
   observers = <span class='kw'>NULL</span>,
@@ -159,12 +159,12 @@
       <td><p>The notebook id, such as "@d3/bar-chart", or the full notebook URL.</p></td>
     </tr>
     <tr>
-      <th>cell</th>
+      <th>include</th>
       <td><p>character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.</p></td>
     </tr>
     <tr>
       <th>hide</th>
-      <td><p>character vector of cell names in `cell` to be hidden in the output.</p></td>
+      <td><p>character vector of cell names in `include` to be hidden in the output.</p></td>
     </tr>
     <tr>
       <th>input</th>
@@ -207,13 +207,13 @@ expected by `d3` (ie, converted by rows)..</p>
 <span class='co'>## Display a notebook cell</span>
 <span class='fu'>robservable</span>(
   <span class='st'>"@d3/bar-chart"</span>,
-  cell = <span class='st'>"chart"</span>
+  include = <span class='st'>"chart"</span>
 )
 
 <span class='co'>## Change cells data with input</span>
 <span class='fu'>robservable</span>(
   <span class='st'>"@d3/bar-chart"</span>,
-  cell = <span class='st'>"chart"</span>,
+  include = <span class='st'>"chart"</span>,
   input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(color = <span class='st'>"red"</span>, height = <span class='fl'>700</span>)
 )
 
@@ -222,7 +222,7 @@ expected by `d3` (ie, converted by rows)..</p>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>df</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"name"</span>, <span class='st'>"value"</span>)
 <span class='fu'>robservable</span>(
   <span class='st'>"@d3/horizontal-bar-chart"</span>,
-  cell = <span class='st'>"chart"</span>,
+  include = <span class='st'>"chart"</span>,
   input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(data = <span class='kw'>df</span>)
 )
 <span class='co'># }</span></div></pre>

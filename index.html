@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Import an Observable Notebook as HTML Widget">
-<meta property="og:description" content="Allows to load and display an entire Observable notebook (or part of it)
+<meta property="og:description" content="Allows loading and displaying an entire Observable notebook (or part of it)
     as an HTML Widget in an R session, shiny application or Rmarkdown document.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">robservable</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#robservable" class="anchor"></a>robservable</h1></div>
 <p>The goal of this package is to allow the use of <a href="https://observablehq.com/">Observable</a> notebooks (or part of them) as htmlwidgets in R.</p>
-<p>Note that it is not just an <code>iframe</code> embedding a whole notebook : you can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.</p>
+<p>Note that it is <strong>not an <code>iframe</code></strong> embedding a whole notebook – cells are <code>&lt;div&gt;</code>s included directly in your document. You can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.</p>
 <p>This package is in early stage of development.</p>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
@@ -112,6 +112,7 @@
 <a href="#limitations" class="anchor"></a>Limitations</h2>
 <ul>
 <li>Only published notebooks can be used (but you may fork and publish any notebook in Observable)</li>
+<li>Only named cells can be displayed by name, but you can reference unnamed cells by index (1-based), or you can fork the notebook and name the cell in Observable</li>
 </ul>
 </div>
 <div id="installation" class="section level2">
