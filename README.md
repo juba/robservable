@@ -14,9 +14,9 @@ This package is in early stage of development.
 ## Features
 
 - Display an entire published notebook as an htmlwidget
-- Display specified named cells of a published notebook as an htmlwidget
-- Use R data to update cell values before displaying the notebook
-- Add observers on cells values to get them back inside a Shiny app
+- Display specific cells of a published notebook as an htmlwidget
+- Use R data to update cell values
+- Add observers on cell values to get them back inside a Shiny app
 - Use inside Shiny app or Rmarkdown document (as any htmlwidget)
 
 ## Limitations
@@ -33,8 +33,9 @@ remotes::install_github("juba/robservable")
 
 ## Usage
 
-
 For an introduction and examples, see the [introduction to robservable](https://juba.github.io/robservable/articles/introduction.html) vignette.
+
+For a small gallery of interesting notebooks, see the [robservable gallery](https://juba.github.io/robservable/articles/gallery.html) vignette (work in progress).
 
 For usage in Shiny, see the [robservable in Shiny applications](https://juba.github.io/robservable/articles/shiny.html) vignette (work in progress)
 
