@@ -17,3 +17,21 @@ function update_height_width(params, height, width) {
     }
     return params;
 }
+
+// Return runtime API notebook URL from notebook id
+function notebook_api_url(id) {
+    if (id.slice(0,4) == "http") {
+       // If id is an url
+       return id.replace('://observablehq', '://api.observablehq') + '.js?v=3'
+    }
+    if (id.slice(0,1) == "@") {
+       // If id is an identifier of a published notebook
+       return `https://api.observablehq.com/${id}.js?v=3`;
+    }
+    if (id.slice(0,2) == "d/") {
+       // If id is an identifier of a shared notebook with d/ prefix
+       return `https://api.observablehq.com/${id}.js?v=3`;
+    }
+    // else, id should be an identifier of a shared notebook without d/ prefix
+    return `https://api.observablehq.com/d/${id}.js?v=3`;
+}
