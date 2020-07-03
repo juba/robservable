@@ -21,7 +21,6 @@ This package is in early stage of development.
 
 ## Limitations
 
-- Only published notebooks can be used (but you may fork and publish any notebook in Observable)
 - Only named cells can be displayed by name, but you can reference unnamed cells by index (1-based), or you can fork the notebook and name the cell in Observable
 
 

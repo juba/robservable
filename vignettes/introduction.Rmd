@@ -43,6 +43,15 @@ robservable("https://observablehq.com/@d3/horizontal-bar-chart")
 robservable("@d3/horizontal-bar-chart")
 ```
 
+If the notebook is shared but not published, you can use the full URL or the hash identifier :
+
+```{r eval = FALSE}
+robservable("https://observablehq.com/d/61be71d2b8c0d456")
+```
+
+```{r eval = FALSE}
+robservable("61be71d2b8c0d456")
+```
 
 
 ## Choose which cells to render
@@ -110,7 +119,7 @@ robservable(
 
 ## Update cell values
 
-More interinsting, `robservable` allows to update a notebook cell value directly from R. This is done by passing a named list as the `input` argument.
+More interesting, `robservable` allows to update a notebook cell value directly from R. This is done by passing a named list as the `input` argument.
 
 For example, in the horizontal bar chart notebook there is a cell called `barHeight` which allows to customize the bar heights. We can modify its value when calling `robservable` with :
 
