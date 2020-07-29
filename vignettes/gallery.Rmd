@@ -28,6 +28,30 @@ knitr::opts_chunk$set(
 
 The goal of this vignette is to show some examples of (hopefully) useful, interesting or fun notebooks usable with `robservable`.
 
+
+## Draggable Pie/Donut Chart
+
+Yes, I know, pie charts are bad. But the following notebook allows nonetheless to create interactive pie or donut charts, with slices optionnaly draggable to rearrange their order :
+
+https://observablehq.com/@juba/draggable-pie-donut-chart
+
+Here is a small example. To display the chart we have to `include` both the `chart` and `draw` cells, and we hide `draw` as it is only useful to render the plot. We pass our data as a data frame with `name` and `value` columns.
+
+```{r}
+df <- data.frame(
+  name = rownames(USPersonalExpenditure), 
+  value = USPersonalExpenditure[,"1960"]
+)
+robservable(
+  "https://observablehq.com/@juba/draggable-pie-donut-chart",
+  include = c("chart", "draw"),
+  hide = "draw",
+  input = list(data = df),
+  width = 700
+)
+```
+
+
 ## Bivariate Choropleth
 
 The following notebook allows to generate bivariate choropleth maps with zoom and tooltips :
