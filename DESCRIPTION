@@ -16,7 +16,7 @@ Authors@R: c(
     ))
 Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
 Description: Allows loading and displaying an entire Observable notebook (or part of it)
-    as an HTML Widget in an R session, shiny application or Rmarkdown document.
+    as an HTML Widget in an R session, Shiny application or Rmarkdown document.
 VignetteBuilder: knitr
 URL: https://juba.github.io/robservable/
 BugReports: https://github.com/juba/robservable/issues
