@@ -10,6 +10,5 @@ dependencies:
   - name: robservable-utils
     version: 0.1.0
     src: htmlwidgets/
-    module: TRUE
     script:
       - utils.js
