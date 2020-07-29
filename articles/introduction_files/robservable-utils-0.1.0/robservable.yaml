@@ -1,0 +1,14 @@
+# Downloaded from https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.umd.js
+dependencies:
+  - name: observable-runtime
+    version: 4.7.0
+    src: htmlwidgets/runtime/
+    script:
+      - runtime.umd.js
+    stylesheet:
+      - inspector.css
+  - name: robservable-utils
+    version: 0.1.0
+    src: htmlwidgets/
+    script:
+      - utils.js
