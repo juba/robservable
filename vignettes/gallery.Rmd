@@ -21,7 +21,9 @@ library(robservable)
 library(htmlwidgets)
 knitr::opts_chunk$set(
   screenshot.force = FALSE,
-  echo = TRUE
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
 )
 ```
 
@@ -50,6 +52,58 @@ robservable(
   width = 700
 )
 ```
+
+
+## Bar chart race
+
+The following notebook allows to generate animated "bar chart race" charts :
+
+https://observablehq.com/@juba/bar-chart-race
+
+To use it from `robservable` you have to place your data in a data frame with the following columns :
+
+- `id` : identifier (country, city, brand...)
+- `date` : observation date (can be any number or character : year, day...)
+- `value` : value for that `date` in this `id`
+
+Optionnaly, if you want the displayed date value to be different than the one used in your dataset (for example if you iterate over monthly data but prefer to only display the year), you can add an optional corresponding `date_label` column.
+
+```{r}
+library(tidyverse)
+
+## Load Covid-19 data from Johns Hopkins Github repository
+d <- read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv")
+
+## Reformat data 
+d <- d %>%
+  select(-`Province/State`, -Lat, -Long) %>%
+  rename(id = `Country/Region`) %>%
+  group_by(id) %>%
+  summarise(across(everything(), sum)) %>%
+  pivot_longer(-id, names_to = "date") %>%
+  mutate(date = as.character(lubridate::mdy(date)))
+```
+
+We can then generate the chart with the following `robservable` call. Note that we have to include several cells : the chart itself, the `draw` cell which updates it, the `date` play/pause control, and the CSS `styles`. 
+
+```{r}
+## Generate chart
+robservable(
+  "https://observablehq.com/@juba/bar-chart-race",
+  include = c("viewof date", "chart", "draw", "styles"),
+  hide = "draw",
+  input = list(
+    data = d,
+    title = "COVID-19 deaths",
+    subtitle = "Cumulative number of COVID-19 deaths by country",
+    source = "Source : Johns Hopkins University"
+  ),
+  width = 700,
+  height = 710
+)
+
+```
+
 
 
 ## Bivariate Choropleth
