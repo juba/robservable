@@ -32,5 +32,7 @@ Suggests:
     rmarkdown,
     readr,
     dplyr,
-    tidyr
+    tidyr,
+    lubridate,
+    stringr
 RoxygenNote: 7.1.1
