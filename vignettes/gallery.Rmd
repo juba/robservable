@@ -69,7 +69,9 @@ To use it from `robservable` you have to place your data in a data frame with th
 Optionnaly, if you want the displayed date value to be different than the one used in your dataset (for example if you iterate over monthly data but prefer to only display the year), you can add an optional corresponding `date_label` column.
 
 ```{r}
-library(tidyverse)
+library(readr)
+library(dplyr)
+library(tidyr)
 
 ## Load Covid-19 data from Johns Hopkins Github repository
 d <- read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv")

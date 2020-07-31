@@ -29,5 +29,8 @@ Imports:
 Suggests:
     gapminder,
     knitr,
-    rmarkdown
+    rmarkdown,
+    readr,
+    dplyr,
+    tidyr
 RoxygenNote: 7.1.1
