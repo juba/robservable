@@ -13,3 +13,10 @@ reference:
   desc: Utility functions
   contents:
   - '`to_js_date`'
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - introduction
+  - gallery
+  - shiny
