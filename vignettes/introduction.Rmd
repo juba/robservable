@@ -262,6 +262,19 @@ robservable(
 )
 ```
 
+## Advices on writing notebooks for robservable
+
+If you are developping Observable notebooks to be used with robservable, here are some advices to make your notebook more easy to use in R :
+
+- one way to see a notebook is as a function. Most cells are input arguments, and others are output with results.
+- to allow the output to be customized in R, move as much settings and values as possile in their own cell.
+- name all the cells that could be included or whose value could be modified in R.
+- give a name to the CSS `<style>` cells, this will ease their inclusion in R.
+- making your chart updatable with animated transitions can be a nice addition if the notebook could be used in a shiny app.
+pkgdown
+
+
+
 
 
 
