@@ -28,7 +28,9 @@ knitr::opts_chunk$set(
 
 ## Basic usage
 
-`robservable` can be used inside a Shiny app the same way as any `htmlwidget`. You will find the following basic example in [examples/01_shiny_basic.R](https://github.com/juba/robservable/blob/master/examples/01_shiny_basic.R) :
+`robservable` can be used inside a Shiny app the same way as any `htmlwidget`. Widget are placed in the `ui` with `robservableOutput`, and are rendered in `server` with `renderRobservable`.
+
+You will find the following basic example in [examples/01_shiny_basic.R](https://github.com/juba/robservable/blob/master/examples/01_shiny_basic.R) :
 
 
 ```{r, eval = FALSE}
@@ -83,14 +85,14 @@ shinyApp(ui = ui, server = server)
 
 As for any `robservable` usage, we have to ensure that the data passed to the widget is in the same format as the one used in the notebook (same shape, same column names).
 
-Another example with a multi-line chart with some interactivity can be found in [examples/02_shiny_simple.R](https://github.com/juba/robservable/blob/master/examples/02_shiny_simple.R).
+Another example displaying a multi-line chart with some interactivity can be found in [examples/02_shiny_simple.R](https://github.com/juba/robservable/blob/master/examples/02_shiny_simple.R).
 
 
 ## Animated transitions
 
-When the notebook allows it, charts can be updated with animated transisitions instead of being recreated from scratch. You will find an example of these in [examples/03_shiny_updatable.R](https://github.com/juba/robservable/blob/master/examples/03_shiny_updatable.R), and the [associated notebook](https://observablehq.com/@juba/updatable-bar-chart).
+When the notebook is designed appropriately, charts can be updated with animated transisitions instead of being recreated from scratch. You will find an example of these in [examples/03_shiny_updatable.R](https://github.com/juba/robservable/blob/master/examples/03_shiny_updatable.R), and the [associated notebook](https://observablehq.com/@juba/updatable-bar-chart).
 
-For more examples, the following notebooks provide charts that are updatable with animated transitions and who follow the pattern given at the end of the [Learn D3 animation](https://observablehq.com/@d3/learn-d3-animation) notebook :
+For more examples, the following notebooks provide charts that are updatable with animated transitions and who follow the pattern given at the end of the [Learn D3 animation](https://observablehq.com/@d3/learn-d3-animation#chart) notebook :
 
 - [Updatable bar chart](https://observablehq.com/@juba/updatable-bar-chart)
 - [Draggable Pie/Donut chart](https://observablehq.com/@juba/draggable-pie-donut-chart)
@@ -104,10 +106,10 @@ You can add observers to an robservable widget and use its associated cell value
 
 This can allow, for example, to use any input defined in the [famous Inputs notebook](https://observablehq.com/@jashkenas/inputs) to be used as an input in a Shiny app.
 
-In the example in [examples/04_shiny_observers.R](https://github.com/juba/robservable/blob/master/examples/04_shiny_observers.R), we use the [worldMapCoordinates](https://observablehq.com/@jashkenas/inputs#worldMapCoordinatesDemo) example as an input to update a leaflet map.
+In the example in [examples/04_shiny_observers.R](https://github.com/juba/robservable/blob/master/examples/04_shiny_observers.R), we use [worldMapCoordinates](https://observablehq.com/@jashkenas/inputs#worldMapCoordinates) as an input to update a leaflet map.
 
 
-To add an osberver to an included cell, you msut add the cells name the `observers` argument. Something like :
+To add an observer to an included cell, you must add the cell names to the `observers` argument. Something like :
 
 ```r
 robservable(
@@ -118,7 +120,7 @@ robservable(
 )
 ```
 
-The cell values will then be accessible via the Shiny `input` object by prefixing the observer name with the `robservable` Shiny id. So, for example, if you use the previous `robservable` instance as an `robservableOutput` with an observer :
+The cell values will then be accessible via the Shiny `input` object by prefixing the observer name with the `robservable` Shiny id. So, for example, if you use the previous `robservable` instance as an `robservableOutput` with id `map_input` :
 
 ```r
 ## In ui

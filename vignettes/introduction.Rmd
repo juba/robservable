@@ -264,7 +264,7 @@ robservable(
 
 ## Writing notebooks for robservable
 
-If you are developping Observable notebooks to be used with robservable, here are some advices to make your notebook more easy to use in R :
+If you are developping Observable notebooks to be used with robservable, here are some advices to make your notebook easier to use in R :
 
 - you could see your notebook as a function. Most cells are input arguments, and others are output with results.
 - to allow the output to be customized in R, move as much settings and values as possible in their own cell.
