@@ -7,9 +7,13 @@
 
 The goal of this package is to allow the use of [Observable](https://observablehq.com/) notebooks (or part of them) as htmlwidgets in R.
 
-Note that it is **not an `iframe`** embedding a whole notebook -- cells are `<div>`s included directly in your document.  You can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
+Note that *it is not an `iframe` embedding a whole notebook* -- cells are `<div>` included directly in your document or application.  You can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
 
-This package is in early stage of development.
+The following GIF shows a quick example of reusing a bar chart race notebook inside R with our own data :
+
+![example](https://raw.github.com/juba/robservable/resources/screencast_0.2.gif)
+
+You'll find more examples and the associated R code in the [robservable gallery](https://juba.github.io/robservable/articles/gallery.html).
 
 ## Features
 
@@ -21,10 +25,12 @@ This package is in early stage of development.
 
 ## Limitations
 
-- Only named cells can be displayed by name, but you can reference unnamed cells by index (1-based), or you can fork the notebook and name the cell in Observable
+- Named cells can be included by name, unnamed cells by their index (1-based), which is sometimes a bit tricky to determine. An alternative is to fork the notebook and name the cell in Observable.
 
 
 ## Installation
+
+The package is not on CRAN yet, you can install the development version with :
 
 ```r
 remotes::install_github("juba/robservable")
