@@ -100,32 +100,114 @@
 
     
     
-<p>(this document is still a work in progress)</p>
-<p><code>robservable</code> can be used inside a Shiny app the same way as any <code>htmlwidget</code>. You will find a very basic example in <a href="https://github.com/juba/robservable/blob/master/examples/shiny.R">examples/shiny.R</a>.</p>
-<p>When the notebook allows it, cells can be updated with animated transisitions instead of being recreated. You will find an example in <a href="https://github.com/juba/robservable/blob/master/examples/shiny_updatable.R">examples/shiny_updatable.R</a>, and the <a href="https://observablehq.com/@juba/updatable-bar-chart">associated notebook</a>.</p>
-<p>You can also add observers to notebook cell values and use cell values as inputs inside your Shiny app. You will find an example in <a href="https://github.com/juba/robservable/blob/master/examples/shiny_observer.R">examples/shiny_observer.R</a>.</p>
-<p>To do this, add the name of cells you want to observe in the <code>observers</code> argument. Something like :</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
+<div id="basic-usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#basic-usage" class="anchor"></a>Basic usage</h2>
+<p><code>robservable</code> can be used inside a Shiny app the same way as any <code>htmlwidget</code>. You will find the following basic example in <a href="https://github.com/juba/robservable/blob/master/examples/01_shiny_basic.R">examples/01_shiny_basic.R</a> :</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">## Basic robservable Shiny app</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">shiny</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">robservable</span>)
+
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"USPersonalExpenditure"</span>)
+
+<span class="no">ui</span> <span class="kw">&lt;-</span> <span class="fu">fluidPage</span>(
+    <span class="fu">titlePanel</span>(<span class="st">"robservable basic Shiny app"</span>),
+    <span class="fu">sidebarLayout</span>(
+        <span class="fu">sidebarPanel</span>(
+            <span class="fu">selectInput</span>(
+                <span class="st">"year"</span>,
+                <span class="kw">label</span> <span class="kw">=</span> <span class="st">"Year"</span>,
+                <span class="kw">choices</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">USPersonalExpenditure</span>)
+            )
+        ),
+        <span class="fu">mainPanel</span>(
+           <span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span>(<span class="st">"chart"</span>, <span class="kw">width</span> <span class="kw">=</span> <span class="fl">600</span>)
+        )
+    )
+)
+
+
+<span class="no">server</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">input</span>, <span class="no">output</span>) {
+
+    <span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu">reactive</span>({
+        <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
+            <span class="kw">name</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">USPersonalExpenditure</span>),
+            <span class="kw">value</span> <span class="kw">=</span> <span class="no">USPersonalExpenditure</span>[, <span class="no">input</span>$<span class="no">year</span>]
+        )
+    })
+
+    <span class="no">output</span>$<span class="no">chart</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/robservable-shiny.html">renderRobservable</a></span>({
+        <span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
+            <span class="st">"@d3/horizontal-bar-chart"</span>,
+            <span class="kw">include</span> <span class="kw">=</span> <span class="st">"chart"</span>,
+            <span class="kw">input</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(
+                <span class="kw">data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">df</a></span>(),
+                <span class="kw">margin</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">top</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">right</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">bottom</span> <span class="kw">=</span> <span class="fl">30</span>, <span class="kw">left</span> <span class="kw">=</span> <span class="fl">130</span>)
+            ),
+            <span class="kw">width</span> <span class="kw">=</span> <span class="fl">600</span>
+        )
+    })
+}
+
+<span class="fu">shinyApp</span>(<span class="kw">ui</span> <span class="kw">=</span> <span class="no">ui</span>, <span class="kw">server</span> <span class="kw">=</span> <span class="no">server</span>)</pre></body></html></div>
+<p>As for any <code>robservable</code> usage, we have to ensure that the data passed to the widget is in the same format as the one used in the notebook (same shape, same column names).</p>
+<p>Another example with a multi-line chart with some interactivity can be found in <a href="https://github.com/juba/robservable/blob/master/examples/02_shiny_simple.R">examples/02_shiny_simple.R</a>.</p>
+</div>
+<div id="animated-transitions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#animated-transitions" class="anchor"></a>Animated transitions</h2>
+<p>When the notebook allows it, charts can be updated with animated transisitions instead of being recreated from scratch. You will find an example of these in <a href="https://github.com/juba/robservable/blob/master/examples/03_shiny_updatable.R">examples/03_shiny_updatable.R</a>, and the <a href="https://observablehq.com/@juba/updatable-bar-chart">associated notebook</a>.</p>
+<p>For more examples, the following notebooks provide charts that are updatable with animated transitions and who follow the pattern given at the end of the <a href="https://observablehq.com/@d3/learn-d3-animation">Learn D3 animation</a> notebook :</p>
+<ul>
+<li><a href="https://observablehq.com/@juba/updatable-bar-chart">Updatable bar chart</a></li>
+<li><a href="https://observablehq.com/@juba/draggable-pie-donut-chart">Draggable Pie/Donut chart</a></li>
+<li><a href="https://observablehq.com/@juba/reusable-bivariate-choropleth">Reusable bivariate choropleth map</a></li>
+<li><a href="https://observablehq.com/@d3/stacked-to-grouped-bars">Stacked-to-Grouped Bars</a></li>
+</ul>
+</div>
+<div id="observers-using-robservable-widgets-as-inputs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#observers-using-robservable-widgets-as-inputs" class="anchor"></a>Observers : using robservable widgets as inputs</h2>
+<p>You can add observers to an robservable widget and use its associated cell values as inputs inside your Shiny app.</p>
+<p>This can allow, for example, to use any input defined in the <a href="https://observablehq.com/@jashkenas/inputs">famous Inputs notebook</a> to be used as an input in a Shiny app.</p>
+<p>In the example in <a href="https://github.com/juba/robservable/blob/master/examples/04_shiny_observers.R">examples/04_shiny_observers.R</a>, we use the <a href="https://observablehq.com/@jashkenas/inputs#worldMapCoordinatesDemo">worldMapCoordinates</a> example as an input to update a leaflet map.</p>
+<p>To add an osberver to an included cell, you msut add the cells name the <code>observers</code> argument. Something like :</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
     <span class="st">"@jashkenas/inputs"</span>,
     <span class="kw">include</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span>),
     <span class="kw">hide</span> <span class="kw">=</span> <span class="st">"worldMapCoordinates"</span>,
     <span class="kw">observers</span> <span class="kw">=</span> <span class="st">"worldMap1"</span>
 )</pre></body></html></div>
-<p>These values will be accessible via Shiny <code>input</code> objetc by prefixing the observer name with the <code>robservable</code> Shiny id. So, for example, if you use the previous <code>robservable</code> instance as an <code>robservableOutput</code> with an observer :</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span>(<span class="st">"map_input"</span>)</pre></body></html></div>
-<p>The values will be accessible in <code>input$map_input_worldMap1</code>.</p>
-<p>You can use a named list to specify custom Shiny <code>input</code> names, but you will still have to add the id prefix. So in the following, values will be accessible in <code>input$map_input_point</code>.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
+<p>The cell values will then be accessible via the Shiny <code>input</code> object by prefixing the observer name with the <code>robservable</code> Shiny id. So, for example, if you use the previous <code>robservable</code> instance as an <code>robservableOutput</code> with an observer :</p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co">## In ui</span>
+<span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span>(<span class="st">"map_input"</span>)
+
+<span class="co">## In server</span>
+<span class="no">output</span>$<span class="no">map_input</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/robservable-shiny.html">renderRobservable</a></span>({
+    <span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
+        <span class="st">"@jashkenas/inputs"</span>,
+        <span class="kw">include</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span>),
+        <span class="kw">hide</span> <span class="kw">=</span> <span class="st">"worldMapCoordinates"</span>,
+        <span class="kw">observers</span> <span class="kw">=</span> <span class="st">"worldMap1"</span>
+    )
+})</pre></body></html></div>
+<p>Then the values will be accessible in <code>input$map_input_worldMap1</code>.</p>
+<p>You can use a named list as <code>observers</code> argument to specify custom Shiny <code>input</code> names, but you will still have to add the id prefix. So with the following, values will be accessible in <code>input$map_input_point</code>.</p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
     <span class="st">"@jashkenas/inputs"</span>,
     <span class="kw">include</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span>),
     <span class="kw">hide</span> <span class="kw">=</span> <span class="st">"worldMapCoordinates"</span>,
     <span class="kw">observers</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="st">"worldMap1"</span>)
 )</pre></body></html></div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
