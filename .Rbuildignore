@@ -7,4 +7,5 @@ test.html
 ^docs$
 ^pkgdown$
 gallery/
+resources/
 
