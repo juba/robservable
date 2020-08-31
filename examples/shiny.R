@@ -11,7 +11,7 @@ dates <- to_js_date(as.Date(as.character(dates), format = "%Y"))
 
 ui <- fluidPage(
 
-    titlePanel("Test robservable"),
+    titlePanel("robservable simple Shiny app"),
 
     sidebarLayout(
         sidebarPanel(
@@ -23,7 +23,7 @@ ui <- fluidPage(
         ),
 
         mainPanel(
-           robservableOutput("chart", width = 800)
+           robservableOutput("chart", width = 600)
         )
     )
 )
@@ -50,8 +50,11 @@ server <- function(input, output) {
         robservable(
             "@d3/multi-line-chart",
             include = "chart",
-            input = list(data = df),
-            width = 800
+            input = list(
+                data = df,
+                margin = list(top = 20, right = 20, bottom = 30, left = 80)
+            ),
+            width = 600
         )
     })
 }

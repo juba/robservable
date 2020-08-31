@@ -6,7 +6,7 @@ library(robservable)
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Test robservable"),
+    titlePanel("robservable updatable app"),
 
     sidebarLayout(
         sidebarPanel(

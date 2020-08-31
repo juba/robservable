@@ -7,14 +7,11 @@ library(leaflet)
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Test robservable"),
+    titlePanel("robservable observers app"),
 
-    sidebarLayout(
-        sidebarPanel(
-            robservableOutput("map_input")
-        ),
-
+    verticalLayout(
         mainPanel(
+            robservableOutput("map_input", height = 300),
             leafletOutput("map", width = 600, height = 600)
         )
     )
@@ -42,6 +39,7 @@ server <- function(input, output) {
     })
 
     output$map <- renderLeaflet({
+        if (is.null(point())) return(NULL)
         leaflet(options = leafletOptions(minZoom = 10, maxZoom = 10)) %>%
             addTiles() %>%
             addMarkers(data = point())
