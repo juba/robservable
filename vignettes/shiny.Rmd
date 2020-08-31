@@ -25,16 +25,89 @@ knitr::opts_chunk$set(
 )
 ```
 
-(this document is still a work in progress)
 
-`robservable` can be used inside a Shiny app the same way as any `htmlwidget`. You will find a very basic example in [examples/shiny.R](https://github.com/juba/robservable/blob/master/examples/shiny.R).
+## Basic usage
 
-When the notebook allows it, cells can be updated with animated transisitions instead of being recreated. You will find an example in [examples/shiny_updatable.R](https://github.com/juba/robservable/blob/master/examples/shiny_updatable.R), and the [associated notebook](https://observablehq.com/@juba/updatable-bar-chart).
-
-You can also add observers to notebook cell values and use cell values as inputs inside your Shiny app. You will find an example in [examples/shiny_observer.R](https://github.com/juba/robservable/blob/master/examples/shiny_observer.R).
+`robservable` can be used inside a Shiny app the same way as any `htmlwidget`. You will find the following basic example in [examples/01_shiny_basic.R](https://github.com/juba/robservable/blob/master/examples/01_shiny_basic.R) :
 
 
-To do this, add the name of cells you want to observe in the `observers` argument. Something like :
+```{r}
+## Basic robservable Shiny app
+
+library(shiny)
+library(robservable)
+
+data("USPersonalExpenditure")
+
+ui <- fluidPage(
+    titlePanel("robservable basic Shiny app"),
+    sidebarLayout(
+        sidebarPanel(
+            selectInput(
+                "year",
+                label = "Year",
+                choices = colnames(USPersonalExpenditure)
+            )
+        ),
+        mainPanel(
+           robservableOutput("chart", width = 600)
+        )
+    )
+)
+
+
+server <- function(input, output) {
+
+    df <- reactive({
+        data.frame(
+            name = rownames(USPersonalExpenditure),
+            value = USPersonalExpenditure[, input$year]
+        )
+    })
+
+    output$chart <- renderRobservable({
+        robservable(
+            "@d3/horizontal-bar-chart",
+            include = "chart",
+            input = list(
+                data = df(),
+                margin = list(top = 20, right = 20, bottom = 30, left = 130)
+            ),
+            width = 600
+        )
+    })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+As for any `robservable` usage, we have to ensure that the data passed to the widget is in the same format as the one used in the notebook (same shape, same column names).
+
+Another example with a multi-line chart with some interactivity can be found in [examples/02_shiny_simple.R](https://github.com/juba/robservable/blob/master/examples/02_shiny_simple.R).
+
+
+## Animated transitions
+
+When the notebook allows it, charts can be updated with animated transisitions instead of being recreated from scratch. You will find an example of these in [examples/03_shiny_updatable.R](https://github.com/juba/robservable/blob/master/examples/03_shiny_updatable.R), and the [associated notebook](https://observablehq.com/@juba/updatable-bar-chart).
+
+For more examples, the following notebooks provide charts that are updatable with animated transitions and who follow the pattern given at the end of the [Learn D3 animation](https://observablehq.com/@d3/learn-d3-animation) notebook :
+
+- [Updatable bar chart](https://observablehq.com/@juba/updatable-bar-chart)
+- [Draggable Pie/Donut chart](https://observablehq.com/@juba/draggable-pie-donut-chart)
+- [Reusable bivariate choropleth map](https://observablehq.com/@juba/reusable-bivariate-choropleth)
+- [Stacked-to-Grouped Bars](https://observablehq.com/@d3/stacked-to-grouped-bars)
+
+
+## Observers : using robservable widgets as inputs
+
+You can add observers to an robservable widget and use its associated cell values as inputs inside your Shiny app. 
+
+This can allow, for example, to use any input defined in the [famous Inputs notebook](https://observablehq.com/@jashkenas/inputs) to be used as an input in a Shiny app.
+
+In the example in [examples/04_shiny_observers.R](https://github.com/juba/robservable/blob/master/examples/04_shiny_observers.R), we use the [worldMapCoordinates](https://observablehq.com/@jashkenas/inputs#worldMapCoordinatesDemo) example as an input to update a leaflet map.
+
+
+To add an osberver to an included cell, you msut add the cells name the `observers` argument. Something like :
 
 ```r
 robservable(
@@ -45,15 +118,26 @@ robservable(
 )
 ```
 
-These values will be accessible via Shiny `input` objetc by prefixing the observer name with the `robservable` Shiny id. So, for example, if you use the previous `robservable` instance as an `robservableOutput` with an observer :
+The cell values will then be accessible via the Shiny `input` object by prefixing the observer name with the `robservable` Shiny id. So, for example, if you use the previous `robservable` instance as an `robservableOutput` with an observer :
 
 ```r
+## In ui
 robservableOutput("map_input")
+
+## In server
+output$map_input <- renderRobservable({
+    robservable(
+        "@jashkenas/inputs",
+        include = c("worldMapCoordinates", "viewof worldMap1"),
+        hide = "worldMapCoordinates",
+        observers = "worldMap1"
+    )
+})
 ```
 
-The values will be accessible in `input$map_input_worldMap1`.
+Then the values will be accessible in `input$map_input_worldMap1`.
 
-You can use a named list to specify custom Shiny `input` names, but you will still have to add the id prefix. So in the following, values will be accessible in `input$map_input_point`. 
+You can use a named list as `observers` argument to specify custom Shiny `input` names, but you will still have to add the id prefix. So with the following, values will be accessible in `input$map_input_point`. 
 
 ```r
 robservable(
