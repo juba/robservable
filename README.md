@@ -11,7 +11,7 @@ Note that *it is not an `iframe` embedding a whole notebook* -- cells are `<div>
 
 The following GIF shows a quick example of reusing a bar chart race notebook inside R with our own data :
 
-![example](https://raw.github.com/juba/robservable/resources/screencast_0.2.gif)
+![example](https://raw.githubusercontent.com/juba/robservable/master/resources/screencast_0.2.gif)
 
 You'll find more examples and the associated R code in the [robservable gallery](https://juba.github.io/robservable/articles/gallery.html).
 
