@@ -134,9 +134,9 @@ class RObservable {
 
     // Add observers from params.observers to cells
     set_variable_observers() {
-        let observers = !Array.isArray(this.params.observers) ? [this.params.observers] : this.params.observers;
-        if (!this.params.observers) observers = [];
-        let previous_observers = Object.keys(this.params.observers_variables);
+        let observers = !Array.isArray(this.params.observers_variables) ? [this.params.observers_variable] : this.params.observers_variables;
+        if (!this.params.observers_variables) observers = [];
+        let previous_observers = Object.keys(observers);
         observers.forEach(variable => {
             // New observer
             if (!previous_observers.includes(variable)) {
@@ -216,8 +216,43 @@ HTMLWidgets.widget({
                 params.update = true;
                 el.module.params = params;
 
+            },
+
+            // update proxy method
+            update(params) {
+                // set params to new values
+                //   setter in constructor will handle the rest
+                if(el.hasOwnProperty("module")) {
+                    el.module.params.input = {...el.module.params.input, ...params};
+                    el.module.update_variables();
+                }
             }
 
         };
     }
 });
+
+// receive and handle robservable proxy messages with Shiny
+if (HTMLWidgets.shinyMode) {
+  Shiny.addCustomMessageHandler("robservable-calls", function(data) {
+    var id = data.id;
+    var el = document.getElementById(id);
+    var robs = el ? HTMLWidgets.find("#" + id) : null;
+
+    if (!robs) {
+      console.log("Couldn't find robservable with id " + id);
+      return;
+    }
+
+    for (var i = 0; i < data.calls.length; i++) {
+      var call = data.calls[i];
+      if (call.dependencies) {
+        Shiny.renderDependencies(call.dependencies);
+      }
+      if (robs[call.method])
+        robs[call.method](call.args);
+      else
+        console.log("Unknown method " + call.method);
+    }
+  });
+}
