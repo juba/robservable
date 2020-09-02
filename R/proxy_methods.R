@@ -13,7 +13,7 @@ robs_update <- function(robs=NULL, ...) {
     )
   }
 
-  invokeRemote(robs, "update", list(...))
+  invokeRemote(robs, "update", jsonlite::toJSON(list(...), data.frame="rows", auto_unbox = TRUE))
 
   # return proxy for piping
   robs
