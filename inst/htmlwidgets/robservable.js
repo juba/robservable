@@ -191,6 +191,16 @@ HTMLWidgets.widget({
                         params = update_height_width(params, el.height, el.width)
                         mod.params = params;
                         el.module = mod;
+                        // run any queued methods sent prior to construction
+                        if(this.queuedMethods.length > 0) {
+                          this.queuedMethods.forEach(method => {
+                            if(this[method.method]) {
+                              this[method.method](method.args);
+                            }
+                          })
+                          // clear any queued methods
+                          this.queuedMethods = [];
+                        }
                     });
                 } else {
                     // Else, update params
@@ -219,14 +229,18 @@ HTMLWidgets.widget({
             },
 
             // update proxy method
-            update(params) {
+            update(variables) {
                 // set params.input to new values
                 // update variables
                 if(el.hasOwnProperty("module")) {
-                    el.module.params.input = {...el.module.params.input, ...params};
+                    el.module.params.input = {...el.module.params.input, ...variables};
                     el.module.update_variables();
+                } else {
+                  this.queuedMethods.push({method: "update", args: variables});
                 }
-            }
+            },
+
+            queuedMethods: []
 
         };
     }
