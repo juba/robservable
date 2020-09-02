@@ -220,8 +220,8 @@ HTMLWidgets.widget({
 
             // update proxy method
             update(params) {
-                // set params to new values
-                //   setter in constructor will handle the rest
+                // set params.input to new values
+                // update variables
                 if(el.hasOwnProperty("module")) {
                     el.module.params.input = {...el.module.params.input, ...params};
                     el.module.update_variables();
