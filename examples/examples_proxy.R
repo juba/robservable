@@ -88,3 +88,31 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
+
+
+library(shiny)
+library(robservable)
+
+robs <- robservable(
+  "@d3/bar-chart",
+  include = "chart",
+  input = list(color = "red", height = 700)
+)
+
+ui <- tagList(
+  robservableOutput("bar")
+)
+server <- function(input, output, session) {
+  output$bar <- renderRobservable({
+    robs
+  })
+
+  # set up a proxy to our bar robservable instance
+  #   for later manipulation
+  robs_proxy <- robservableProxy("bar")
+
+
+}
+
+shinyApp(ui, server)

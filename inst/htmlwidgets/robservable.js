@@ -237,6 +237,18 @@ HTMLWidgets.widget({
                 }
             },
 
+            // add observers
+            observe(variables) {
+                // set params.input to new values
+                // update variables
+                if(el.hasOwnProperty("module")) {
+                    el.module.params.observers = variables;
+                    el.module.set_variable_observers();
+                } else {
+                  this.queuedMethods.push({method: "observe", args: variables});
+                }
+            },
+
             queuedMethods: []
 
         };
