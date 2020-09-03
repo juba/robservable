@@ -1,6 +1,7 @@
 #' Update \code{robservable} through \code{robservableProxy}
 #'
 #' @param robs \code{robservableProxy} that you would like to update
+#' @param ... named arguments to represent variables or inputs to update
 #'
 #' @return \code{robservable_proxy}
 #' @export

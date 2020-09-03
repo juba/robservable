@@ -8,6 +8,8 @@ robs_update(robs = NULL, ...)
 }
 \arguments{
 \item{robs}{\code{robservableProxy} that you would like to update}
+
+\item{...}{named arguments to represent variables or inputs to update}
 }
 \value{
 \code{robservable_proxy}
