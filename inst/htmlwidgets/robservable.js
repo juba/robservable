@@ -233,7 +233,7 @@ HTMLWidgets.widget({
                 // set params.input to new values
                 // update variables
                 if(el.hasOwnProperty("module")) {
-                    el.module.params.input = {...el.module.params.input, ...variables};
+                    el.module.params.input = {...variables};
                     el.module.update_variables();
                 } else {
                   this.queuedMethods.push({method: "update", args: variables});
