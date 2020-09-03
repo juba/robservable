@@ -187,7 +187,6 @@ HTMLWidgets.widget({
                 if (module === undefined || module.params.notebook !== params.notebook) {
                     // If not, create one
                     RObservable.build(el, params).then(mod => {
-                        params.update = false;
                         params = update_height_width(params, el.height, el.width)
                         mod.params = params;
                         el.module = mod;
@@ -206,7 +205,6 @@ HTMLWidgets.widget({
                     // Else, update params
                     params.observers_variables = module.params.observers_variables;
                     // Update widgets
-                    params.update = true;
                     el.module.params = params;
                 }
 
@@ -223,7 +221,6 @@ HTMLWidgets.widget({
                 params = update_height_width(params, el.height, el.width)
 
                 // Update widgets
-                params.update = true;
                 el.module.params = params;
 
             },
