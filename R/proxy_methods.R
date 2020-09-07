@@ -5,7 +5,7 @@
 #'
 #' @return \code{robservable_proxy}
 #'
-#' @example inst/examples/examples_proxy.R
+#' @example inst/examples/proxy_example.R
 #' @export
 #' @importFrom jsonlite toJSON
 #'
@@ -30,7 +30,7 @@ robs_update <- function(robs=NULL, ...) {
 #'
 #' @return \code{robservable_proxy}
 #'
-#' @example inst/examples/examples_proxy.R
+#' @example inst/examples/proxy_example.R
 #' @export
 #'
 robs_observe <- function(robs=NULL, observer=NULL) {
