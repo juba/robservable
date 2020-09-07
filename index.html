@@ -93,19 +93,21 @@
 <div id="robservable" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#robservable" class="anchor"></a>robservable</h1></div>
-<p>The goal of this package is to allow the use of <a href="https://observablehq.com/">Observable</a> notebooks (or part of them) as <a href="https://www.htmlwidgets.org/">HTML widgets</a> in R.</p>
+<p>This package allows the use of <a href="https://observablehq.com/">Observable</a> notebooks (or parts of them) as <code>htmlwidgets</code> in R.</p>
 <p>Note that <em>it is not an <code>iframe</code> embedding a whole notebook</em> – cells are <code>&lt;div&gt;</code> included directly in your document or application. You can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.</p>
-<p>The following GIF shows a quick example of reusing a bar chart race notebook inside R with our own data :</p>
+<p>The following GIF shows a quick example of reusing a bar chart race notebook inside R with our own data.</p>
 <p><img src="https://raw.githubusercontent.com/juba/robservable/master/resources/screencast_0.2.gif" alt="example"></p>
 <p>You’ll find more examples and the associated R code in the <a href="https://juba.github.io/robservable/articles/gallery.html">robservable gallery</a>.</p>
 <div id="features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#features" class="anchor"></a>Features</h2>
 <ul>
-<li>Display an entire published notebook as an htmlwidget</li>
-<li>Display specific cells of a published notebook as an htmlwidget</li>
+<li>Display an entire published notebook as an <code>htmlwidget</code>
+</li>
+<li>Display specific cells of a published notebook as an <code>htmlwidget</code>
+</li>
 <li>Use R data to update cell values</li>
-<li>Add observers on cell values to get them back inside a Shiny app</li>
+<li>Add observers on cell values to communicate with a Shiny app</li>
 <li>Use inside Shiny app or Rmarkdown document (as any htmlwidget)</li>
 </ul>
 </div>
@@ -113,13 +115,13 @@
 <h2 class="hasAnchor">
 <a href="#limitations" class="anchor"></a>Limitations</h2>
 <ul>
-<li>Named cells can be included by name, unnamed cells by their index (1-based), which is sometimes a bit tricky to determine. An alternative is to fork the notebook and name the cell in Observable.</li>
+<li>Named cells can be included by name, but unnamed cells are refenced by their index (1-based), which is sometimes a bit tricky to determine. An alternative is to fork the notebook and name the cell in Observable.</li>
 </ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The package is not on CRAN yet, you can install the development version with :</p>
+<p>The package is not on CRAN yet, but you can install the development version with:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"juba/robservable"</span>)</pre></div>
 </div>
 <div id="usage" class="section level2">
@@ -127,7 +129,7 @@
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>For an introduction and examples, see the <a href="https://juba.github.io/robservable/articles/introduction.html">introduction to robservable</a> vignette.</p>
 <p>For a small gallery of interesting notebooks, see the <a href="https://juba.github.io/robservable/articles/gallery.html">robservable gallery</a> vignette.</p>
-<p>For usage in Shiny, see the <a href="https://juba.github.io/robservable/articles/shiny.html">robservable in Shiny applications</a> vignette (work in progress)</p>
+<p>For usage in Shiny, see the <a href="https://juba.github.io/robservable/articles/shiny.html">robservable in Shiny applications</a> vignette (work in progress).</p>
 </div>
 </div>
 
