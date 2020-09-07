@@ -1,6 +1,6 @@
 ---
 title: "robservable Gallery"
-author: "Julien Barnier, Kenton Russel"
+author: "Julien Barnier, Kenton Russell"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
@@ -33,7 +33,7 @@ The goal of this vignette is to show some examples of (hopefully) useful, intere
 
 ## Draggable Pie/Donut Chart
 
-Yes, I know, pie charts are bad. But the following notebook allows nonetheless to create interactive pie or donut charts, with slices optionnaly draggable to rearrange their order :
+Yes, I know, pie charts are mostly bad. But the following notebook allows the creation of interactive pie or 'donut' charts, with slices optionally 'draggable' to rearrange their order.
 
 https://observablehq.com/@juba/draggable-pie-donut-chart
 
@@ -56,7 +56,7 @@ robservable(
 
 ## Bar chart race
 
-The following notebook allows to generate animated "bar chart race" charts :
+The following notebook generates animated "bar chart race" charts.
 
 https://observablehq.com/@juba/bar-chart-race
 
@@ -66,7 +66,7 @@ To use it from `robservable` you have to place your data in a data frame with th
 - `date` : observation date (can be any number or character : year, day...)
 - `value` : value for that `date` in this `id`
 
-Optionnaly, if you want the displayed date value to be different than the one used in your dataset (for example if you iterate over monthly data but prefer to only display the year), you can add an optional corresponding `date_label` column.
+Optionally, if you want the displayed date value to be different than the one used in your dataset (for example if you iterate over monthly data but prefer to only display the year), you can add a corresponding `date_label` column.
 
 ```{r}
 library(readr)
@@ -110,11 +110,11 @@ robservable(
 
 ## Bivariate Choropleth
 
-The following notebook allows to generate bivariate choropleth maps with zoom and tooltips :
+The following notebook makes bivariate choropleth maps with zoom and tooltips.
 
 https://observablehq.com/@juba/reusable-bivariate-choropleth
 
-We first load some data from the [USA.county.data Github project](https://github.com/Deleetdk/USA.county.data), recode identifiers and select two of the available variables :
+We first load some data from the [USA.county.data Github project](https://github.com/Deleetdk/USA.county.data), recode identifiers and select two of the available variables.
 
 ```{r}
 load(url("https://raw.githubusercontent.com/Deleetdk/USA.county.data/master/data/USA_county_data.RData"))
@@ -125,7 +125,7 @@ d <- d[, c("fips", "name_16", "Graduate.Degree", "Less.Than.High.School")]
 names(d) <- c("fips", "name_16", "Graduate", "<High.School")
 ```
 
-Then we can call `robservable` to load the notebook, render only `chart` and `draw` (both are needed for the map to show up), hide `draw` and update a bunch of cells values via the `input` named list. You can refer to the notebook for an explanation of the different values.
+Then we can call `robservable` to load the notebook, render only `chart` and `draw` (both are needed for the map to show), hide `draw` and update a bunch of cells values via the `input` named list. You can refer to the notebook for an explanation of the different values.
 
 ```{r}
 robservable(
