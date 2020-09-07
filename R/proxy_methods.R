@@ -7,6 +7,7 @@
 #'
 #' @example inst/examples/examples_proxy.R
 #' @export
+#' @importFrom jsonlite toJSON
 #'
 robs_update <- function(robs=NULL, ...) {
   if(!inherits(robs, "robservable_proxy")) {

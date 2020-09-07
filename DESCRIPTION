@@ -2,7 +2,7 @@ Package: robservable
 Type: Package
 Title: Import an Observable Notebook as HTML Widget
 Version: 0.2.0
-Date: 2020-07-02
+Date: 2020-09-07
 Authors@R: c(
     person(
       "Julien", "Barnier",
@@ -25,7 +25,8 @@ Encoding: UTF-8
 LazyData: true
 Enhances: shiny
 Imports:
-    htmlwidgets
+    htmlwidgets,
+    jsonlite
 Suggests:
     gapminder,
     knitr,
