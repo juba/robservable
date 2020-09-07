@@ -103,8 +103,8 @@
 <div id="basic-usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-usage" class="anchor"></a>Basic usage</h2>
-<p><code>robservable</code> can be used inside a Shiny app the same way as any <code>htmlwidget</code>. Widget are placed in the <code>ui</code> with <code>robservableOutput</code>, and are rendered in <code>server</code> with <code>renderRobservable</code>.</p>
-<p>You will find the following basic example in <a href="https://github.com/juba/robservable/blob/master/examples/01_shiny_basic.R">examples/01_shiny_basic.R</a> :</p>
+<p><code>robservable</code> can be used inside a Shiny app the same way as any <code>htmlwidget</code>. Widgets are placed in the <code>ui</code> with <code>robservableOutput</code>, and are rendered in <code>server</code> with <code>renderRobservable</code>.</p>
+<p>You will find the following basic example in <a href="https://github.com/juba/robservable/blob/master/examples/01_shiny_basic.R">examples/01_shiny_basic.R</a>.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">## Basic robservable Shiny app</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">shiny</span>)
@@ -158,7 +158,7 @@
 <div id="animated-transitions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#animated-transitions" class="anchor"></a>Animated transitions</h2>
-<p>When the notebook is designed appropriately, charts can be updated with animated transisitions instead of being recreated from scratch. You will find an example of these in <a href="https://github.com/juba/robservable/blob/master/examples/03_shiny_updatable.R">examples/03_shiny_updatable.R</a>, and the <a href="https://observablehq.com/@juba/updatable-bar-chart">associated notebook</a>.</p>
+<p>When the notebook is designed appropriately, charts can be updated with animated transitions instead of being recreated from scratch. You will find an example of these in <a href="https://github.com/juba/robservable/blob/master/examples/03_shiny_updatable.R">examples/03_shiny_updatable.R</a>, and the <a href="https://observablehq.com/@juba/updatable-bar-chart">associated notebook</a>.</p>
 <p>For more examples, the following notebooks provide charts that are updatable with animated transitions and who follow the pattern given at the end of the <a href="https://observablehq.com/@d3/learn-d3-animation#chart">Learn D3 animation</a> notebook :</p>
 <ul>
 <li><a href="https://observablehq.com/@juba/updatable-bar-chart">Updatable bar chart</a></li>
@@ -169,18 +169,18 @@
 </div>
 <div id="observers-using-robservable-widgets-as-inputs" class="section level2">
 <h2 class="hasAnchor">
-<a href="#observers-using-robservable-widgets-as-inputs" class="anchor"></a>Observers : using robservable widgets as inputs</h2>
+<a href="#observers-using-robservable-widgets-as-inputs" class="anchor"></a>Observers – using robservable widgets as inputs</h2>
 <p>You can add observers to an robservable widget and use its associated cell values as inputs inside your Shiny app.</p>
 <p>This can allow, for example, to use any input defined in the <a href="https://observablehq.com/@jashkenas/inputs">famous Inputs notebook</a> to be used as an input in a Shiny app.</p>
 <p>In the example in <a href="https://github.com/juba/robservable/blob/master/examples/04_shiny_observers.R">examples/04_shiny_observers.R</a>, we use <a href="https://observablehq.com/@jashkenas/inputs#worldMapCoordinates">worldMapCoordinates</a> as an input to update a leaflet map.</p>
-<p>To add an observer to an included cell, you must add the cell names to the <code>observers</code> argument. Something like :</p>
+<p>To add an observer to an included cell, you must add the cell names to the <code>observers</code> argument.</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
     <span class="st">"@jashkenas/inputs"</span>,
     <span class="kw">include</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span>),
     <span class="kw">hide</span> <span class="kw">=</span> <span class="st">"worldMapCoordinates"</span>,
     <span class="kw">observers</span> <span class="kw">=</span> <span class="st">"worldMap1"</span>
 )</pre></body></html></div>
-<p>The cell values will then be accessible via the Shiny <code>input</code> object by prefixing the observer name with the <code>robservable</code> Shiny id. So, for example, if you use the previous <code>robservable</code> instance as an <code>robservableOutput</code> with id <code>map_input</code> :</p>
+<p>The cell values will then be accessible via the Shiny <code>input</code> object by prefixing the observer name with the <code>robservable</code> Shiny id. So, for example, you can use the previous <code>robservable</code> instance as an <code>robservableOutput</code> with id <code>map_input</code>.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co">## In ui</span>
 <span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span>(<span class="st">"map_input"</span>)
 
@@ -194,13 +194,24 @@
     )
 })</pre></body></html></div>
 <p>Then the values will be accessible in <code>input$map_input_worldMap1</code>.</p>
-<p>You can use a named list as <code>observers</code> argument to specify custom Shiny <code>input</code> names, but you will still have to add the id prefix. So with the following, values will be accessible in <code>input$map_input_point</code>.</p>
+<p>You can use a named list as <code>observers</code> argument to specify custom Shiny <code>input</code> names, but you will still have to add the <code>id</code> (<code>map_input</code> in this example) prefix. So with the following, values will be accessible in <code>input$map_input_point</code>.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/robservable.html">robservable</a></span>(
     <span class="st">"@jashkenas/inputs"</span>,
     <span class="kw">include</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span>),
     <span class="kw">hide</span> <span class="kw">=</span> <span class="st">"worldMapCoordinates"</span>,
     <span class="kw">observers</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="st">"worldMap1"</span>)
 )</pre></body></html></div>
+</div>
+<div id="proxy-usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#proxy-usage" class="anchor"></a>Proxy usage</h2>
+<p><code>robservable</code> is built to update rather than completely re-render any <code>renderRobservable</code> calls after initial creation. However the updating <code>renderRobservable</code> command might need to contain all of the arguments used in the original render. <code>robservable</code> provides proxy methods to ease manipulation of the widget once it has been rendered. Currently, the package supports the following proxy methods:</p>
+<ul>
+<li>
+<code>robs_update</code> to update observable inputs or variables from Shiny</li>
+<li>
+<code>robs_observe</code> to add an observer on an observable input or variable that communicates with Shiny.</li>
+</ul>
 </div>
   </div>
 
