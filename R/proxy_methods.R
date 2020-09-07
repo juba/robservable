@@ -4,6 +4,8 @@
 #' @param ... named arguments to represent variables or inputs to update
 #'
 #' @return \code{robservable_proxy}
+#'
+#' @example inst/examples/examples_proxy.R
 #' @export
 #'
 robs_update <- function(robs=NULL, ...) {
@@ -26,6 +28,8 @@ robs_update <- function(robs=NULL, ...) {
 #' @param observer \code{character} name(s) of inputs to observe
 #'
 #' @return \code{robservable_proxy}
+#'
+#' @example inst/examples/examples_proxy.R
 #' @export
 #'
 robs_observe <- function(robs=NULL, observer=NULL) {
