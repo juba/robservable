@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 
 `robservable` allows the use of [Observable](https://observablehq.com/) notebooks (or part of them) as [htmlwidgets](http://www.htmlwidgets.org/) in R.
 
-Note that it is not just an `iframe` embedding a whole notebook.  Cells are integrated directly into the document or application with no `iframe` wraper.  You can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
+Note that it is not just an `iframe` embedding a whole notebook.  Cells are integrated directly into the document or application with no `iframe` wrapper.  You can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
 
 ## Embed a whole notebook
 

@@ -157,3 +157,14 @@ robservable(
 - `robs_update` to update observable inputs or variables from Shiny
 - `robs_observe` to add an observer on an observable input or variable that communicates with Shiny.
 
+You can find examples of these proxy methods usage in several sample applications :
+
+- [proxy_simple](https://github.com/juba/robservable/blob/master/examples/05_proxy_simple.R) : simple application which modifies color, height and width of a chart via `robs_update`.
+- [proxy_data](https://github.com/juba/robservable/blob/master/examples/06_proxy_data.R) : same application but with chart data updating.
+- [proxy_updatable](https://github.com/juba/robservable/blob/master/examples/07_proxy_updatable.R) : another chart with data updating via `robs_update`, but with animated transitions.
+- [proxy_observer](https://github.com/juba/robservable/blob/master/examples/08_proxy_observer.R) :  sample application which sets a cell value observer with `robs_observe`.
+
+
+
+
+
