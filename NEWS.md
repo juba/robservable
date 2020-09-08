@@ -1,3 +1,3 @@
-# robservable 0.1.0
+# robservable 0.2.0
 
 * First version
