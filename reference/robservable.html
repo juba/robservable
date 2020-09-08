@@ -139,16 +139,16 @@
     </div>
 
     <pre class="usage"><span class='fu'>robservable</span>(
-  <span class='no'>notebook</span>,
-  <span class='kw'>include</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>hide</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>input</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>observers</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>update_height</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>update_width</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>elementId</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>notebook</span>,
+  include = <span class='kw'>NULL</span>,
+  hide = <span class='kw'>NULL</span>,
+  input = <span class='kw'>NULL</span>,
+  observers = <span class='kw'>NULL</span>,
+  update_height = <span class='fl'>TRUE</span>,
+  update_width = <span class='fl'>TRUE</span>,
+  width = <span class='kw'>NULL</span>,
+  height = <span class='kw'>NULL</span>,
+  elementId = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -207,25 +207,26 @@ expected by `d3` (ie, converted by rows)..</p>
 <span class='co'>## Display a notebook cell</span>
 <span class='fu'>robservable</span>(
   <span class='st'>"@d3/bar-chart"</span>,
-  <span class='kw'>include</span> <span class='kw'>=</span> <span class='st'>"chart"</span>
+  include = <span class='st'>"chart"</span>
 )
 
 <span class='co'>## Change cells data with input</span>
 <span class='fu'>robservable</span>(
   <span class='st'>"@d3/bar-chart"</span>,
-  <span class='kw'>include</span> <span class='kw'>=</span> <span class='st'>"chart"</span>,
-  <span class='kw'>input</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>700</span>)
+  include = <span class='st'>"chart"</span>,
+  input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(color = <span class='st'>"red"</span>, height = <span class='fl'>700</span>)
 )
 
 <span class='co'>## Change data frame cells data</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>mtcars</span>$<span class='no'>cyl</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>df</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"name"</span>, <span class='st'>"value"</span>)
+<span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='kw'>mtcars</span><span class='op'>$</span><span class='kw'>cyl</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>df</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"name"</span>, <span class='st'>"value"</span>)
 <span class='fu'>robservable</span>(
   <span class='st'>"@d3/horizontal-bar-chart"</span>,
-  <span class='kw'>include</span> <span class='kw'>=</span> <span class='st'>"chart"</span>,
-  <span class='kw'>input</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>df</span>)
+  include = <span class='st'>"chart"</span>,
+  input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(data = <span class='kw'>df</span>)
 )
-<span class='co'># }</span></div></pre>
+<span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -241,7 +242,7 @@ expected by `d3` (ie, converted by rows)..</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
