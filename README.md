@@ -17,8 +17,8 @@ You'll find more examples and the associated R code in the [robservable gallery]
 
 ## Features
 
-- Display an entire published notebook as an `htmlwidget`
-- Display specific cells of a published notebook as an `htmlwidget`
+- Display an entire published or shared notebook as an `htmlwidget`
+- Display specific cells of a published or shared notebook as an `htmlwidget`
 - Use R data to update cell values
 - Add observers on cell values to communicate with a Shiny app
 - Use inside Shiny app or Rmarkdown document (as any htmlwidget)
