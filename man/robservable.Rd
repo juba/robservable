@@ -47,7 +47,6 @@ If a data.frame is passed as a cell value in `input`, it will be converted into 
 expected by `d3` (ie, converted by rows)..
 }
 \examples{
-\donttest{
 ## Display a notebook cell
 robservable(
   "@d3/bar-chart",
@@ -69,5 +68,5 @@ robservable(
   include = "chart",
   input = list(data = df)
 )
-}
+
 }

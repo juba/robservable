@@ -20,7 +20,6 @@
 #' @import htmlwidgets
 #'
 #' @examples
-#' \donttest{
 #' ## Display a notebook cell
 #' robservable(
 #'   "@d3/bar-chart",
@@ -42,7 +41,7 @@
 #'   include = "chart",
 #'   input = list(data = df)
 #' )
-#' }
+#'
 #' @export
 #'
 robservable <- function(
