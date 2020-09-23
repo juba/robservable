@@ -158,136 +158,135 @@
     <p><code>robservable_proxy</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-  <span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()) {
-    <span class='co'># change color with update through proxy</span>
+    <pre class="examples"><div class='input'><span class='co'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()) {
+  <span class='co'># change color with update through proxy</span>
 
-    <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>shiny</span>)
-    <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://juba.github.io/robservable'>robservable</a></span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>shiny</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://juba.github.io/robservable'>robservable</a></span>)
 
-    <span class='kw'>ui</span> <span class='op'>&lt;-</span> <span class='fu'>tagList</span>(
-      <span class='fu'><a href='robservable-shiny.html'>robservableOutput</a></span>(<span class='st'>"bar"</span>)
+  <span class='kw'>ui</span> <span class='op'>&lt;-</span> <span class='fu'>tagList</span>(
+    <span class='fu'><a href='robservable-shiny.html'>robservableOutput</a></span>(<span class='st'>"bar"</span>)
+  )
+
+  <span class='kw'>server</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>input</span>, <span class='kw'>output</span>, <span class='kw'>session</span>) {
+    <span class='kw'>robs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable.html'>robservable</a></span>(
+      <span class='st'>"@d3/bar-chart"</span>,
+      include = <span class='st'>"chart"</span>,
+      input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(color = <span class='st'>"red"</span>, height = <span class='fl'>700</span>)
     )
+    <span class='kw'>output</span><span class='op'>$</span><span class='kw'>bar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable-shiny.html'>renderRobservable</a></span>({
+      <span class='kw'>robs</span>
+    })
 
-    <span class='kw'>server</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>input</span>, <span class='kw'>output</span>, <span class='kw'>session</span>) {
-      <span class='kw'>robs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable.html'>robservable</a></span>(
-        <span class='st'>"@d3/bar-chart"</span>,
-        include = <span class='st'>"chart"</span>,
-        input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(color = <span class='st'>"red"</span>, height = <span class='fl'>700</span>)
-      )
-      <span class='kw'>output</span><span class='op'>$</span><span class='kw'>bar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable-shiny.html'>renderRobservable</a></span>({
-        <span class='kw'>robs</span>
-      })
+    <span class='co'># set up a proxy to our bar robservable instance</span>
+    <span class='co'>#   for later manipulation</span>
+    <span class='kw'>robs_proxy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservableProxy.html'>robservableProxy</a></span>(<span class='st'>"bar"</span>)
 
-      <span class='co'># set up a proxy to our bar robservable instance</span>
-      <span class='co'>#   for later manipulation</span>
-      <span class='kw'>robs_proxy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservableProxy.html'>robservableProxy</a></span>(<span class='st'>"bar"</span>)
+    <span class='fu'>observe</span>({
+      <span class='fu'>invalidateLater</span>(<span class='fl'>2000</span>, <span class='kw'>session</span>)
 
-      <span class='fu'>observe</span>({
-        <span class='fu'>invalidateLater</span>(<span class='fl'>2000</span>, <span class='kw'>session</span>)
-
-        <span class='co'># update with random color</span>
-        <span class='fu'>robs_update</span>(
-          <span class='kw'>robs_proxy</span>,
-          color = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(
-            <span class='st'>"rgb("</span>,
-            <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/col2rgb.html'>col2rgb</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></span>()[<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></span>())))]),collapse=<span class='st'>","</span>),
-            <span class='st'>")"</span>
-          )
+      <span class='co'># update with random color</span>
+      <span class='fu'>robs_update</span>(
+        <span class='kw'>robs_proxy</span>,
+        color = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(
+          <span class='st'>"rgb("</span>,
+          <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/col2rgb.html'>col2rgb</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></span>()[<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></span>())))]),collapse=<span class='st'>","</span>),
+          <span class='st'>")"</span>
         )
-      })
-    }
-
-    <span class='fu'>shinyApp</span>(<span class='kw'>ui</span>, <span class='kw'>server</span>)
-
-
-    <span class='co'># change data using update with proxy</span>
-
-    <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>shiny</span>)
-    <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://juba.github.io/robservable'>robservable</a></span>)
-
-    <span class='kw'>ui</span> <span class='op'>&lt;-</span> <span class='fu'>tagList</span>(
-      <span class='fu'>actionButton</span>(<span class='st'>"btnChangeData"</span>, <span class='st'>"Change Data"</span>),
-      <span class='fu'><a href='robservable-shiny.html'>robservableOutput</a></span>(<span class='st'>"bar"</span>)
-    )
-
-    <span class='kw'>server</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>input</span>, <span class='kw'>output</span>, <span class='kw'>session</span>) {
-      <span class='kw'>robs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable.html'>robservable</a></span>(
-        <span class='st'>"@d3/bar-chart"</span>,
-        include = <span class='st'>"chart"</span>,
-        input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(color = <span class='st'>"red"</span>, height = <span class='fl'>700</span>)
       )
-
-      <span class='kw'>output</span><span class='op'>$</span><span class='kw'>bar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable-shiny.html'>renderRobservable</a></span>({
-        <span class='kw'>robs</span>
-      })
-
-      <span class='co'># set up a proxy to our bar robservable instance</span>
-      <span class='co'>#   for later manipulation</span>
-      <span class='kw'>robs_proxy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservableProxy.html'>robservableProxy</a></span>(<span class='st'>"bar"</span>)
-
-      <span class='fu'>observeEvent</span>(<span class='kw'>input</span><span class='op'>$</span><span class='kw'>btnChangeData</span>, {
-        <span class='fu'>robs_update</span>(
-          <span class='kw'>robs_proxy</span>,
-          data = <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-            name = <span class='kw'>LETTERS</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>],
-            value = <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>10</span>)<span class='op'>*</span><span class='fl'>100</span>)
-          )
-        )
-      })
-    }
-
-    <span class='fu'>shinyApp</span>(<span class='kw'>ui</span>, <span class='kw'>server</span>)
-
-
-    <span class='co'># add an observer through proxy</span>
-
-    <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>shiny</span>)
-    <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://juba.github.io/robservable'>robservable</a></span>)
-
-    <span class='kw'>ui</span> <span class='op'>&lt;-</span> <span class='fu'>tagList</span>(
-      <span class='fu'><a href='robservable-shiny.html'>robservableOutput</a></span>(<span class='st'>"bar"</span>)
-    )
-
-    <span class='kw'>server</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>input</span>, <span class='kw'>output</span>, <span class='kw'>session</span>) {
-      <span class='kw'>robs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable.html'>robservable</a></span>(
-        <span class='st'>"@d3/bar-chart"</span>,
-        include = <span class='st'>"chart"</span>,
-        input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(color = <span class='st'>"red"</span>, height = <span class='fl'>700</span>)
-      )
-
-      <span class='kw'>output</span><span class='op'>$</span><span class='kw'>bar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable-shiny.html'>renderRobservable</a></span>({
-        <span class='kw'>robs</span>
-      })
-
-      <span class='co'># set up a proxy to our bar robservable instance</span>
-      <span class='co'>#   for later manipulation</span>
-      <span class='kw'>robs_proxy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservableProxy.html'>robservableProxy</a></span>(<span class='st'>"bar"</span>)
-
-      <span class='fu'><a href='robs_observe.html'>robs_observe</a></span>(<span class='kw'>robs_proxy</span>, <span class='st'>"color"</span>)
-
-      <span class='fu'>observeEvent</span>(<span class='kw'>input</span><span class='op'>$</span><span class='kw'>bar_color</span>, {
-        <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>input</span><span class='op'>$</span><span class='kw'>bar_color</span>)
-      })
-
-      <span class='fu'>observe</span>({
-        <span class='fu'>invalidateLater</span>(<span class='fl'>2000</span>, <span class='kw'>session</span>)
-
-        <span class='co'># update with random color</span>
-        <span class='fu'>robs_update</span>(
-          <span class='kw'>robs_proxy</span>,
-          color = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(
-            <span class='st'>"rgb("</span>,
-            <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/col2rgb.html'>col2rgb</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></span>()[<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></span>())))]),collapse=<span class='st'>","</span>),
-            <span class='st'>")"</span>
-          )
-        )
-      })
-    }
-
-    <span class='fu'>shinyApp</span>(<span class='kw'>ui</span>, <span class='kw'>server</span>)
+    })
   }
-<span class='co'># }</span>
+
+  <span class='fu'>shinyApp</span>(<span class='kw'>ui</span>, <span class='kw'>server</span>)
+
+
+  <span class='co'># change data using update with proxy</span>
+
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>shiny</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://juba.github.io/robservable'>robservable</a></span>)
+
+  <span class='kw'>ui</span> <span class='op'>&lt;-</span> <span class='fu'>tagList</span>(
+    <span class='fu'>actionButton</span>(<span class='st'>"btnChangeData"</span>, <span class='st'>"Change Data"</span>),
+    <span class='fu'><a href='robservable-shiny.html'>robservableOutput</a></span>(<span class='st'>"bar"</span>)
+  )
+
+  <span class='kw'>server</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>input</span>, <span class='kw'>output</span>, <span class='kw'>session</span>) {
+    <span class='kw'>robs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable.html'>robservable</a></span>(
+      <span class='st'>"@d3/bar-chart"</span>,
+      include = <span class='st'>"chart"</span>,
+      input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(color = <span class='st'>"red"</span>, height = <span class='fl'>700</span>)
+    )
+
+    <span class='kw'>output</span><span class='op'>$</span><span class='kw'>bar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable-shiny.html'>renderRobservable</a></span>({
+      <span class='kw'>robs</span>
+    })
+
+    <span class='co'># set up a proxy to our bar robservable instance</span>
+    <span class='co'>#   for later manipulation</span>
+    <span class='kw'>robs_proxy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservableProxy.html'>robservableProxy</a></span>(<span class='st'>"bar"</span>)
+
+    <span class='fu'>observeEvent</span>(<span class='kw'>input</span><span class='op'>$</span><span class='kw'>btnChangeData</span>, {
+      <span class='fu'>robs_update</span>(
+        <span class='kw'>robs_proxy</span>,
+        data = <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+          name = <span class='kw'>LETTERS</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>],
+          value = <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>10</span>)<span class='op'>*</span><span class='fl'>100</span>)
+        )
+      )
+    })
+  }
+
+  <span class='fu'>shinyApp</span>(<span class='kw'>ui</span>, <span class='kw'>server</span>)
+
+
+  <span class='co'># add an observer through proxy</span>
+
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'>shiny</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://juba.github.io/robservable'>robservable</a></span>)
+
+  <span class='kw'>ui</span> <span class='op'>&lt;-</span> <span class='fu'>tagList</span>(
+    <span class='fu'><a href='robservable-shiny.html'>robservableOutput</a></span>(<span class='st'>"bar"</span>)
+  )
+
+  <span class='kw'>server</span> <span class='op'>&lt;-</span> <span class='fu'>function</span>(<span class='kw'>input</span>, <span class='kw'>output</span>, <span class='kw'>session</span>) {
+    <span class='kw'>robs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable.html'>robservable</a></span>(
+      <span class='st'>"@d3/bar-chart"</span>,
+      include = <span class='st'>"chart"</span>,
+      input = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(color = <span class='st'>"red"</span>, height = <span class='fl'>700</span>)
+    )
+
+    <span class='kw'>output</span><span class='op'>$</span><span class='kw'>bar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservable-shiny.html'>renderRobservable</a></span>({
+      <span class='kw'>robs</span>
+    })
+
+    <span class='co'># set up a proxy to our bar robservable instance</span>
+    <span class='co'>#   for later manipulation</span>
+    <span class='kw'>robs_proxy</span> <span class='op'>&lt;-</span> <span class='fu'><a href='robservableProxy.html'>robservableProxy</a></span>(<span class='st'>"bar"</span>)
+
+    <span class='fu'><a href='robs_observe.html'>robs_observe</a></span>(<span class='kw'>robs_proxy</span>, <span class='st'>"color"</span>)
+
+    <span class='fu'>observeEvent</span>(<span class='kw'>input</span><span class='op'>$</span><span class='kw'>bar_color</span>, {
+      <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>input</span><span class='op'>$</span><span class='kw'>bar_color</span>)
+    })
+
+    <span class='fu'>observe</span>({
+      <span class='fu'>invalidateLater</span>(<span class='fl'>2000</span>, <span class='kw'>session</span>)
+
+      <span class='co'># update with random color</span>
+      <span class='fu'>robs_update</span>(
+        <span class='kw'>robs_proxy</span>,
+        color = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(
+          <span class='st'>"rgb("</span>,
+          <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/col2rgb.html'>col2rgb</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></span>()[<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/colors.html'>colors</a></span>())))]),collapse=<span class='st'>","</span>),
+          <span class='st'>")"</span>
+        )
+      )
+    })
+  }
+
+  <span class='fu'>shinyApp</span>(<span class='kw'>ui</span>, <span class='kw'>server</span>)
+}
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
