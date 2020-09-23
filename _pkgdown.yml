@@ -6,9 +6,12 @@ reference:
 - title: Main function
   contents:
   - '`robservable`'
-- title: Shiny bindings
+- title: Shiny bindings and proxy
   contents:
   - '`robservableOutput`'
+  - '`robservableProxy`'
+  - '`robs_observe`'
+  - '`robs_update`'
 - title: Misc
   desc: Utility functions
   contents:
