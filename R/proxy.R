@@ -64,6 +64,9 @@ invokeRemote <- function(robs, method, args = list()) {
 #'   until after the next time all of the outputs are updated; defaults to
 #'   \code{TRUE}
 #'
+#' @return
+#' A proxy object which allows to update an already created robservable instance.
+#'
 #' @export
 robservableProxy <- function(id, session = shiny::getDefaultReactiveDomain(),
   deferUntilFlush = TRUE) {

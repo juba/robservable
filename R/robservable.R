@@ -17,6 +17,9 @@
 #' If a data.frame is passed as a cell value in `input`, it will be converted into the format
 #' expected by `d3` (ie, converted by rows)..
 #'
+#' @return
+#' An object of class `htmlwidget`.
+#'
 #' @import htmlwidgets
 #'
 #' @examples
@@ -78,8 +81,9 @@ robservable <- function(
 #'
 #' @param date object to be converted
 #'
-#' @details
-#' The object is converted to the number of milliseconds since 1 January 1970 UTC.
+#' @return
+#' Numeric value representing the number of milliseconds between Unix Epoch
+#' (1 January 1970 UTC) and `date`.
 #'
 #' @export
 #'
