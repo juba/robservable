@@ -22,7 +22,7 @@ robservable(
 
 \item{include}{character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.}
 
-\item{hide}{character vector of cell names in `include` to be hidden in the output.}
+\item{hide}{character vector of cell names in \code{include} to be hidden in the output.}
 
 \item{input}{A named list of cells to be updated.}
 
@@ -39,12 +39,15 @@ you would like to set as input values in Shiny.}
 
 \item{elementId}{optional manual widget HTML id.}
 }
+\value{
+An object of class \code{htmlwidget}.
+}
 \description{
 Display an Observable notebook as HTML widget
 }
 \details{
-If a data.frame is passed as a cell value in `input`, it will be converted into the format
-expected by `d3` (ie, converted by rows)..
+If a data.frame is passed as a cell value in \code{input}, it will be converted into the format
+expected by \code{d3} (ie, converted by rows)..
 }
 \examples{
 ## Display a notebook cell

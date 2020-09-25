@@ -23,6 +23,9 @@ instance should be carried out right away, or whether they should be held
 until after the next time all of the outputs are updated; defaults to
 \code{TRUE}}
 }
+\value{
+A proxy object which allows to update an already created robservable instance.
+}
 \description{
 Creates a robservable-like object that can be used to customize and control a robservable
 that has already been rendered. For use in Shiny apps and Shiny docs only.

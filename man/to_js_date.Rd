@@ -9,9 +9,10 @@ to_js_date(date)
 \arguments{
 \item{date}{object to be converted}
 }
+\value{
+Numeric value representing the number of milliseconds between Unix Epoch
+(1 January 1970 UTC) and \code{date}.
+}
 \description{
 Convert a Date or POSIXt object to a JS Date format
-}
-\details{
-The object is converted to the number of milliseconds since 1 January 1970 UTC.
 }
