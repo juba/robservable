@@ -15,9 +15,9 @@ Authors@R: c(
       role = "aut"
     ))
 Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
-Description: Allows loading and displaying an entire Observable notebook (or 
-    part of it) as an HTML Widget in an R session, 'shiny' application or 
-    'rmarkdown' document.
+Description: Allows loading and displaying an Observable notebook (online JavaScript  
+    notebooks powered by observablehq.com) as an HTML Widget in an R session, 'shiny' 
+    application or 'rmarkdown' document. 
 VignetteBuilder: knitr
 URL: https://juba.github.io/robservable/
 BugReports: https://github.com/juba/robservable/issues
@@ -38,3 +38,5 @@ Suggests:
     lubridate,
     stringr
 RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+
