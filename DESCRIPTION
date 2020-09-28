@@ -16,8 +16,8 @@ Authors@R: c(
     ))
 Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
 Description: Allows loading and displaying an Observable notebook (online JavaScript  
-    notebooks powered by observablehq.com) as an HTML Widget in an R session, 'shiny' 
-    application or 'rmarkdown' document. 
+    notebooks powered by <https://observablehq.com>) as an HTML Widget in an R 
+    session, 'shiny' application or 'rmarkdown' document.
 VignetteBuilder: knitr
 URL: https://juba.github.io/robservable/
 BugReports: https://github.com/juba/robservable/issues
