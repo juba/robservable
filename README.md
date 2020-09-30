@@ -1,9 +1,9 @@
- <!-- badges: start -->
- [![CRAN status](https://www.r-pkg.org/badges/version/robservable)](https://CRAN.R-project.org/package=robservable)
- [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
- ![CRAN Downloads](http://cranlogs.r-pkg.org/badges/last-month/robservable)
-  [![R build status](https://github.com/juba/robservable/workflows/R-CMD-check/badge.svg)](https://github.com/juba/robservable/actions)
-  <!-- badges: end -->
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/robservable)](https://CRAN.R-project.org/package=robservable)
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/last-month/robservable)](https://CRAN.R-project.org/package=robservable)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![R build status](https://github.com/juba/robservable/workflows/R-CMD-check/badge.svg)](https://github.com/juba/robservable/actions)
+<!-- badges: end -->
 
 # robservable
 
