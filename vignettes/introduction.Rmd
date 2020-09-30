@@ -109,7 +109,7 @@ Finally, it is possible to mix the use of named and unnamed cells both in `cell`
 ```{r, eval = FALSE}
 robservable(
   "@mbostock/eyes",
-  cell = c(1, "canvas", "mouse"),
+  include = c(1, "canvas", "mouse"),
   hide = "mouse"
 )
 ```
