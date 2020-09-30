@@ -90,7 +90,7 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<p><!-- badges: start --> <a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a> <a href="https://github.com/juba/robservable/actions"><img src="https://github.com/juba/robservable/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <!-- badges: end --></p>
+<p><!-- badges: start --> <a href="https://CRAN.R-project.org/package=robservable"><img src="https://www.r-pkg.org/badges/version/robservable" alt="CRAN status"></a> <a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a> <img src="http://cranlogs.r-pkg.org/badges/last-month/robservable" alt="CRAN Downloads"><a href="https://github.com/juba/robservable/actions"><img src="https://github.com/juba/robservable/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <!-- badges: end --></p>
 <div id="robservable" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#robservable" class="anchor"></a>robservable</h1></div>
@@ -117,12 +117,13 @@
 <a href="#limitations" class="anchor"></a>Limitations</h2>
 <ul>
 <li>Named cells can be included by name, but unnamed cells are refenced by their index (1-based), which is sometimes a bit tricky to determine. An alternative is to fork the notebook and name the cell in Observable.</li>
+<li>No offline support : the included notebooks have to be downloaded each time they are used.</li>
 </ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The package is not on CRAN yet, but you can install the development version with:</p>
+<p>The package is on CRAN, but you can also install the development version with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"juba/robservable"</span>)
 </pre></div>
