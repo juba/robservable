@@ -114,7 +114,7 @@ The following notebook allows to create a Voronoi diagram on a map background.
 
 https://observablehq.com/@juba/reusable-voronoi-map
 
-Here we load data about the position of engineering school in France in 2020 (Source : [Onisep](https://www.data.gouv.fr/fr/datasets/etablissements-denseignement-superieur-2/)).
+Here we load data about the location of engineering schools in France in 2020 (Source : [Onisep](https://www.data.gouv.fr/fr/datasets/etablissements-denseignement-superieur-2/)).
 
 ```{r}
 d <- read_csv("https://gist.githubusercontent.com/juba/ccba4dadb899588d0301968fd974a99f/raw/5dedadc47c343ad95c3759c068f1821533296087/ecoles_inge.csv")
