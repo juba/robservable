@@ -39,12 +39,29 @@ class RObservable {
             const cell = !Array.isArray(this.params.include) ? [this.params.include] : this.params.include;
 
             return (name) => {
-                let name_safe = "";
                 let div;
 
                 if (cell.includes(name)) {
                     div = this.create_output_div(name);
-                    return new observablehq.Inspector(div);
+                    const i = new observablehq.Inspector(div);
+                    // If named cell, emit events at different cell states
+                    return {
+                        pending() {
+                          const event = new Event('robservable-' + name + '-pending');
+                          i.pending();
+                          document.dispatchEvent(event);
+                        },
+                        fulfilled(value) {
+                          const event = new Event('robservable-' + name + '-fulfilled');
+                          i.fulfilled(value);
+                          document.dispatchEvent(event);
+                        },
+                        rejected(error) {
+                          const event = new Event('robservable-' + name + '-rejected');
+                          i.rejected(error);
+                          document.dispatchEvent(event);
+                        },
+                      };
                 }
                 if (
                     (typeof(name) === "undefined" || name === "") &&
