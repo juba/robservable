@@ -274,6 +274,28 @@ If you are developing Observable notebooks to be used with robservable, here is 
 - give a name to the CSS `<style>` cells, this will greatly ease their inclusion.
 - making your chart updatable with animated transitions can be a nice addition if the notebook could be used in a shiny app. See the [robservable in Shiny applications vignette](https://juba.github.io/robservable/articles/shiny.html#animated-transitions-1) for a bit more information on this.
 
+## Advanced usage
+
+### Inspector state events
+
+In Observable, [a cell can be in three states](https://github.com/observablehq/runtime#observers) : `pending`, `fulfilled` or `rejected`. For each included named cell, `robservable` emits custom JavaScript events which allow to track the cell state.
+
+For example, suppose you include a `chart` cell from a notebook. You can then listen to the following `document` custom events :
+
+- `robservable-chart-pending` : when the `chart` cell is in pending state
+- `robservable-chart-fulfilled` : when the `chart` cell is in fulfilled state
+- `robservable-chart-rejected` : when the `chart` cell is in rejected state
+
+Here is a sample use case : suppose you are including a notebook cell which generates a chart inside an Rmarkdown document or Shiny app, and you want to add a custom interaction when hovering certain charts elements. For this to work, you have to wait for the cell to be rendered, so that you can add event listeners. This is possible with something like the following code :
+
+```{js}
+document.addEventListener("robservable-chart-fulfilled", (event) => {         
+   d3.selectAll("#chart rect")
+    .on("mouseover", (event) => { ... })
+    .on("mouseout", (event) => { ... });
+}, false)
+```
+
 
 
 
