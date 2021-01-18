@@ -14,7 +14,9 @@ robservable(
   update_width = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL
+  elementId = NULL,
+  json_args = list(dataframe = "rows"),
+  json_func = NULL
 )
 }
 \arguments{
@@ -38,6 +40,10 @@ you would like to set as input values in Shiny.}
 \item{height}{htmlwidget height.}
 
 \item{elementId}{optional manual widget HTML id.}
+
+\item{json_args}{custom arguments passed to JSON serializer.}
+
+\item{json_func}{optional custom JSON serializer R function.}
 }
 \value{
 An object of class \code{htmlwidget}.

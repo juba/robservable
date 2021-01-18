@@ -298,8 +298,10 @@ document.addEventListener("robservable-chart-fulfilled", (event) => {
 ```
 
 
+### Customizing JSON serialization
 
+By default `robservable` uses `htmlwidgets` for JSON serialization of the widgets arguments, with an additional `TOJSON_ARGS` value of `list(dataframe = "rows")` so that R data frames are converted to a format suitable for `d3`.
 
-
+You can change the value of `TOJSON_ARGS` with the `json_args` argument of `robservable`, or you can pass a custom JSON serializing R function with the `json_func` argument. This function will be passed to `htmlwidgets` via its internal `TOJSON_FUNC` parameter. See the [custom JSON serializer documentation](https://www.htmlwidgets.org/develop_advanced.html#custom-json-serializer) for more details.
 
 

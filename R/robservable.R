@@ -12,6 +12,8 @@
 #' @param width htmlwidget width.
 #' @param height htmlwidget height.
 #' @param elementId optional manual widget HTML id.
+#' @param json_args custom arguments passed to JSON serializer.
+#' @param json_func optional custom JSON serializer R function.
 #'
 #' @details
 #' If a data.frame is passed as a cell value in `input`, it will be converted into the format
@@ -53,7 +55,10 @@ robservable <- function(
                         update_height = TRUE,
                         update_width = TRUE,
                         width = NULL, height = NULL,
-                        elementId = NULL) {
+                        elementId = NULL,
+                        json_args = list(dataframe = "rows"),
+                        json_func = NULL
+                      ) {
 
   x <- list(
     notebook = notebook,
@@ -64,8 +69,12 @@ robservable <- function(
     update_height = update_height,
     update_width = update_width
   )
-  attr(x, "TOJSON_ARGS") <- list(dataframe = "rows")
 
+  # Custom JSON serialization
+  attr(x, "TOJSON_ARGS") <- json_args
+  if (!is.null(json_func)) {
+    attr(x, "TOJSON_FUNC") <- json_func
+  }
 
   htmlwidgets::createWidget(
     x,
