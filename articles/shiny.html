@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -71,7 +71,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/juba/robservable/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -85,14 +85,13 @@
 
       
 
-      </header><script src="shiny_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="shiny_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="shiny_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="shiny_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>robservable in Shiny applications</h1>
                         <h4 class="author">Julien Barnier, Kenton Russell</h4>
             
-            <h4 class="date">2020-11-02</h4>
+            <h4 class="date">2021-01-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/juba/robservable/blob/master/vignettes/shiny.Rmd"><code>vignettes/shiny.Rmd</code></a></small>
       <div class="hidden name"><code>shiny.Rmd</code></div>
@@ -106,8 +105,8 @@
 <a href="#basic-usage" class="anchor"></a>Basic usage</h2>
 <p><code>robservable</code> can be used inside a Shiny app the same way as any <code>htmlwidget</code>. Widgets are placed in the <code>ui</code> with <code>robservableOutput</code>, and are rendered in <code>server</code> with <code>renderRobservable</code>.</p>
 <p>You will find the following basic example in <a href="https://github.com/juba/robservable/blob/master/examples/01_shiny_basic.R">examples/01_shiny_basic.R</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co">## Basic robservable Shiny app</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Basic robservable Shiny app</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">shiny</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://juba.github.io/robservable/">robservable</a></span><span class="op">)</span>
@@ -153,7 +152,7 @@
     <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></pre></div>
+<span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></code></pre></div>
 <p>As for any <code>robservable</code> usage, we have to ensure that the data passed to the widget is in the same format as the one used in the notebook (same shape, same column names).</p>
 <p>Another example displaying a multi-line chart with some interactivity can be found in <a href="https://github.com/juba/robservable/blob/master/examples/02_shiny_simple.R">examples/02_shiny_simple.R</a>.</p>
 </div>
@@ -176,16 +175,16 @@
 <p>This can allow, for example, to use any input defined in the <a href="https://observablehq.com/@jashkenas/inputs">famous Inputs notebook</a> to be used as an input in a Shiny app.</p>
 <p>In the example in <a href="https://github.com/juba/robservable/blob/master/examples/04_shiny_observers.R">examples/04_shiny_observers.R</a>, we use <a href="https://observablehq.com/@jashkenas/inputs#worldMapCoordinates">worldMapCoordinates</a> as an input to update a leaflet map.</p>
 <p>To add an observer to an included cell, you must add the cell names to the <code>observers</code> argument.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span>
     <span class="st">"@jashkenas/inputs"</span>,
     include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span><span class="op">)</span>,
     hide <span class="op">=</span> <span class="st">"worldMapCoordinates"</span>,
     observers <span class="op">=</span> <span class="st">"worldMap1"</span>
-<span class="op">)</span></pre></div>
+<span class="op">)</span></code></pre></div>
 <p>The cell values will then be accessible via the Shiny <code>input</code> object by prefixing the observer name with the <code>robservable</code> Shiny id. So, for example, you can use the previous <code>robservable</code> instance as an <code>robservableOutput</code> with id <code>map_input</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co">## In ui</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## In ui</span>
 <span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span><span class="op">(</span><span class="st">"map_input"</span><span class="op">)</span>
 
 <span class="co">## In server</span>
@@ -196,16 +195,16 @@
         hide <span class="op">=</span> <span class="st">"worldMapCoordinates"</span>,
         observers <span class="op">=</span> <span class="st">"worldMap1"</span>
     <span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></pre></div>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
 <p>Then the values will be accessible in <code>input$map_input_worldMap1</code>.</p>
 <p>You can use a named list as <code>observers</code> argument to specify custom Shiny <code>input</code> names, but you will still have to add the <code>id</code> (<code>map_input</code> in this example) prefix. So with the following, values will be accessible in <code>input$map_input_point</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span>
     <span class="st">"@jashkenas/inputs"</span>,
     include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span><span class="op">)</span>,
     hide <span class="op">=</span> <span class="st">"worldMapCoordinates"</span>,
     observers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>point <span class="op">=</span> <span class="st">"worldMap1"</span><span class="op">)</span>
-<span class="op">)</span></pre></div>
+<span class="op">)</span></code></pre></div>
 </div>
 <div id="proxy-usage" class="section level2">
 <h2 class="hasAnchor">
