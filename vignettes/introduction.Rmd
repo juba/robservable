@@ -137,7 +137,8 @@ More interesting, we can update the `data` cell value of the notebook to generat
 
 
 ```{r}
-df <- data.frame(table(iris$Species))
+library(palmerpenguins)
+df <- data.frame(table(penguins$species))
 # change column names to match the names used in the observable notebook
 names(df) <- c("name", "value")
 
@@ -250,7 +251,7 @@ There are some cases when these `width` and `height` overrides are not suitable.
 For example, on our horizontal bar chart, it changes the original bar heights. To avoid this effect, we can deactivate `height` override with the `update_height = FALSE` argument.
 
 ```{r}
-df <- data.frame(table(iris$Species))
+df <- data.frame(table(penguins$species))
 names(df) <- c("name", "value")
 
 robservable(
