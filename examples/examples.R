@@ -1,4 +1,3 @@
-
 # Horizontal bar chart --------------------------------------------------------
 
 
@@ -164,15 +163,24 @@ robservable(
 
 
 
+# input_js examples ---------------------------------------------------------
+
+robservable(
+  "https://observablehq.com/d/e1db8b0bd1c06ad2",
+  input_js = list(format = list(inputs = "x", definition = "(x) => ((y) => (x * y))"))
+)
+
+robservable(
+  "https://observablehq.com/d/e1db8b0bd1c06ad2",
+  input_js = list(format = list(inputs = NULL, definition = "() => ((x) => (x + 200))"))
+)
 
 
-
-
-
-
-
-
-
-
+robservable(
+ "https://observablehq.com/d/e1db8b0bd1c06ad2",  
+  input_js = list(
+    func = list(inputs = "param", definition = "(param) => (x) => (x - param)")
+  )
+)
 
 
