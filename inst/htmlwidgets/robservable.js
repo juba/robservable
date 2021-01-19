@@ -173,6 +173,17 @@ class RObservable {
                 console.warn(`Can't update ${key} variable : ${error.message}`);
             }
         })
+        let input_js = this.params.input_js
+        input_js = input_js === null ? {} : input_js;
+        Object.entries(input_js).forEach(([key, value]) => {
+            if (value.inputs === null) value.inputs = [];
+            if (!Array.isArray(value.inputs)) value.inputs = [value.inputs];
+            try {
+                this.main.redefine(key, value.inputs, value.definition);
+            } catch (error) {
+                console.warn(`Can't update ${key} cell : ${error.message}`);
+            }
+        })
     }
 
 }

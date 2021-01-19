@@ -297,6 +297,51 @@ document.addEventListener("robservable-chart-fulfilled", (event) => {
 }, false)
 ```
 
+### Updating a cell JavaScript code
+
+The examples above show how to update a cell with a "fixed" value : a string, a number, a data frame... But sometimes you need to redefine a cell as JavaScript code, for example to redefine a function. 
+
+Suppose in our Observable notebook we have the following cell :
+
+```js
+func = x => (x + 2)
+```
+
+If we want to redefine this function using the JavaScript Observable runtime API, following the [variable.define documentation](https://github.com/observablehq/runtime#variable_define) we would use something like :
+
+```js
+module.redefine("func", [], () => x => (x + 10))
+```
+
+To do this in `robservable`, use the `input_js` argument. This is a named list whose elements are also lists with `inputs` and `definition` entries. In this case the syntax would be :
+
+```{r, eval = FALSE}
+robservable(...,
+  input_js = list(
+    func = list(inputs = NULL, definition = "() => (x) => (x + 10)")
+  )
+)
+```
+
+In a slightly more complex case, maybe our initial function is the following, when `param` is not an argument of our function but the value of another notebook cell :
+
+```js
+func = x => (x + param)
+```
+
+If we want to redefine this function while still accessing the `param` cell value, we have to add its name to the `inputs` entry of `input_js` :
+
+```{r, eval = FALSE}
+robservable(...,
+  input_js = list(
+    func = list(inputs = "param", definition = "(param) => (x) => (x - param)")
+  )
+)
+```
+
+For more details on the usage of `inputs` and `definition`, see the [Observable runtime API documentation](https://github.com/observablehq/runtime#variable_define).
+
+
 
 ### Customizing JSON serialization
 

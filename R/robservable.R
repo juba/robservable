@@ -4,7 +4,10 @@
 #' @param notebook The notebook id, such as "@d3/bar-chart", or the full notebook URL.
 #' @param include character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.
 #' @param hide character vector of cell names in `include` to be hidden in the output.
-#' @param input A named list of cells to be updated.
+#' @param input A named list of cells to be updated with a fixed value.
+#' @param input_js A named list of cells to be updated with JavaScript code. Each list element is itself a list
+#'   with a vector of argument names as `inputs` entry,  and a character string of JavaScript code 
+#'   as `definition` entry, as expected by Observable runtime variable.define function.
 #' @param observers A vector of character strings representing variables in observable that
 #'   you would like to set as input values in Shiny.
 #' @param update_height if TRUE (default) and input$height is not defined, replace its value with the height of the widget root HTML element. Note there will not always be such a cell in every notebook. Set it to FALSE to always keep the notebook value.
@@ -17,7 +20,10 @@
 #'
 #' @details
 #' If a data.frame is passed as a cell value in `input`, it will be converted into the format
-#' expected by `d3` (ie, converted by rows)..
+#' expected by `d3` (ie, converted by rows).
+#' 
+#' For more details on the use of `input_js` to update cells with JavaScript code, see the
+#' introduction vignette and https://github.com/observablehq/runtime#variable_define.
 #'
 #' @return
 #' An object of class `htmlwidget`.
@@ -51,7 +57,7 @@
 #'
 robservable <- function(
                         notebook, include = NULL, hide = NULL,
-                        input = NULL, observers = NULL,
+                        input = NULL, input_js = NULL, observers = NULL,
                         update_height = TRUE,
                         update_width = TRUE,
                         width = NULL, height = NULL,
@@ -60,11 +66,16 @@ robservable <- function(
                         json_func = NULL
                       ) {
 
+  input_js = lapply(input_js, function(entry) {
+    list(inputs = entry$inputs, definition = htmlwidgets::JS(entry$definition))
+  })
+
   x <- list(
     notebook = notebook,
     include = include,
     hide = hide,
     input = input,
+    input_js = input_js,
     observers = observers,
     update_height = update_height,
     update_width = update_width
