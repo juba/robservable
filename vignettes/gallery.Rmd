@@ -77,7 +77,7 @@ library(tidyr)
 ## Load Covid-19 data from Johns Hopkins Github repository
 d <- read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv")
 
-## Reformat data 
+## Reformat data
 d <- d %>%
   select(-`Province/State`, -Lat, -Long) %>%
   rename(id = `Country/Region`) %>%
@@ -85,6 +85,12 @@ d <- d %>%
   summarise(across(everything(), sum)) %>%
   pivot_longer(-id, names_to = "date") %>%
   mutate(date = as.character(lubridate::mdy(date)))
+
+## Filter out data
+d <- d %>%
+  group_by(date) %>%
+  filter(value > 0 & (n() - row_number(value)) <= 12) %>%
+  arrange(date)
 ```
 
 We can then generate the chart with the following `robservable` call. Note that we have to include several cells : the chart itself, the `draw` cell which updates it, the `date` play/pause control, and the CSS `styles`. 
