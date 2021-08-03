@@ -134,6 +134,19 @@
 <p>For a small gallery of interesting notebooks, see the <a href="https://juba.github.io/robservable/articles/gallery.html">robservable gallery</a> vignette.</p>
 <p>For usage in Shiny, see the <a href="https://juba.github.io/robservable/articles/shiny.html">robservable in Shiny applications</a> vignette (work in progress).</p>
 </div>
+<div id="development-notes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#development-notes" class="anchor"></a>Development notes</h2>
+<p>This package uses <a href="https://github.com/JohnCoene/packer">packer</a> to manage JavaScript source code and dependencies. If you want to modify it, you’ll need a working installation of <a href="https://nodejs.org/en/">Node.js</a>.</p>
+<p>After cloning this repository, run the following in a terminal at the project root :</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">npm</span> install</span></code></pre></div>
+<p>Then, if you modify the JavaScript code in <code>srcjs</code>, you’ll have to run the following command to bundle and update the widget JavaScript code :</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">packer</span><span class="fu">::</span><span class="fu">bundle_dev</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>If you want to ship a minimized production version, use :</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">packer</span><span class="fu">::</span><span class="fu">bundle_prod</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
 </div>
 
   </div>
