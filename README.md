@@ -47,3 +47,24 @@ For a small gallery of interesting notebooks, see the [robservable gallery](http
 
 For usage in Shiny, see the [robservable in Shiny applications](https://juba.github.io/robservable/articles/shiny.html) vignette (work in progress).
 
+## Development notes
+
+This package uses [packer](https://github.com/JohnCoene/packer) to manage JavaScript source code and dependencies. If you want to modify it, you'll need a working installation of [Node.js](https://nodejs.org/en/).
+
+After cloning this repository, run the following in a terminal at the project root :
+
+```sh
+npm install
+```
+
+Then, if you modify the JavaScript code in `srcjs`, you'll have to run the following command to bundle and update the widget JavaScript code :
+
+```r
+packer::bundle_dev()
+```
+
+If you want to ship a minimized production version, use :
+
+```r
+packer::bundle_prod()
+```

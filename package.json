@@ -1,0 +1,40 @@
+{
+  "name": "robservable",
+  "version": "0.2.1",
+  "description": "Use of Observable notebooks as htmlwidgets in R",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "man": "man",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "none": "webpack --config webpack.dev.js --mode=none",
+    "development": "webpack --config webpack.dev.js",
+    "production": "webpack --config webpack.prod.js",
+    "watch": "webpack --config webpack.config.js -d --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juba/robservable.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juba/robservable/issues"
+  },
+  "homepage": "https://github.com/juba/robservable#readme",
+  "devDependencies": {
+    "css-loader": "^6.2.0",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.48.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@observablehq/runtime": "^4.13.0"
+  }
+}

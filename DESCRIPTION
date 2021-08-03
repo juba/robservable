@@ -23,7 +23,6 @@ URL: https://juba.github.io/robservable/
 BugReports: https://github.com/juba/robservable/issues
 License: GPL (>=3)
 Encoding: UTF-8
-LazyData: true
 Enhances: shiny
 Imports:
     htmlwidgets,

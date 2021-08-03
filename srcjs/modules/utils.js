@@ -1,11 +1,11 @@
 // Make a string "safe" as a CSS class name
-function css_safe(str) {
+export function css_safe(str) {
     str = str.replace(/[!\"#$%&'\(\)\*\+,\.\/:;<=>\?\@\[\\\]\^`\{\|\}~\s]/g, '_');
     return (str);
 }
 
 // Update params height and width
-function update_height_width(params, height, width) {
+export function update_height_width(params, height, width) {
     if (params.input === null) params.input = {};
     if ((params.input.width === undefined || params.width_updated) && params.update_width) {
         params.input.width = width;
@@ -19,7 +19,7 @@ function update_height_width(params, height, width) {
 }
 
 // Return runtime API notebook URL from notebook id
-function notebook_api_url(id) {
+export function notebook_api_url(id) {
     if (id.slice(0,4) == "http") {
        // If id is an url
        return id.replace('://observablehq', '://api.observablehq') + '.js?v=3'

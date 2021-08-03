@@ -5,3 +5,4 @@
 docs
 vignettes/*.html
 .vscode/
+node_modules
