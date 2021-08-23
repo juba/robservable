@@ -1,8 +1,8 @@
 Package: robservable
 Type: Package
 Title: Import an Observable Notebook as HTML Widget
-Version: 0.2.1
-Date: 2020-09-30
+Version: 0.2.0.9000
+Date: 2021-08-23
 Authors@R: c(
     person(
       "Julien", "Barnier",
