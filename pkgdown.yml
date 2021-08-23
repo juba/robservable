@@ -5,7 +5,7 @@ articles:
   gallery: gallery.html
   introduction: introduction.html
   shiny: shiny.html
-last_built: 2021-08-23T08:12Z
+last_built: 2021-08-23T08:14Z
 urls:
   reference: https://juba.github.io/robservable//reference
   article: https://juba.github.io/robservable//articles
