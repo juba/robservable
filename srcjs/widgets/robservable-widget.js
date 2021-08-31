@@ -2,7 +2,7 @@ import { RObservable } from "../modules/robservable";
 import { update_height_width } from "../modules/utils";
 import 'widgets';
 //import 'shiny';
-import "../../node_modules/@observablehq/inspector/dist/inspector.css";
+import "@observablehq/inspector/dist/inspector.css";
 
 
 HTMLWidgets.widget({
