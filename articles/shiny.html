@@ -91,7 +91,7 @@
       <h1 data-toc-skip>robservable in Shiny applications</h1>
                         <h4 class="author">Julien Barnier, Kenton Russell</h4>
             
-            <h4 class="date">2021-10-03</h4>
+            <h4 class="date">2021-10-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/juba/robservable/blob/master/vignettes/shiny.Rmd"><code>vignettes/shiny.Rmd</code></a></small>
       <div class="hidden name"><code>shiny.Rmd</code></div>
@@ -108,22 +108,22 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Basic robservable Shiny app</span>
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">shiny</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://juba.github.io/robservable/">robservable</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"USPersonalExpenditure"</span><span class="op">)</span>
 
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span>
-    <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"robservable basic Shiny app"</span><span class="op">)</span>,
-    <span class="fu">sidebarLayout</span><span class="op">(</span>
-        <span class="fu">sidebarPanel</span><span class="op">(</span>
-            <span class="fu">selectInput</span><span class="op">(</span>
+<span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html">titlePanel</a></span><span class="op">(</span><span class="st">"robservable basic Shiny app"</span><span class="op">)</span>,
+    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span>
+        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span>
+            <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span>
                 <span class="st">"year"</span>,
                 label <span class="op">=</span> <span class="st">"Year"</span>,
                 choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">USPersonalExpenditure</span><span class="op">)</span>
             <span class="op">)</span>
         <span class="op">)</span>,
-        <span class="fu">mainPanel</span><span class="op">(</span>
+        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span>
            <span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span><span class="op">(</span><span class="st">"chart"</span>, width <span class="op">=</span> <span class="fl">600</span><span class="op">)</span>
         <span class="op">)</span>
     <span class="op">)</span>
@@ -132,7 +132,7 @@
 
 <span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span>
 
-    <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span>
+    <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span>
         <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
             name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">USPersonalExpenditure</span><span class="op">)</span>,
             value <span class="op">=</span> <span class="va">USPersonalExpenditure</span><span class="op">[</span>, <span class="va">input</span><span class="op">$</span><span class="va">year</span><span class="op">]</span>
@@ -152,7 +152,7 @@
     <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></code></pre></div>
 <p>As for any <code>robservable</code> usage, we have to ensure that the data passed to the widget is in the same format as the one used in the notebook (same shape, same column names).</p>
 <p>Another example displaying a multi-line chart with some interactivity can be found in <a href="https://github.com/juba/robservable/blob/master/examples/02_shiny_simple.R">examples/02_shiny_simple.R</a>.</p>
 </div>
