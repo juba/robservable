@@ -1,3 +1,4 @@
+import 'core-js/features/object/from-entries';
 import { RObservable } from "../modules/robservable";
 import { update_height_width } from "../modules/utils";
 import 'widgets';
