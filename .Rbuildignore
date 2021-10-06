@@ -1,12 +1,12 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-examples/
+examples
 ^\.github$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-resources/
-work/
+resources
+work
 ^srcjs$
 ^node_modules$
 ^package\.json$
