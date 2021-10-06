@@ -28,8 +28,7 @@ You'll find more examples and the associated R code in the [robservable gallery]
 ## Limitations
 
 - Named cells can be included by name, but unnamed cells are refenced by their index (1-based), which is sometimes a bit tricky to determine. An alternative is to fork the notebook and name the cell in Observable.
-- No offline support : the included notebooks have to be downloaded each time they are
-used.
+- No offline support : the included notebooks have to be downloaded each time they are used.
 
 ## Installation
 
