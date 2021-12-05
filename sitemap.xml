@@ -1,33 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://juba.github.io/robservable//index.html</loc>
+    <loc>https://juba.github.io/robservable/404.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/robservable//reference/robs_observe.html</loc>
+    <loc>https://juba.github.io/robservable/articles/gallery.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/robservable//reference/robs_update.html</loc>
+    <loc>https://juba.github.io/robservable/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/robservable//reference/robservable-shiny.html</loc>
+    <loc>https://juba.github.io/robservable/articles/introduction.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/robservable//reference/robservable.html</loc>
+    <loc>https://juba.github.io/robservable/articles/shiny.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/robservable//reference/robservableProxy.html</loc>
+    <loc>https://juba.github.io/robservable/authors.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/robservable//reference/to_js_date.html</loc>
+    <loc>https://juba.github.io/robservable/index.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/robservable//articles/gallery.html</loc>
+    <loc>https://juba.github.io/robservable/news/index.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/robservable//articles/introduction.html</loc>
+    <loc>https://juba.github.io/robservable/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/robservable//articles/shiny.html</loc>
+    <loc>https://juba.github.io/robservable/reference/robs_observe.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/robservable/reference/robs_update.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/robservable/reference/robservable-shiny.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/robservable/reference/robservable.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/robservable/reference/robservableProxy.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/robservable/reference/to_js_date.html</loc>
   </url>
 </urlset>
