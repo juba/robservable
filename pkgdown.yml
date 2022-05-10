@@ -1,11 +1,11 @@
 pandoc: 2.7.3
-pkgdown: 2.0.2
+pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   gallery: gallery.html
   introduction: introduction.html
   shiny: shiny.html
-last_built: 2022-02-26T22:20Z
+last_built: 2022-05-10T08:04Z
 urls:
   reference: https://juba.github.io/robservable/reference
   article: https://juba.github.io/robservable/articles
