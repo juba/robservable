@@ -1,7 +1,7 @@
 # robservable (development version)
 
 * Fix compatibility with RStudio outdated web rendering engine
-* Update Observable runtime to 4.21.1
+* Update Observable runtime to 4.22.2
 
 # robservable 0.2.1
 
