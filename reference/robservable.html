@@ -90,37 +90,64 @@
     <h2>Arguments</h2>
     <dl><dt>notebook</dt>
 <dd><p>The notebook id, such as "@d3/bar-chart", or the full notebook URL.</p></dd>
+
+
 <dt>include</dt>
 <dd><p>character vector of cell names to be rendered. If NULL,  the whole notebook is rendered.</p></dd>
+
+
 <dt>hide</dt>
 <dd><p>character vector of cell names in <code>include</code> to be hidden in the output.</p></dd>
+
+
 <dt>input</dt>
 <dd><p>A named list of cells to be updated with a fixed value.</p></dd>
+
+
 <dt>input_js</dt>
 <dd><p>A named list of cells to be updated with JavaScript code. Each list element is itself a list
 with a vector of argument names as <code>inputs</code> entry,  and a character string of JavaScript code
 as <code>definition</code> entry, as expected by Observable runtime variable.define function.</p></dd>
+
+
 <dt>observers</dt>
 <dd><p>A vector of character strings representing variables in observable that
 you would like to set as input values in Shiny.</p></dd>
+
+
 <dt>update_height</dt>
 <dd><p>if TRUE (default) and input$height is not defined, replace its value with the height of the widget root HTML element. Note there will not always be such a cell in every notebook. Set it to FALSE to always keep the notebook value.</p></dd>
+
+
 <dt>update_width</dt>
 <dd><p>if TRUE (default) and input$width is not defined, replace its value with the width of the widget root HTML element. Set it to FALSE to always keep the notebook or the Observable stdlib value.</p></dd>
+
+
 <dt>width</dt>
 <dd><p>htmlwidget width.</p></dd>
+
+
 <dt>height</dt>
 <dd><p>htmlwidget height.</p></dd>
+
+
 <dt>elementId</dt>
 <dd><p>optional manual widget HTML id.</p></dd>
+
+
 <dt>json_args</dt>
 <dd><p>custom arguments passed to JSON serializer.</p></dd>
+
+
 <dt>json_func</dt>
 <dd><p>optional custom JSON serializer R function.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>htmlwidget</code>.</p>
+    
+
+<p>An object of class <code>htmlwidget</code>.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -137,16 +164,16 @@ introduction vignette and https://github.com/observablehq/runtime#variable_defin
 <span class="r-in">  <span class="st">"@d3/bar-chart"</span>,</span>
 <span class="r-in">  include <span class="op">=</span> <span class="st">"chart"</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<div id="htmlwidget-3a6971b45f8cd8cd1c09" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3a6971b45f8cd8cd1c09">{"x":{"notebook":"@d3/bar-chart","include":"chart","hide":null,"input":null,"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
+<div id="htmlwidget-66814f5cd58baaeaf860" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
+<script type="application/json" data-for="htmlwidget-66814f5cd58baaeaf860">{"x":{"notebook":"@d3/bar-chart","include":"chart","hide":null,"input":null,"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
 <span class="r-in"><span class="co">## Change cells data with input</span></span>
 <span class="r-in"><span class="fu">robservable</span><span class="op">(</span></span>
 <span class="r-in">  <span class="st">"@d3/bar-chart"</span>,</span>
 <span class="r-in">  include <span class="op">=</span> <span class="st">"chart"</span>,</span>
 <span class="r-in">  input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, height <span class="op">=</span> <span class="fl">700</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<div id="htmlwidget-813473a3534af0da6258" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
-<script type="application/json" data-for="htmlwidget-813473a3534af0da6258">{"x":{"notebook":"@d3/bar-chart","include":"chart","hide":null,"input":{"color":"red","height":700},"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
+<div id="htmlwidget-f52c32be29e295518ee6" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f52c32be29e295518ee6">{"x":{"notebook":"@d3/bar-chart","include":"chart","hide":null,"input":{"color":"red","height":700},"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
 <span class="r-in"><span class="co">## Change data frame cells data</span></span>
 <span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"value"</span><span class="op">)</span></span>
@@ -155,8 +182,8 @@ introduction vignette and https://github.com/observablehq/runtime#variable_defin
 <span class="r-in">  include <span class="op">=</span> <span class="st">"chart"</span>,</span>
 <span class="r-in">  input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<div id="htmlwidget-db10835f0029fc47fde2" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
-<script type="application/json" data-for="htmlwidget-db10835f0029fc47fde2">{"x":{"notebook":"@d3/horizontal-bar-chart","include":"chart","hide":null,"input":{"data":[{"name":"4","value":11},{"name":"6","value":7},{"name":"8","value":14}]},"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
+<div id="htmlwidget-03094167f2ea848046a2" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
+<script type="application/json" data-for="htmlwidget-03094167f2ea848046a2">{"x":{"notebook":"@d3/horizontal-bar-chart","include":"chart","hide":null,"input":{"data":[{"name":"4","value":11},{"name":"6","value":7},{"name":"8","value":14}]},"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>
@@ -171,7 +198,7 @@ introduction vignette and https://github.com/observablehq/runtime#variable_defin
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
