@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 
 Note that it is not just an `iframe` embedding a whole notebook.  Cells are integrated directly into the document or application with no `iframe` wrapper.  You can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
 
-## Embed a whole notebook
+## Embedding a whole notebook
 
 The most basic usage is to call the `robservable()` function with the full URL or the identifier of the notebook you want to display. The identifier is the same as the one used to import another notebook in Observable (something like `@d3/horizontal-bar-chart`).   Please see the [Introduction to Imports](https://observablehq.com/@observablehq/introduction-to-imports) notebook for additional reference.
 
@@ -54,7 +54,7 @@ robservable("61be71d2b8c0d456")
 ```
 
 
-## Choose which cells to render
+## Choosing which cells to render
 
 Instead of rendering a whole notebook, we can choose to display only some of its cells. This is done by passing a character vector of cell names to the `include` argument.
 
@@ -117,7 +117,7 @@ robservable(
 
 
 
-## Update cell values
+## Updating cell values
 
 `robservable` allows to update a notebook cell value directly from R. This is done by passing a named list as the `input` argument.
 
@@ -195,7 +195,7 @@ robservable(
 )
 ```
 
-## Size the widget
+## Sizing the widget
 
 Widget sizing is a bit complicated as it depends on several factors :
 
@@ -254,7 +254,7 @@ robservable(
 There are some cases when these `width` and `height` overrides are not suitable. First, those values could be defined for something else than an output size (`height` could be another type of parameter). Second, overriding the height can modify the chart appearance. In these cases, you can set the `update_width` or `update_height` arguments to `FALSE` to deactivate the value override.
 
 
-## Write notebooks for robservable
+## Writing notebooks for robservable
 
 If you are developing Observable notebooks to be used with robservable, here is some advice to make your notebook easier to use in R:
 
