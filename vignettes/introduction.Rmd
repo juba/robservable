@@ -61,7 +61,7 @@ Instead of rendering a whole notebook, we can choose to display only some of its
 
 ```{r}
 robservable(
-  "@d3/horizontal-bar-chart", 
+  "@juba/robservable-bar-chart", 
   include = "chart"
 )
 ```
@@ -71,7 +71,7 @@ If you need to display an unnamed cell^[Another option for unnamed cells is to f
 
 ```{r, eval = FALSE}
 robservable(
-  "@d3/horizontal-bar-chart", 
+  "@juba/robservable-bar-chart", 
   include = 1
 )
 ```
@@ -121,31 +121,35 @@ robservable(
 
 `robservable` allows to update a notebook cell value directly from R. This is done by passing a named list as the `input` argument.
 
-For example, in the horizontal bar chart notebook there is a cell called `barHeight` which allows to customize the bar heights. We can modify its value when calling `robservable` with `input = list(barHeight = 15)`.
+For example, in the horizontal bar chart notebook there is a cell called `height` which allows to customize the chart height. We can modify its value when calling `robservable` with `input = list(height = 300)`.
 
 
 ```{r}
 robservable(
-  "@d3/horizontal-bar-chart", 
+  "@juba/robservable-bar-chart", 
   include = "chart",
-  input = list(barHeight = 15)
+  input = list(height = 300)
 )
 ```
 
 
-More interesting, we can update the `data` cell value of the notebook to generate the bar chart based on our own data. We just have to be sure that it is in the same format as the notebook data. In this example the data is in a standard `d3-array` format, so we can pass a data frame. We will need to take care of the column names, as they must match the ones in the notebook data.
+More interesting, we can update the `data` cell value of the notebook to generate the bar chart based on our own data. We just have to be sure that it is in the same format as the notebook data. In this example the data is in a standard `d3-array` format, so we can pass a data frame. We will need to take care of the column names, and also pass the `x` and `y` input arguments to specify which variables we want on each axis.
 
 
 ```{r}
 library(palmerpenguins)
 df <- data.frame(table(penguins$species))
 # change column names to match the names used in the observable notebook
-names(df) <- c("name", "value")
+names(df) <- c("Species", "Freq")
 
 robservable(
-  "@d3/horizontal-bar-chart", 
+  "@juba/robservable-bar-chart", 
   include = "chart",
-  input = list(data = df)
+  input = list(
+    data = df,
+    x = "Freq",
+    y = "Species"
+  )
 )
 ```
 
@@ -154,17 +158,19 @@ There's still one problem though.  Our species names are truncated. We can fix t
 
 ```{r}
 robservable(
-  "@d3/horizontal-bar-chart",
+  "@juba/robservable-bar-chart",
   include = "chart",
   input = list(
     data = df,
+    x = "Freq",
+    y = "Species",
     # equivalent to {top: 20, right: 0, left: 70, bottom: 0} in JavaScript
     margin = list(top = 20, right = 0, left = 70, bottom = 0)
   )
 )
 ```
 
-Finally, here is a bit more complex example which displays a [multi-line chart](https://observablehq.com/@d3/multi-line-chart) with the `gapminder` data. The `to_js_date` function is a helper to convert `Date` or `POSIXt` R objects to JavaScript `Date` values (*ie* number of milliseconds since Unix Epoch).
+Finally, here is a bit more complex example which displays a [multi-line chart](https://observablehq.com/@juba/multi-line-chart) with the `gapminder` data. The `to_js_date` function is a helper to convert `Date` or `POSIXt` R objects to JavaScript `Date` values (*ie* number of milliseconds since Unix Epoch).
 
 ```{r message=FALSE}
 library(gapminder)
@@ -183,7 +189,7 @@ df <- list(
 )
 
 robservable(
-  "@d3/multi-line-chart",
+  "@juba/multi-line-chart",
   include = "chart",
   input = list(data = df)
 )
@@ -227,7 +233,7 @@ If the notebook doesn't provide a `height` value, then you'll have to manually d
 
 ```{r}
 robservable(
-  "@d3/bivariate-choropleth",
+  "@juba/bivariate-choropleth",
   include = "chart",
   height = 450
 )
@@ -245,25 +251,8 @@ robservable(
 )
 ```
 
-
 There are some cases when these `width` and `height` overrides are not suitable. First, those values could be defined for something else than an output size (`height` could be another type of parameter). Second, overriding the height can modify the chart appearance. In these cases, you can set the `update_width` or `update_height` arguments to `FALSE` to deactivate the value override.
 
-For example, on our horizontal bar chart, it changes the original bar heights. To avoid this effect, we can deactivate `height` override with the `update_height = FALSE` argument.
-
-```{r}
-df <- data.frame(table(penguins$species))
-names(df) <- c("name", "value")
-
-robservable(
-  "@d3/horizontal-bar-chart",
-  include  = "chart",
-  input = list(
-    data = df,
-    margin = list(top = 20, right = 0, left = 70, bottom = 0)
-  ),
-  update_height = FALSE
-)
-```
 
 ## Write notebooks for robservable
 
