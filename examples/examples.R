@@ -2,23 +2,27 @@
 
 
 robservable(
-  "@d3/horizontal-bar-chart"
+  "@juba/robservable-bar-chart"
 )
 
 robservable(
-  "@d3/horizontal-bar-chart",
+  "@juba/robservable-bar-chart",
   include = "chart"
 )
 
 df <- data.frame(table(mtcars$cyl))
 names(df) <- c("name", "value")
+df$name <- paste0("cyl", df$name)
 robservable(
-  "@d3/horizontal-bar-chart",
+  "@juba/robservable-bar-chart",
   include = "chart",
-  input = list(data = df,
-    margin = list(top = 20, right = 0, left = 150, bottom = 0)
+  input = list(
+    data = df,
+    x = "value",
+    y = "name",
+    margin = list(top = 20, right = 0, left = 15, bottom = 30)
   ),
-  width = 600
+  width = 800
 )
 
 
@@ -27,16 +31,10 @@ robservable(
 
 
 robservable(
-  "@d3/bar-chart"
-)
-
-robservable(
-  "@d3/bar-chart",
-  include = "chart",
+  "@juba/updatable-bar-chart",
+  include = c("chart", "draw"),
   input = list(
-    data = df,
-    color = "#567890",
-    height = 800
+    data = df
   )
 )
 
@@ -103,19 +101,21 @@ robservable(
 # Multi line chart --------------------------------------------------------
 
 
-robservable("@d3/multi-line-chart")
+robservable("@juba/multi-line-chart")
 
 robservable(
-  "@d3/multi-line-chart",
+  "@juba/multi-line-chart",
   include = "chart"
 )
 
 library(gapminder)
 library(tidyverse)
 data(gapminder)
-series <- purrr::map(unique(gapminder$country), ~{
+series <- purrr::map(unique(gapminder$country), ~ {
   name <- .x
-  values <- gapminder %>% filter(country == .x) %>% pull(lifeExp)
+  values <- gapminder %>%
+    filter(country == .x) %>%
+    pull(lifeExp)
   list(name = name, values = values)
 })
 dates <- sort(unique(gapminder$year))
@@ -128,7 +128,7 @@ df <- list(
 )
 
 robservable(
-  "@d3/multi-line-chart",
+  "@juba/multi-line-chart",
   include = "chart",
   input = list(data = df)
 )
@@ -156,7 +156,7 @@ robservable(
   input = list(
     data = data.frame(
       name = LETTERS[1:10],
-      value = round(runif(10)*100)
+      value = round(runif(10) * 100)
     )
   )
 )
@@ -177,10 +177,8 @@ robservable(
 
 
 robservable(
- "https://observablehq.com/d/e1db8b0bd1c06ad2",  
+  "https://observablehq.com/d/e1db8b0bd1c06ad2",
   input_js = list(
     func = list(inputs = "param", definition = "(param) => (x) => (x - param)")
   )
 )
-
-
