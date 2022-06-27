@@ -51,30 +51,29 @@ export class RObservable {
                     // If named cell, emit events at different cell states
                     return {
                         pending() {
-                          const event = new Event('robservable-' + name + '-pending');
-                          i.pending();
-                          document.dispatchEvent(event);
+                            const event = new Event('robservable-' + name + '-pending');
+                            i.pending();
+                            document.dispatchEvent(event);
                         },
                         fulfilled(value) {
-                          const event = new Event('robservable-' + name + '-fulfilled');
-                          i.fulfilled(value);
-                          document.dispatchEvent(event);
+                            const event = new Event('robservable-' + name + '-fulfilled');
+                            i.fulfilled(value);
+                            document.dispatchEvent(event);
                         },
                         rejected(error) {
-                          const event = new Event('robservable-' + name + '-rejected');
-                          i.rejected(error);
-                          document.dispatchEvent(event);
+                            const event = new Event('robservable-' + name + '-rejected');
+                            i.rejected(error);
+                            document.dispatchEvent(event);
                         },
-                      };
+                    };
                 }
                 if (
-                    (typeof(name) === "undefined" || name === "") &&
+                    (typeof (name) === "undefined" || name === "") &&
                     // num_cell increments so check to see if user included matching number
                     //   check both String and numeric since R will convert to character
                     //   if in a vector that includes any character cell names
                     (cell.includes(this.num_cells) || cell.includes(String(this.num_cells)))
-                )
-                {
+                ) {
                     // will not have a name so call unnamed-1
                     //   so we/user can reference later
                     //   this is not ideal but hopefully better than nothing
@@ -105,7 +104,7 @@ export class RObservable {
     // Create the <div> elements for each cell to render and append to el
     create_output_div(name) {
         const num = this.num_cells;
-        let name_safe = (typeof(name) === "undefined" || name === "") ?
+        let name_safe = (typeof (name) === "undefined" || name === "") ?
             css_safe("unnamed-" + this.num_cells) :
             css_safe(name);
 
@@ -113,14 +112,14 @@ export class RObservable {
 
         let div = document.createElement("div");
         div.className = name_safe;
-        if(hide.includes(name) || hide.includes(num) || hide.includes(String(num))) {
+        if (hide.includes(name) || hide.includes(num) || hide.includes(String(num))) {
             div.style.display = "none";
         }
         this.el.appendChild(div);
         // add to our output_divs tracker
         this.output_divs.set(name, div);
         // increment counter
-        this.num_cells ++;
+        this.num_cells++;
         return div;
     }
 
@@ -129,8 +128,8 @@ export class RObservable {
         const cells = this.el.querySelectorAll(".observablehq");
         hide.forEach(num => {
             try {
-              cells[num].style.display = "none";
-            } catch(e) {}
+                cells[num].style.display = "none";
+            } catch (e) { }
         });
     }
 
@@ -172,7 +171,11 @@ export class RObservable {
         input = input === null ? {} : input;
         Object.entries(input).forEach(([key, value]) => {
             try {
-                this.main.redefine(key, value);
+                try {
+                    this.main.redefine(key, value);
+                } catch (error) {
+                    this.main.define(key, value);
+                }
             } catch (error) {
                 console.warn(`Can't update ${key} variable : ${error.message}`);
             }
