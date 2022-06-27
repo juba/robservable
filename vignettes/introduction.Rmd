@@ -164,8 +164,8 @@ robservable(
     data = df,
     x = "Freq",
     y = "Species",
-    # equivalent to {top: 20, right: 0, left: 70, bottom: 0} in JavaScript
-    margin = list(top = 20, right = 0, left = 70, bottom = 0)
+    # equivalent to {top: 20, right: 0, left: 70, bottom: 30} in JavaScript
+    margin = list(top = 20, right = 0, left = 70, bottom = 30)
   )
 )
 ```
