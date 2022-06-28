@@ -1,6 +1,7 @@
-# robservable (development version)
+# robservable 0.2.2
 
 * Fix compatibility with RStudio outdated web rendering engine
+* Fix modified notebooks in vignettes
 * Update Observable runtime to 4.22.6
 
 # robservable 0.2.1
