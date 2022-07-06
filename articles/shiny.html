@@ -87,7 +87,7 @@
       <h1 data-toc-skip>robservable in Shiny applications</h1>
                         <h4 data-toc-skip class="author">Julien Barnier, Kenton Russell</h4>
             
-            <h4 data-toc-skip class="date">2022-06-28</h4>
+            <h4 data-toc-skip class="date">2022-07-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/juba/robservable/blob/HEAD/vignettes/shiny.Rmd" class="external-link"><code>vignettes/shiny.Rmd</code></a></small>
       <div class="hidden name"><code>shiny.Rmd</code></div>
@@ -102,53 +102,53 @@
 <p><code>robservable</code> can be used inside a Shiny app the same way as any <code>htmlwidget</code>. Widgets are placed in the <code>ui</code> with <code>robservableOutput</code>, and are rendered in <code>server</code> with <code>renderRobservable</code>.</p>
 <p>You will find the following basic example in <a href="https://github.com/juba/robservable/blob/master/examples/01_shiny_basic.R" class="external-link">examples/01_shiny_basic.R</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Basic robservable Shiny app</span>
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://juba.github.io/robservable/">robservable</a></span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"USPersonalExpenditure"</span><span class="op">)</span>
-
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html" class="external-link">titlePanel</a></span><span class="op">(</span><span class="st">"robservable basic Shiny app"</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html" class="external-link">sidebarLayout</a></span><span class="op">(</span>
-        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html" class="external-link">sidebarPanel</a></span><span class="op">(</span>
-            <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">selectInput</a></span><span class="op">(</span>
-                <span class="st">"year"</span>,
-                label <span class="op">=</span> <span class="st">"Year"</span>,
-                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">USPersonalExpenditure</span><span class="op">)</span>
-            <span class="op">)</span>
-        <span class="op">)</span>,
-        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html" class="external-link">mainPanel</a></span><span class="op">(</span>
-           <span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span><span class="op">(</span><span class="st">"chart"</span>, width <span class="op">=</span> <span class="fl">600</span><span class="op">)</span>
-        <span class="op">)</span>
-    <span class="op">)</span>
-<span class="op">)</span>
-
-
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span>
-
-    <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-            name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">USPersonalExpenditure</span><span class="op">)</span>,
-            value <span class="op">=</span> <span class="va">USPersonalExpenditure</span><span class="op">[</span>, <span class="va">input</span><span class="op">$</span><span class="va">year</span><span class="op">]</span>
-        <span class="op">)</span>
-    <span class="op">}</span><span class="op">)</span>
-
-    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/robservable-shiny.html">renderRobservable</a></span><span class="op">(</span><span class="op">{</span>
-        <span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span>
-            <span class="st">"@d3/horizontal-bar-chart"</span>,
-            include <span class="op">=</span> <span class="st">"chart"</span>,
-            input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-                data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">df</a></span><span class="op">(</span><span class="op">)</span>,
-                margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>top <span class="op">=</span> <span class="fl">20</span>, right <span class="op">=</span> <span class="fl">20</span>, bottom <span class="op">=</span> <span class="fl">30</span>, left <span class="op">=</span> <span class="fl">130</span><span class="op">)</span>
-            <span class="op">)</span>,
-            width <span class="op">=</span> <span class="fl">600</span>
-        <span class="op">)</span>
-    <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## Basic robservable Shiny app</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://juba.github.io/robservable/">robservable</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"USPersonalExpenditure"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/titlePanel.html" class="external-link">titlePanel</a></span><span class="op">(</span><span class="st">"robservable basic Shiny app"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html" class="external-link">sidebarLayout</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html" class="external-link">sidebarPanel</a></span><span class="op">(</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html" class="external-link">selectInput</a></span><span class="op">(</span></span>
+<span>                <span class="st">"year"</span>,</span>
+<span>                label <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>                choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">USPersonalExpenditure</span><span class="op">)</span></span>
+<span>            <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html" class="external-link">mainPanel</a></span><span class="op">(</span></span>
+<span>           <span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span><span class="op">(</span><span class="st">"chart"</span>, width <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>    <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html" class="external-link">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>            name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">USPersonalExpenditure</span><span class="op">)</span>,</span>
+<span>            value <span class="op">=</span> <span class="va">USPersonalExpenditure</span><span class="op">[</span>, <span class="va">input</span><span class="op">$</span><span class="va">year</span><span class="op">]</span></span>
+<span>        <span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/robservable-shiny.html">renderRobservable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>        <span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span></span>
+<span>            <span class="st">"@d3/horizontal-bar-chart"</span>,</span>
+<span>            include <span class="op">=</span> <span class="st">"chart"</span>,</span>
+<span>            input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>                data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">df</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>top <span class="op">=</span> <span class="fl">20</span>, right <span class="op">=</span> <span class="fl">20</span>, bottom <span class="op">=</span> <span class="fl">30</span>, left <span class="op">=</span> <span class="fl">130</span><span class="op">)</span></span>
+<span>            <span class="op">)</span>,</span>
+<span>            width <span class="op">=</span> <span class="fl">600</span></span>
+<span>        <span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 <p>As for any <code>robservable</code> usage, we have to ensure that the data passed to the widget is in the same format as the one used in the notebook (same shape, same column names).</p>
 <p>Another example displaying a multi-line chart with some interactivity can be found in <a href="https://github.com/juba/robservable/blob/master/examples/02_shiny_simple.R" class="external-link">examples/02_shiny_simple.R</a>.</p>
 </div>
@@ -172,35 +172,35 @@
 <p>In the example in <a href="https://github.com/juba/robservable/blob/master/examples/04_shiny_observers.R" class="external-link">examples/04_shiny_observers.R</a>, we use <a href="https://observablehq.com/@jashkenas/inputs#worldMapCoordinates" class="external-link">worldMapCoordinates</a> as an input to update a leaflet map.</p>
 <p>To add an observer to an included cell, you must add the cell names to the <code>observers</code> argument.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span>
-    <span class="st">"@jashkenas/inputs"</span>,
-    include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span><span class="op">)</span>,
-    hide <span class="op">=</span> <span class="st">"worldMapCoordinates"</span>,
-    observers <span class="op">=</span> <span class="st">"worldMap1"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span></span>
+<span>    <span class="st">"@jashkenas/inputs"</span>,</span>
+<span>    include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span><span class="op">)</span>,</span>
+<span>    hide <span class="op">=</span> <span class="st">"worldMapCoordinates"</span>,</span>
+<span>    observers <span class="op">=</span> <span class="st">"worldMap1"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>The cell values will then be accessible via the Shiny <code>input</code> object by prefixing the observer name with the <code>robservable</code> Shiny id. So, for example, you can use the previous <code>robservable</code> instance as an <code>robservableOutput</code> with id <code>map_input</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## In ui</span>
-<span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span><span class="op">(</span><span class="st">"map_input"</span><span class="op">)</span>
-
-<span class="co">## In server</span>
-<span class="va">output</span><span class="op">$</span><span class="va">map_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/robservable-shiny.html">renderRobservable</a></span><span class="op">(</span><span class="op">{</span>
-    <span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span>
-        <span class="st">"@jashkenas/inputs"</span>,
-        include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span><span class="op">)</span>,
-        hide <span class="op">=</span> <span class="st">"worldMapCoordinates"</span>,
-        observers <span class="op">=</span> <span class="st">"worldMap1"</span>
-    <span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## In ui</span></span>
+<span><span class="fu"><a href="../reference/robservable-shiny.html">robservableOutput</a></span><span class="op">(</span><span class="st">"map_input"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## In server</span></span>
+<span><span class="va">output</span><span class="op">$</span><span class="va">map_input</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/robservable-shiny.html">renderRobservable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span></span>
+<span>        <span class="st">"@jashkenas/inputs"</span>,</span>
+<span>        include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span><span class="op">)</span>,</span>
+<span>        hide <span class="op">=</span> <span class="st">"worldMapCoordinates"</span>,</span>
+<span>        observers <span class="op">=</span> <span class="st">"worldMap1"</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Then the values will be accessible in <code>input$map_input_worldMap1</code>.</p>
 <p>You can use a named list as <code>observers</code> argument to specify custom Shiny <code>input</code> names, but you will still have to add the <code>id</code> (<code>map_input</code> in this example) prefix. So with the following, values will be accessible in <code>input$map_input_point</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span>
-    <span class="st">"@jashkenas/inputs"</span>,
-    include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span><span class="op">)</span>,
-    hide <span class="op">=</span> <span class="st">"worldMapCoordinates"</span>,
-    observers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>point <span class="op">=</span> <span class="st">"worldMap1"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span></span>
+<span>    <span class="st">"@jashkenas/inputs"</span>,</span>
+<span>    include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"worldMapCoordinates"</span>, <span class="st">"viewof worldMap1"</span><span class="op">)</span>,</span>
+<span>    hide <span class="op">=</span> <span class="st">"worldMapCoordinates"</span>,</span>
+<span>    observers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>point <span class="op">=</span> <span class="st">"worldMap1"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="proxy-usage">Proxy usage<a class="anchor" aria-label="anchor" href="#proxy-usage"></a>

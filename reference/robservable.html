@@ -69,21 +69,21 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">robservable</span><span class="op">(</span>
-  <span class="va">notebook</span>,
-  include <span class="op">=</span> <span class="cn">NULL</span>,
-  hide <span class="op">=</span> <span class="cn">NULL</span>,
-  input <span class="op">=</span> <span class="cn">NULL</span>,
-  input_js <span class="op">=</span> <span class="cn">NULL</span>,
-  observers <span class="op">=</span> <span class="cn">NULL</span>,
-  update_height <span class="op">=</span> <span class="cn">TRUE</span>,
-  update_width <span class="op">=</span> <span class="cn">TRUE</span>,
-  width <span class="op">=</span> <span class="cn">NULL</span>,
-  height <span class="op">=</span> <span class="cn">NULL</span>,
-  elementId <span class="op">=</span> <span class="cn">NULL</span>,
-  json_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dataframe <span class="op">=</span> <span class="st">"rows"</span><span class="op">)</span>,
-  json_func <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">robservable</span><span class="op">(</span></span>
+<span>  <span class="va">notebook</span>,</span>
+<span>  include <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hide <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  input <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  input_js <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  observers <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  update_height <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  update_width <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  elementId <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  json_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dataframe <span class="op">=</span> <span class="st">"rows"</span><span class="op">)</span>,</span>
+<span>  json_func <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -159,31 +159,31 @@ introduction vignette and https://github.com/observablehq/runtime#variable_defin
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Display a notebook cell</span></span>
-<span class="r-in"><span class="fu">robservable</span><span class="op">(</span></span>
-<span class="r-in">  <span class="st">"@d3/bar-chart"</span>,</span>
-<span class="r-in">  include <span class="op">=</span> <span class="st">"chart"</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<div id="htmlwidget-5c4011c073fcc0230f13" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5c4011c073fcc0230f13">{"x":{"notebook":"@d3/bar-chart","include":"chart","hide":null,"input":null,"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
-<span class="r-in"><span class="co">## Change cells data with input</span></span>
-<span class="r-in"><span class="fu">robservable</span><span class="op">(</span></span>
-<span class="r-in">  <span class="st">"@d3/bar-chart"</span>,</span>
-<span class="r-in">  include <span class="op">=</span> <span class="st">"chart"</span>,</span>
-<span class="r-in">  input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, height <span class="op">=</span> <span class="fl">700</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<div id="htmlwidget-51c4b206151b6beb58e6" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
-<script type="application/json" data-for="htmlwidget-51c4b206151b6beb58e6">{"x":{"notebook":"@d3/bar-chart","include":"chart","hide":null,"input":{"color":"red","height":700},"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
-<span class="r-in"><span class="co">## Change data frame cells data</span></span>
-<span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"value"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">robservable</span><span class="op">(</span></span>
-<span class="r-in">  <span class="st">"@d3/horizontal-bar-chart"</span>,</span>
-<span class="r-in">  include <span class="op">=</span> <span class="st">"chart"</span>,</span>
-<span class="r-in">  input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<div id="htmlwidget-d51a76f4e46df4ad2449" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d51a76f4e46df4ad2449">{"x":{"notebook":"@d3/horizontal-bar-chart","include":"chart","hide":null,"input":{"data":[{"name":"4","value":11},{"name":"6","value":7},{"name":"8","value":14}]},"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Display a notebook cell</span></span></span>
+<span class="r-in"><span><span class="fu">robservable</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"@d3/bar-chart"</span>,</span></span>
+<span class="r-in"><span>  include <span class="op">=</span> <span class="st">"chart"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<div id="htmlwidget-16164060803798949e66" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
+<script type="application/json" data-for="htmlwidget-16164060803798949e66">{"x":{"notebook":"@d3/bar-chart","include":"chart","hide":null,"input":null,"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Change cells data with input</span></span></span>
+<span class="r-in"><span><span class="fu">robservable</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"@d3/bar-chart"</span>,</span></span>
+<span class="r-in"><span>  include <span class="op">=</span> <span class="st">"chart"</span>,</span></span>
+<span class="r-in"><span>  input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>, height <span class="op">=</span> <span class="fl">700</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<div id="htmlwidget-cfb2ccddd727bf3c2d1f" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cfb2ccddd727bf3c2d1f">{"x":{"notebook":"@d3/bar-chart","include":"chart","hide":null,"input":{"color":"red","height":700},"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Change data frame cells data</span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"value"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">robservable</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"@d3/horizontal-bar-chart"</span>,</span></span>
+<span class="r-in"><span>  include <span class="op">=</span> <span class="st">"chart"</span>,</span></span>
+<span class="r-in"><span>  input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<div id="htmlwidget-bae36823422b6c18b805" style="width:700px;height:432.632880098888px;" class="robservable html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bae36823422b6c18b805">{"x":{"notebook":"@d3/horizontal-bar-chart","include":"chart","hide":null,"input":{"data":[{"name":"4","value":11},{"name":"6","value":7},{"name":"8","value":14}]},"input_js":[],"observers":null,"update_height":true,"update_width":true},"evals":[],"jsHooks":[]}</script><span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
