@@ -4,7 +4,7 @@
 
 * Fix compatibility with RStudio outdated web rendering engine
 * Fix modified notebooks in vignettes
-* Update Observable runtime to 4.22.7
+* Update Observable runtime to 4.23.0
 
 # robservable 0.2.1
 
