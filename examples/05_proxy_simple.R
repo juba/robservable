@@ -2,7 +2,7 @@ library(shiny)
 library(robservable)
 
 robs <- robservable(
-  "@d3/bar-chart",
+  "@juba/robservable-bar-chart",
   include = "chart",
   input = list(color = "red", height = 700)
 )
@@ -29,7 +29,7 @@ server <- function(input, output, session) {
       robs_proxy,
       color = paste0(
         "rgb(",
-        paste0(col2rgb(colors()[floor(runif(1,1,length(colors())))]),collapse=","),
+        paste0(col2rgb(colors()[floor(runif(1, 1, length(colors())))]), collapse = ","),
         ")"
       )
     )
@@ -38,14 +38,14 @@ server <- function(input, output, session) {
   observeEvent(input$btnChangeHeight, {
     robs_update(
       robs_proxy,
-      height = floor(runif(1,200,600))
+      height = floor(runif(1, 200, 600))
     )
   })
 
   observeEvent(input$btnChangeWidth, {
     robs_update(
       robs_proxy,
-      width = floor(runif(1,200,600))
+      width = floor(runif(1, 200, 600))
     )
   })
 }

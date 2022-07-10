@@ -48,7 +48,7 @@ server <- function(input, output) {
         )
 
         robservable(
-            "@d3/multi-line-chart",
+            "@juba/multi-line-chart",
             include = "chart",
             input = list(
                 data = df,

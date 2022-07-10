@@ -2,7 +2,7 @@ library(shiny)
 library(robservable)
 
 robs <- robservable(
-  "@d3/bar-chart",
+  "@juba/robservable-bar-chart",
   include = "chart",
   input = list(color = "red", height = 700)
 )

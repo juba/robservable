@@ -1,4 +1,4 @@
-if(interactive()) {
+if (interactive()) {
   # change color with update through proxy
 
   library(shiny)
@@ -10,7 +10,7 @@ if(interactive()) {
 
   server <- function(input, output, session) {
     robs <- robservable(
-      "@d3/bar-chart",
+      "@juba/robservable-bar-chart",
       include = "chart",
       input = list(color = "red", height = 700)
     )
@@ -52,7 +52,7 @@ if(interactive()) {
 
   server <- function(input, output, session) {
     robs <- robservable(
-      "@d3/bar-chart",
+      "@juba/robservable-bar-chart",
       include = "chart",
       input = list(color = "red", height = 700)
     )
@@ -90,7 +90,7 @@ if(interactive()) {
 
   server <- function(input, output, session) {
     robs <- robservable(
-      "@d3/bar-chart",
+      "@juba/robservable-bar-chart",
       include = "chart",
       input = list(color = "red", height = 700)
     )

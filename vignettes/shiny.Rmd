@@ -69,10 +69,12 @@ server <- function(input, output) {
 
     output$chart <- renderRobservable({
         robservable(
-            "@d3/horizontal-bar-chart",
+            "@juba/robservable-bar-chart",
             include = "chart",
             input = list(
                 data = df(),
+                x = "value",
+                y = "name",
                 margin = list(top = 20, right = 20, bottom = 30, left = 130)
             ),
             width = 600
