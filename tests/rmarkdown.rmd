@@ -26,7 +26,7 @@ After canvas.
 
 ## Multi line plot
 
-With `gapminder` data, graph from https://observablehq.com/@d3/multi-line-chart.
+With `gapminder` data, graph from https://observablehq.com/@juba/multi-line-chart.
 
 ```{r message = FALSE}
 
@@ -48,7 +48,7 @@ df <- list(
 )
 
 robservable(
-  "@d3/multi-line-chart",
+  "@juba/multi-line-chart",
   include = "chart",
   input = list(data = df, height = 1000),
   width = 500,
