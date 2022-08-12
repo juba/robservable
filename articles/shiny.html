@@ -87,7 +87,7 @@
       <h1 data-toc-skip>robservable in Shiny applications</h1>
                         <h4 data-toc-skip class="author">Julien Barnier, Kenton Russell</h4>
             
-            <h4 data-toc-skip class="date">2022-07-10</h4>
+            <h4 data-toc-skip class="date">2022-08-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/juba/robservable/blob/HEAD/vignettes/shiny.Rmd" class="external-link"><code>vignettes/shiny.Rmd</code></a></small>
       <div class="hidden name"><code>shiny.Rmd</code></div>
@@ -137,10 +137,12 @@
 <span></span>
 <span>    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/robservable-shiny.html">renderRobservable</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>        <span class="fu"><a href="../reference/robservable.html">robservable</a></span><span class="op">(</span></span>
-<span>            <span class="st">"@d3/horizontal-bar-chart"</span>,</span>
+<span>            <span class="st">"@juba/robservable-bar-chart"</span>,</span>
 <span>            include <span class="op">=</span> <span class="st">"chart"</span>,</span>
 <span>            input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>                data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">df</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                x <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span>                y <span class="op">=</span> <span class="st">"name"</span>,</span>
 <span>                margin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>top <span class="op">=</span> <span class="fl">20</span>, right <span class="op">=</span> <span class="fl">20</span>, bottom <span class="op">=</span> <span class="fl">30</span>, left <span class="op">=</span> <span class="fl">130</span><span class="op">)</span></span>
 <span>            <span class="op">)</span>,</span>
 <span>            width <span class="op">=</span> <span class="fl">600</span></span>
@@ -243,7 +245,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
