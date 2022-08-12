@@ -9,7 +9,6 @@ robs <- robservable(
 
 ui <- tagList(
   actionButton("btnChangeHeight", "Change Height"),
-  actionButton("btnChangeWidth", "Change Width"),
   robservableOutput("bar")
 )
 server <- function(input, output, session) {
@@ -42,12 +41,6 @@ server <- function(input, output, session) {
     )
   })
 
-  observeEvent(input$btnChangeWidth, {
-    robs_update(
-      robs_proxy,
-      width = floor(runif(1, 200, 600))
-    )
-  })
 }
 
 shinyApp(ui, server)
