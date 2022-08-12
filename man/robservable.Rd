@@ -66,13 +66,13 @@ introduction vignette and https://github.com/observablehq/runtime#variable_defin
 \examples{
 ## Display a notebook cell
 robservable(
-  "@d3/bar-chart",
+  "@juba/robservable-bar-chart",
   include = "chart"
 )
 
 ## Change cells data with input
 robservable(
-  "@d3/bar-chart",
+  "@juba/robservable-bar-chart",
   include = "chart",
   input = list(color = "red", height = 700)
 )
@@ -81,9 +81,13 @@ robservable(
 df <- data.frame(table(mtcars$cyl))
 names(df) <- c("name", "value")
 robservable(
-  "@d3/horizontal-bar-chart",
+  "@juba/robservable-bar-chart",
   include = "chart",
-  input = list(data = df)
+  input = list(
+    data = df,
+    x = "value",
+    y = "name"
+  )
 )
 
 }
