@@ -1,7 +1,7 @@
 # robservable (development version)
 
 * Fix modified notebooks in Shiny examples
-* Update Observable runtime to 4.27.1
+* Update Observable runtime to 4.28.0
 
 # robservable 0.2.2
 
