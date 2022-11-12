@@ -35,9 +35,9 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@observablehq/inspector": "^3.2.4",
-    "@observablehq/runtime": "^4.28.0",
-    "@observablehq/stdlib": "^3.23.0",
+    "@observablehq/inspector": "^5.0.0",
+    "@observablehq/runtime": "^5.0.2",
+    "@observablehq/stdlib": "^5.0.2",
     "core-js": "^3.21.1"
   }
 }
