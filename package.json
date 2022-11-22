@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "@observablehq/inspector": "^5.0.0",
-    "@observablehq/runtime": "^5.1.0",
-    "@observablehq/stdlib": "^5.1.0",
+    "@observablehq/runtime": "^5.1.1",
+    "@observablehq/stdlib": "^5.1.1",
     "core-js": "^3.21.1"
   }
 }
