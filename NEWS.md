@@ -3,11 +3,13 @@
 * Fix modified notebooks in Shiny examples
 * Update Observable runtime to 5.2.0
 
+
 # robservable 0.2.2
 
 * Fix compatibility with RStudio outdated web rendering engine
 * Fix modified notebooks in vignettes
 * Update Observable runtime to 4.23.0
+
 
 # robservable 0.2.1
 
@@ -16,6 +18,7 @@
 * Add custom event emission in inspector for the different cells state (#35, thanks @draben)
 * Update Observable runtime to 4.17.5
 * Migration to packer
+
 
 # robservable 0.2.0
 
