@@ -1,0 +1,60 @@
+---
+title: "Test robservable"
+date: "`r Sys.Date()`"
+output: 
+  rmdformats::readthedown:
+    self_contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(robservable)
+
+```
+
+## Canvas
+
+Before canvas.
+
+```{r}
+robservable("@mbostock/liquidfun", include = "canvas", height = 600, width = 500)
+```
+
+After canvas.
+
+## Multi line plot
+
+With `gapminder` data, graph from https://observablehq.com/@juba/multi-line-chart.
+
+```{r message = FALSE}
+
+library(gapminder)
+data(gapminder)
+series <- purrr::map(unique(gapminder$country), ~{
+  name <- .x
+  values <- gapminder %>% filter(country == .x) %>% pull(lifeExp)
+  list(name = name, values = values)
+})
+dates <- sort(unique(gapminder$year))
+dates <- as.Date(as.character(dates), format = "%Y")
+#dates <- (dates - 1970) * 365 * 24 * 3600 * 1000
+
+df <- list(
+  y = "Life expectancy",
+  series = series,
+  dates = to_js_date(dates)
+)
+
+robservable(
+  "@juba/multi-line-chart",
+  include = "chart",
+  input = list(data = df, height = 1000),
+  width = 500,
+  height = 1000
+)
+
+```
+
+And some text after.

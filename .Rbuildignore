@@ -1,0 +1,17 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+examples
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+resources
+work
+^srcjs$
+^node_modules$
+^package\.json$
+^package-lock\.json$
+^webpack\.dev\.js$
+^webpack\.prod\.js$
+^webpack\.common\.js$
+^\.vscode$

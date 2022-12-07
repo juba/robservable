@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+docs
+vignettes/*.html
+.vscode/
+node_modules

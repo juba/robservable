@@ -1,0 +1,41 @@
+Package: robservable
+Type: Package
+Title: Import an Observable Notebook as HTML Widget
+Version: 0.2.2.9000
+Date: 2022-06-29
+Authors@R: c(
+    person(
+      "Julien", "Barnier",
+      email = "julien.barnier@cnrs.fr",
+      role = c("aut", "cre")
+    ),
+    person(
+     "Kenton", "Russell",
+      email = "kent.russell@timelyportfolio.com",
+      role = "aut"
+    ))
+Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
+Description: Allows loading and displaying an Observable notebook (online JavaScript  
+    notebooks powered by <https://observablehq.com>) as an HTML Widget in an R 
+    session, 'shiny' application or 'rmarkdown' document.
+VignetteBuilder: knitr
+URL: https://juba.github.io/robservable/
+BugReports: https://github.com/juba/robservable/issues
+License: GPL (>=3)
+Encoding: UTF-8
+Enhances: shiny
+Imports:
+    htmlwidgets,
+    jsonlite
+Suggests:
+    gapminder,
+    palmerpenguins,
+    knitr,
+    rmarkdown,
+    readr,
+    dplyr,
+    tidyr,
+    lubridate,
+    stringr
+RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)

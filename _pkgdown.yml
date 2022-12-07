@@ -1,0 +1,25 @@
+url: https://juba.github.io/robservable/
+template:
+  params:
+    bootswatch: cosmo
+reference:
+- title: Main function
+  contents:
+  - '`robservable`'
+- title: Shiny bindings and proxy
+  contents:
+  - '`robservableOutput`'
+  - '`robservableProxy`'
+  - '`robs_observe`'
+  - '`robs_update`'
+- title: Misc
+  desc: Utility functions
+  contents:
+  - '`to_js_date`'
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - introduction
+  - gallery
+  - shiny

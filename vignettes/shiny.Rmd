@@ -1,0 +1,172 @@
+---
+title: "robservable in Shiny applications"
+author: "Julien Barnier, Kenton Russell"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 5
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{robservable in Shiny applications}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+```{r, include=FALSE}
+library(robservable)
+library(htmlwidgets)
+knitr::opts_chunk$set(
+  screenshot.force = FALSE,
+  echo = TRUE
+)
+```
+
+
+## Basic usage
+
+`robservable` can be used inside a Shiny app the same way as any `htmlwidget`. Widgets are placed in the `ui` with `robservableOutput`, and are rendered in `server` with `renderRobservable`.
+
+You will find the following basic example in [examples/01_shiny_basic.R](https://github.com/juba/robservable/blob/master/examples/01_shiny_basic.R).
+
+
+```{r, eval = FALSE}
+## Basic robservable Shiny app
+
+library(shiny)
+library(robservable)
+
+data("USPersonalExpenditure")
+
+ui <- fluidPage(
+    titlePanel("robservable basic Shiny app"),
+    sidebarLayout(
+        sidebarPanel(
+            selectInput(
+                "year",
+                label = "Year",
+                choices = colnames(USPersonalExpenditure)
+            )
+        ),
+        mainPanel(
+           robservableOutput("chart", width = 600)
+        )
+    )
+)
+
+
+server <- function(input, output) {
+
+    df <- reactive({
+        data.frame(
+            name = rownames(USPersonalExpenditure),
+            value = USPersonalExpenditure[, input$year]
+        )
+    })
+
+    output$chart <- renderRobservable({
+        robservable(
+            "@juba/robservable-bar-chart",
+            include = "chart",
+            input = list(
+                data = df(),
+                x = "value",
+                y = "name",
+                margin = list(top = 20, right = 20, bottom = 30, left = 130)
+            ),
+            width = 600
+        )
+    })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+As for any `robservable` usage, we have to ensure that the data passed to the widget is in the same format as the one used in the notebook (same shape, same column names).
+
+Another example displaying a multi-line chart with some interactivity can be found in [examples/02_shiny_simple.R](https://github.com/juba/robservable/blob/master/examples/02_shiny_simple.R).
+
+
+## Animated transitions
+
+When the notebook is designed appropriately, charts can be updated with animated transitions instead of being recreated from scratch. You will find an example of these in [examples/03_shiny_updatable.R](https://github.com/juba/robservable/blob/master/examples/03_shiny_updatable.R), and the [associated notebook](https://observablehq.com/@juba/updatable-bar-chart).
+
+For more examples, the following notebooks provide charts that are updatable with animated transitions and who follow the pattern given at the end of the [Learn D3 animation](https://observablehq.com/@d3/learn-d3-animation#chart) notebook :
+
+- [Updatable bar chart](https://observablehq.com/@juba/updatable-bar-chart)
+- [Draggable Pie/Donut chart](https://observablehq.com/@juba/draggable-pie-donut-chart)
+- [Reusable bivariate choropleth map](https://observablehq.com/@juba/reusable-bivariate-choropleth)
+- [Stacked-to-Grouped Bars](https://observablehq.com/@d3/stacked-to-grouped-bars)
+
+
+## Observers -- using robservable widgets as inputs
+
+You can add observers to an robservable widget and use its associated cell values as inputs inside your Shiny app. 
+
+This can allow, for example, to use any input defined in the [famous Inputs notebook](https://observablehq.com/@jashkenas/inputs) to be used as an input in a Shiny app.
+
+In the example in [examples/04_shiny_observers.R](https://github.com/juba/robservable/blob/master/examples/04_shiny_observers.R), we use [worldMapCoordinates](https://observablehq.com/@jashkenas/inputs#worldMapCoordinates) as an input to update a leaflet map.
+
+
+To add an observer to an included cell, you must add the cell names to the `observers` argument.
+
+```r
+robservable(
+    "@jashkenas/inputs",
+    include = c("worldMapCoordinates", "viewof worldMap1"),
+    hide = "worldMapCoordinates",
+    observers = "worldMap1"
+)
+```
+
+The cell values will then be accessible via the Shiny `input` object by prefixing the observer name with the `robservable` Shiny id. So, for example, you can use the previous `robservable` instance as an `robservableOutput` with id `map_input`.
+
+```r
+## In ui
+robservableOutput("map_input")
+
+## In server
+output$map_input <- renderRobservable({
+    robservable(
+        "@jashkenas/inputs",
+        include = c("worldMapCoordinates", "viewof worldMap1"),
+        hide = "worldMapCoordinates",
+        observers = "worldMap1"
+    )
+})
+```
+
+Then the values will be accessible in `input$map_input_worldMap1`.
+
+You can use a named list as `observers` argument to specify custom Shiny `input` names, but you will still have to add the `id` (`map_input` in this example) prefix. So with the following, values will be accessible in `input$map_input_point`.
+
+```r
+robservable(
+    "@jashkenas/inputs",
+    include = c("worldMapCoordinates", "viewof worldMap1"),
+    hide = "worldMapCoordinates",
+    observers = list(point = "worldMap1")
+)
+```
+
+## Proxy usage
+
+`robservable` is built to update rather than completely re-render any `renderRobservable` calls after initial creation.  However the updating `renderRobservable` command might need to contain all of the arguments used in the original render.  `robservable` provides proxy methods to ease manipulation of the widget once it has been rendered.  Currently, the package supports the following proxy methods:
+
+- `robs_update` to update observable inputs or variables from Shiny
+- `robs_observe` to add an observer on an observable input or variable that communicates with Shiny.
+
+You can find examples of these proxy methods usage in several sample applications :
+
+- [proxy_simple](https://github.com/juba/robservable/blob/master/examples/05_proxy_simple.R) : simple application which modifies color, height and width of a chart via `robs_update`.
+- [proxy_data](https://github.com/juba/robservable/blob/master/examples/06_proxy_data.R) : same application but with chart data updating.
+- [proxy_updatable](https://github.com/juba/robservable/blob/master/examples/07_proxy_updatable.R) : another chart with data updating via `robs_update`, but with animated transitions.
+- [proxy_observer](https://github.com/juba/robservable/blob/master/examples/08_proxy_observer.R) :  sample application which sets a cell value observer with `robs_observe`.
+
+
+
+
+

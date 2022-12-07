@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script type="module">
+
+// Load the Observable runtime and inspector.
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+
+// Your notebook, compiled as an ES module.
+import notebook from "https://api.observablehq.com/@juba/updatable-bar-chart.js?v=3";
+
+// new Runtime().module(notebook, Inspector.into(document.body));
+
+const main = new Runtime().module(notebook, name => {
+    if (name === "chart") {
+      return new Inspector(document.querySelector("#chart .graph"));
+    }
+    if (name === "draw") {
+      return new Inspector(document.querySelector("#chart .draw"));
+    }
+  });
+
+document.getElementById('update').addEventListener('click', () => {
+  main.redefine("data", [{name: "A", value: Math.random()}, {name: "G", value: Math.random()}])
+})
+
+//  new Runtime().module(notebook, name => {
+//    return {
+//      pending() { console.log(`${name} is running…`); },
+//      fulfilled(value) { console.log(name, value); },
+//      rejected(error) { console.error(error); }
+//    };
+//  });
+
+</script>
+
+<button id="update">Update</button>
+
+<div id="chart">
+  <div class = "graph"></div>
+  <div class = "draw"></div>
+</div>
+
+</body>
+</html>
