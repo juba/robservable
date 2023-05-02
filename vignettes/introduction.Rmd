@@ -29,6 +29,8 @@ knitr::opts_chunk$set(
 
 Note that it is not just an `iframe` embedding a whole notebook.  Cells are integrated directly into the document or application with no `iframe` wrapper.  You can choose what cells to display, update cell values from R, and add observers to cells to get their values back into a Shiny application.
 
+> **Warning**: in Quarto documents, you must either use `robservable` or `ojs` cells. Using both in the same document will create conflicts and make at least one of both fail.
+
 ## Embedding a whole notebook
 
 The most basic usage is to call the `robservable()` function with the full URL or the identifier of the notebook you want to display. The identifier is the same as the one used to import another notebook in Observable (something like `@d3/horizontal-bar-chart`).   Please see the [Introduction to Imports](https://observablehq.com/@observablehq/introduction-to-imports) notebook for additional reference.

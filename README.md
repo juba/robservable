@@ -23,9 +23,11 @@ You'll find more examples and the associated R code in the [robservable gallery]
 - Display specific cells of a published or shared notebook as an `htmlwidget`
 - Use R data to update cell values
 - Add observers on cell values to communicate with a Shiny app
-- Use inside Shiny app or Rmarkdown document (as any htmlwidget)
+- Use inside Shiny app, Rmarkdown or Quarto document (as any htmlwidget)
 
 ## Limitations
+
+> **Warning**: in Quarto documents, you must either use `robservable` or `ojs` cells. Using both in the same document will make at least one of both fail.
 
 - Named cells can be included by name, but unnamed cells are refenced by their index (1-based), which is sometimes a bit tricky to determine. An alternative is to fork the notebook and name the cell in Observable.
 - No offline support : the included notebooks have to be downloaded each time they are used.
