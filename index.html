@@ -107,12 +107,15 @@
 </li>
 <li>Use R data to update cell values</li>
 <li>Add observers on cell values to communicate with a Shiny app</li>
-<li>Use inside Shiny app or Rmarkdown document (as any htmlwidget)</li>
+<li>Use inside Shiny app, Rmarkdown or Quarto document (as any htmlwidget)</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
 </h2>
+<blockquote>
+<p><strong>Warning</strong>: in Quarto documents, you must either use <code>robservable</code> or <code>ojs</code> cells. Using both in the same document will make at least one of both fail.</p>
+</blockquote>
 <ul>
 <li>Named cells can be included by name, but unnamed cells are refenced by their index (1-based), which is sometimes a bit tricky to determine. An alternative is to fork the notebook and name the cell in Observable.</li>
 <li>No offline support : the included notebooks have to be downloaded each time they are used.</li>
