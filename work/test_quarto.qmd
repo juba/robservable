@@ -1,0 +1,32 @@
+---
+title: "Observable in Quarto"
+format: html
+---
+
+
+## 1. `robservable` 
+
+```{r}
+library(robservable)
+```
+
+```{r}
+robservable(
+      "@observablehq/test-observable-quarto",
+      include = c("staticChart")
+)
+```
+
+
+## 2. `import`
+
+Within `{ojs}` cells in a .qmd, we can use [imports](https://observablehq.com/@observablehq/import) to access named cells from an Observable notebook:
+
+```{ojs}
+import {staticChart} from "@observablehq/testing-robservable"
+```
+
+```{ojs}
+staticChart
+```
+
